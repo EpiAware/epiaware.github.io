@@ -1,0 +1,78 @@
+---
+title: "Using Julia"
+description: "Setting up Julia to work with the EpiAware packages."
+---
+
+This guide helps you set up Julia to work with the EpiAware packages, whether
+you are analysing data or contributing code. It assumes you are comfortable with
+another technical computing language (R, Python, MATLAB) but new to Julia.
+
+It is not a guide to learning Julia. To learn the language, start with:
+
+- [Julia documentation — getting started](https://docs.julialang.org/en/v1/manual/getting-started/)
+- [Julia learning resources](https://julialang.org/learning/)
+- [Modern Julia Workflows](https://modernjuliaworkflows.org/) — practical setup and best practice
+- [Noteworthy differences from other languages](https://docs.julialang.org/en/v1/manual/noteworthy-differences/)
+
+## Install Julia
+
+Install with [`juliaup`](https://github.com/JuliaLang/juliaup), which manages
+Julia versions for you. Follow the instructions for your platform, then check it
+works:
+
+```bash
+julia --version
+```
+
+## Set up an editor
+
+[VS Code](https://code.visualstudio.com/) with the
+[Julia extension](https://www.julia-vscode.org/) is the most common setup. It
+gives you an integrated REPL, a test explorer, a debugger, a plot viewer, and
+symbol navigation.
+
+## Environments
+
+Julia uses per-project environments defined by a `Project.toml` and
+`Manifest.toml`. In the REPL, press `]` to enter the package manager, then:
+
+```julia
+activate .        # use the environment in the current directory
+instantiate       # install the exact versions from the manifest
+add CensoredDistributions
+```
+
+An `activate --temp` environment is handy for throwaway experiments.
+
+## A productive REPL
+
+A few global packages make interactive work smoother:
+
+```julia
+using Pkg
+Pkg.add(["Revise", "OhMyREPL", "BenchmarkTools", "TestEnv"])
+```
+
+Load them automatically by adding a `~/.julia/config/startup.jl`:
+
+```julia
+atreplinit() do repl
+    try
+        @eval using Revise
+        @eval using OhMyREPL
+    catch e
+        @warn "startup.jl" exception = (e, catch_backtrace())
+    end
+end
+```
+
+[Revise.jl](https://github.com/timholy/Revise.jl) reflects your code changes
+without restarting Julia — essential for development.
+
+## Getting help
+
+- [Julia Discourse](https://discourse.julialang.org/) — community forum
+- [Julia Slack](https://julialang.org/slack/) and [Zulip](https://julialang.zulipchat.com/)
+- For EpiAware questions, the [epinowcast forum](https://community.epinowcast.org/) and each package's GitHub Discussions
+
+Next: the [FAQ](faq.qmd), or dive into the [packages](packages/index.qmd).

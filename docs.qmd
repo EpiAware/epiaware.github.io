@@ -1,0 +1,74 @@
+---
+title: "Documentation"
+description: "Browse the documentation for every EpiAware package without leaving the site."
+page-layout: custom
+toc: false
+---
+
+::: {.docs-intro}
+Pick a package to read its documentation here, or open it in a new tab. Each
+package's full docs are maintained in its own repository; this view keeps them
+all in one place.
+:::
+
+::: {.docs-browser}
+::: {.docs-toolbar}
+<label for="pkg-select">Package</label>
+<select id="pkg-select" aria-label="Choose a package"></select>
+<a id="docs-open-ext" href="#" target="_blank" rel="noopener">Open in new tab ↗</a>
+<a id="docs-repo" href="#" target="_blank" rel="noopener">Source ↗</a>
+:::
+<iframe id="docs-frame" title="Package documentation" src="about:blank" loading="lazy"></iframe>
+:::
+
+```{=html}
+<script>
+const EPIAWARE_DOCS = [
+  { name: "CensoredDistributions.jl",
+    docs: "https://epiaware.github.io/CensoredDistributions.jl/",
+    repo: "https://github.com/EpiAware/CensoredDistributions.jl" },
+  { name: "ConvolvedDistributions.jl",
+    docs: "https://epiaware.org/ConvolvedDistributions.jl/stable/",
+    repo: "https://github.com/EpiAware/ConvolvedDistributions.jl" },
+  { name: "ComposedDistributions.jl",
+    docs: "https://epiaware.org/ComposedDistributions.jl/stable/",
+    repo: "https://github.com/EpiAware/ComposedDistributions.jl" },
+  { name: "EpiAwarePackageTools.jl",
+    docs: "https://epiawarepackagetools.epiaware.org/stable/",
+    repo: "https://github.com/EpiAware/EpiAwarePackageTools.jl" }
+];
+
+(function () {
+  const sel = document.getElementById("pkg-select");
+  const frame = document.getElementById("docs-frame");
+  const ext = document.getElementById("docs-open-ext");
+  const repo = document.getElementById("docs-repo");
+
+  EPIAWARE_DOCS.forEach((p, i) => {
+    const o = document.createElement("option");
+    o.value = i; o.textContent = p.name; sel.appendChild(o);
+  });
+
+  function byName(name) {
+    return EPIAWARE_DOCS.findIndex(p => p.name.toLowerCase() === (name || "").toLowerCase());
+  }
+
+  function show(i) {
+    const p = EPIAWARE_DOCS[i];
+    if (!p) return;
+    sel.value = i;
+    frame.src = p.docs;
+    ext.href = p.docs;
+    repo.href = p.repo;
+    const url = new URL(window.location);
+    url.searchParams.set("pkg", p.name);
+    history.replaceState(null, "", url);
+  }
+
+  const start = new URLSearchParams(window.location.search).get("pkg");
+  const startIdx = start && byName(start) >= 0 ? byName(start) : 0;
+  sel.addEventListener("change", () => show(parseInt(sel.value, 10)));
+  show(startIdx);
+})();
+</script>
+```

@@ -1,0 +1,30 @@
+---
+title: "Get involved"
+description: "How to start contributing to EpiAware."
+---
+
+EpiAware is early and we are actively looking for collaborators. If you care
+about composable modelling, infectious disease epidemiology, or building a Julia
+ecosystem, there is a place for you here.
+
+## Ways in
+
+- **Discuss.** Join the [epinowcast forum](https://community.epinowcast.org/) to
+  ask questions and talk through ideas — the best first step.
+- **Try the packages.** Use them on a real problem and tell us what worked and
+  what didn't, via a package's GitHub Discussions or issues.
+- **Contribute.** Fix a bug, improve documentation, or add a feature. See the
+  [Contributing](contributing.qmd) guide.
+- **Bring a use case.** If you have a modelling problem that composable tools
+  could help with, open an issue or get in touch — it helps us prioritise.
+
+## Getting in touch
+
+We are still working out how best to onboard new contributors, so for now the
+simplest route is to email or post on the forum, and we will point you in the
+right direction. Contact
+[Sam Abbott](https://www.lshtm.ac.uk/aboutus/people/abbott.sam) at LSHTM, or
+open an issue on the [relevant repository](https://github.com/EpiAware).
+
+If you would like to build a substantial piece of the ecosystem, take a look at
+the [project proposals](https://github.com/EpiAware/ProjectProposals) for ideas.

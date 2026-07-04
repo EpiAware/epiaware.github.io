@@ -1,0 +1,23 @@
+---
+title: "EpiAwarePackageTools.jl"
+description: "Shared scaffolding, quality checks, and test utilities for the ecosystem."
+categories: [tooling]
+---
+
+EpiAwarePackageTools.jl is the ecosystem's infrastructure rather than a
+modelling package. It scaffolds new packages, keeps shared configuration in
+sync, and provides the quality and automatic-differentiation test harnesses the
+other packages adopt. Reach for it when developing or maintaining an EpiAware
+package, not when building a model.
+
+## Install
+
+```julia
+using Pkg
+Pkg.add("EpiAwarePackageTools")
+```
+
+## Links
+
+- [Documentation](../docs.html?pkg=EpiAwarePackageTools.jl)
+- [GitHub](https://github.com/EpiAware/EpiAwarePackageTools.jl)

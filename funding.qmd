@@ -1,0 +1,28 @@
+---
+title: "Funding"
+description: "Supporting the development of EpiAware."
+---
+
+EpiAware is open-source and built in the open. Sustained development depends on
+funding, and there are a few ways to help.
+
+## Write us into a grant
+
+If you are preparing a grant that will use or extend EpiAware, consider funding
+part of that work through the ecosystem — for example a costed contribution to
+maintenance, a specific package, or a component your project needs. This is one
+of the most effective ways to keep the tools healthy while getting exactly the
+functionality your work relies on. Get in touch early and we can help scope it.
+
+## Collaborate
+
+Funded collaborations — building a new package, adapting the tools to a
+particular disease or setting, or supporting a response — are very welcome.
+See [Get involved](get-involved.qmd) for how to start a conversation.
+
+## Get in touch
+
+We do not have a dedicated funding mechanism yet. To discuss supporting
+EpiAware, contact
+[Sam Abbott](https://www.lshtm.ac.uk/aboutus/people/abbott.sam) at LSHTM or open
+an issue on [GitHub](https://github.com/EpiAware).

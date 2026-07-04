@@ -1,0 +1,22 @@
+---
+title: "ComposedDistributions.jl"
+description: "A small grammar for composing distributions into larger ones."
+categories: [distributions, composition]
+---
+
+ComposedDistributions.jl gives a verb grammar — `compose`, `sequential`,
+`parallel` — for building larger distributions from smaller ones, along with
+helpers for constructing priors. It re-exports ConvolvedDistributions.jl, so
+convolution and composition live behind one interface.
+
+## Install
+
+```julia
+using Pkg
+Pkg.add("ComposedDistributions")
+```
+
+## Links
+
+- [Documentation](../docs.html?pkg=ComposedDistributions.jl)
+- [GitHub](https://github.com/EpiAware/ComposedDistributions.jl)

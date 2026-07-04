@@ -1,0 +1,32 @@
+---
+title: "Team"
+description: "The people behind EpiAware."
+toc: false
+---
+
+EpiAware is built by a small, growing group. We list active maintainers here,
+linked to their GitHub profiles; the wider set of contributors to each package
+is credited in that package's repository.
+
+::: {.team-grid}
+::: {.team-card}
+[![](https://github.com/seabbs.png?size=200){fig-alt="Sam Abbott"}](https://github.com/seabbs)
+
+::: {.name}
+[Sam Abbott](https://github.com/seabbs)
+:::
+::: {.role}
+Maintainer · [LSHTM](https://www.lshtm.ac.uk/aboutus/people/abbott.sam)
+:::
+:::
+:::
+
+## Contributors
+
+Every merged contribution is credited in the repository it lands in — see the
+contributor lists across the [EpiAware repositories](https://github.com/EpiAware).
+We would like this page to grow. If you have been contributing and would like to
+be listed here, say so on the [forum](https://community.epinowcast.org/) or open
+a pull request.
+
+Want to join in? See [Get involved](get-involved.qmd).

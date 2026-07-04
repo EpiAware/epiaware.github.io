@@ -1,0 +1,34 @@
+---
+title: "epinowcast & the forum"
+description: "Our partner community and where to discuss EpiAware."
+---
+
+## epinowcast
+
+[epinowcast](https://www.epinowcast.org) is our partner organisation: a
+community of infectious disease modellers, applied epidemiologists, and software
+developers building tools for real-time analysis of infectious diseases. Much of
+EpiAware grows out of the same people and ideas, now in Julia.
+
+- Website: [epinowcast.org](https://www.epinowcast.org)
+- GitHub: [github.com/epinowcast](https://github.com/epinowcast)
+
+## The community forum
+
+The [epinowcast community forum](https://community.epinowcast.org/) is the best
+place to discuss EpiAware, real-time infectious disease analysis, and the
+methods behind the tools. It is a good place to ask questions, share work, and
+follow what others are doing — start a topic there rather than emailing if it
+might be useful to others.
+
+[Visit the forum ↗](https://community.epinowcast.org/){.btn .btn-primary role="button"}
+
+## Related R packages
+
+The epinowcast ecosystem includes widely used R packages —
+[epinowcast](https://github.com/epinowcast/epinowcast),
+[EpiNow2](https://github.com/epiforecasts/EpiNow2),
+[primarycensored](https://github.com/epinowcast/primarycensored), and
+[scoringutils](https://github.com/epiforecasts/scoringutils) — used by academics
+and public health teams internationally. EpiAware brings this work to Julia as
+composable components.

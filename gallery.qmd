@@ -1,0 +1,32 @@
+---
+title: "Gallery"
+description: "How people are using EpiAware and the tools it builds on."
+---
+
+A gallery of real use cases — analyses, models, and responses built with
+EpiAware and its predecessors. It is just getting started, so it currently
+points to the work the ecosystem grows out of. If you have used the tools, we
+would like to feature it — see [adding your work](#add-your-work) below.
+
+## From the wider ecosystem
+
+While the Julia packages mature, these show the kind of work EpiAware is built
+for:
+
+- **Real-time outbreak analysis** with [EpiNow2](https://github.com/epiforecasts/EpiNow2)
+  and [epinowcast](https://www.epinowcast.org), used by academics and public
+  health teams internationally to estimate reproduction numbers, growth rates,
+  and nowcasts from delayed, right-truncated data.
+- **A workflow for infectious disease modelling** —
+  [seabbs/a-workflow-for-infectious-disease-modelling](https://github.com/seabbs/a-workflow-for-infectious-disease-modelling),
+  the modelling approach the ecosystem is designed to support.
+- **Forecasting and evaluation** with
+  [scoringutils](https://github.com/epiforecasts/scoringutils) for scoring
+  probabilistic forecasts.
+
+## Add your work {#add-your-work}
+
+Used EpiAware, CensoredDistributions.jl, or another package for an analysis or
+model? Share it on the [epinowcast forum](https://community.epinowcast.org/) or
+open a pull request adding it here. A short description, a link, and an image go
+a long way.
