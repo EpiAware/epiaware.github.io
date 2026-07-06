@@ -2,6 +2,7 @@
 title: "ReparameterisedDistributions.jl"
 description: "Alternative parameterisations for Distributions.jl distributions."
 categories: [distributions, parameterisation]
+status: experimental
 ---
 
 The natural parameters of a distribution are often not the ones you want to put

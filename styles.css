@@ -6,6 +6,28 @@
 .quarto-listing .card { border-radius: 10px; }
 .quarto-grid-item .card-title { font-weight: 600; }
 
+/* Package maturity status pills (used in the legend and, via a small
+   enhancer, on the listing cards). Colours read on both light and dark. */
+.status-pill {
+  display: inline-block;
+  padding: 0.1rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.6;
+  text-transform: capitalize;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.status-pill strong { font-weight: 600; }
+.status-experimental { color: #d97706; background: rgba(217, 119, 6, 0.13); border-color: rgba(217, 119, 6, 0.35); }
+.status-maturing     { color: #2563eb; background: rgba(37, 99, 235, 0.13); border-color: rgba(37, 99, 235, 0.35); }
+.status-stable       { color: #16a34a; background: rgba(22, 163, 74, 0.13); border-color: rgba(22, 163, 74, 0.35); }
+
+/* Status on a listing card, once the enhancer has replaced the fallback table. */
+.quarto-grid-item .card-status { margin-top: 0.35rem; }
+.quarto-grid-item table.card-other-values { margin-bottom: 0; font-size: 0.85rem; opacity: 0.85; }
+
 /* Team member cards */
 .team-grid {
   display: grid;

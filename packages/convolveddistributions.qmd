@@ -2,6 +2,7 @@
 title: "ConvolvedDistributions.jl"
 description: "Convolve probability distributions, with shared numerical quadrature."
 categories: [distributions, convolution]
+status: experimental
 ---
 
 Sums of random delays — for example an incubation period followed by a

@@ -2,6 +2,7 @@
 title: "ComposedDistributions.jl"
 description: "A small grammar for composing distributions into larger ones."
 categories: [distributions, composition]
+status: experimental
 ---
 
 ComposedDistributions.jl gives a verb grammar — `compose`, `sequential`,

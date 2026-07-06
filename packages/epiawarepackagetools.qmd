@@ -2,6 +2,7 @@
 title: "EpiAwarePackageTools.jl"
 description: "Shared scaffolding, quality checks, and test utilities for the ecosystem."
 categories: [tooling]
+status: experimental
 ---
 
 EpiAwarePackageTools.jl is the ecosystem's infrastructure rather than a
