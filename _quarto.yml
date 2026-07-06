@@ -1,0 +1,85 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "EpiAware"
+  description: "Composable tools for infectious disease modelling in Julia."
+  site-url: https://epiaware.github.io
+  repo-url: https://github.com/EpiAware/epiaware.github.io
+  repo-actions: [edit, issue]
+  favicon: assets/img/logo.svg
+  open-graph: true
+  twitter-card: true
+  navbar:
+    logo: assets/img/logo.svg
+    logo-alt: "EpiAware"
+    title: "EpiAware"
+    background: primary
+    search: true
+    left:
+      - text: Packages
+        href: packages/index.qmd
+      - text: Docs
+        href: docs.qmd
+      - text: Tutorials
+        href: tutorials.qmd
+      - text: Gallery
+        href: gallery.qmd
+      - text: Guides
+        menu:
+          - text: Using Julia
+            href: using-julia.qmd
+          - text: FAQ
+            href: faq.qmd
+          - text: Contributing
+            href: contributing.qmd
+          - text: Developer docs
+            href: developer.qmd
+      - text: Community
+        menu:
+          - text: Get involved
+            href: get-involved.qmd
+          - text: Team
+            href: team.qmd
+          - text: Funding
+            href: funding.qmd
+          - text: epinowcast & the forum
+            href: community.qmd
+    right:
+      - icon: github
+        href: https://github.com/EpiAware
+        aria-label: EpiAware on GitHub
+  page-footer:
+    border: true
+    left: |
+      EpiAware — a composable Julia ecosystem for infectious disease modelling.
+    center:
+      - text: Packages
+        href: packages/index.qmd
+      - text: Get involved
+        href: get-involved.qmd
+      - text: Funding
+        href: funding.qmd
+      - text: epinowcast forum
+        href: https://community.epinowcast.org/
+    right:
+      - icon: github
+        href: https://github.com/EpiAware
+        aria-label: GitHub
+
+format:
+  html:
+    theme:
+      light: [cosmo, theme-light.scss]
+      dark: [cosmo, theme-dark.scss]
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    anchor-sections: true
+    smooth-scroll: true
+    code-copy: true
+    code-overflow: wrap
+    grid:
+      sidebar-width: 250px
+      body-width: 940px

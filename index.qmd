@@ -1,0 +1,79 @@
+---
+pagetitle: "EpiAware — composable tools for infectious disease modelling"
+description: "A composable Julia ecosystem for infectious disease modelling."
+toc: false
+page-layout: full
+---
+
+::: {.hero}
+![](assets/img/logo.svg){.hero-logo fig-alt="EpiAware logo"}
+
+# EpiAware
+
+<p class="lead">Composable tools for infectious disease modelling in Julia.</p>
+
+::: {.cta-row}
+[Explore the packages](packages/index.qmd){.btn .btn-primary .btn-lg role="button"}
+[Get involved](get-involved.qmd){.btn .btn-outline-primary .btn-lg role="button"}
+[GitHub](https://github.com/EpiAware){.btn .btn-outline-secondary .btn-lg role="button"}
+:::
+:::
+
+## Why EpiAware
+
+Models that integrate multiple data sources give better evidence for outbreak
+response than chains of separate models, but building them is slow and needs
+expertise across several domains. EpiAware provides validated, reusable
+components that combine into joint models while correctly propagating
+uncertainty — so you can assemble the model a problem needs instead of
+rebuilding it each time.
+
+The aim is to improve outbreak response, as
+[epiforecasts](https://epiforecasts.io) does for real-time analysis, and to
+make it easier to follow good infectious disease modelling workflows —
+especially under the time pressure and resource limits of a live response.
+
+## Built on Julia
+
+We build in Julia for its type system, multiple dispatch, and automatic
+differentiation, and on the scientific infrastructure already there:
+
+::: {.feature-grid .foundations}
+::: {.feature-card}
+### [SciML](https://sciml.ai)
+Differential equations, sensitivity analysis, and scientific machine learning.
+:::
+::: {.feature-card}
+### [Turing.jl](https://turinglang.org)
+Probabilistic programming and Bayesian inference.
+:::
+::: {.feature-card}
+### [Distributions.jl](https://github.com/JuliaStats/Distributions.jl)
+The shared vocabulary of probability distributions our packages extend.
+:::
+:::
+
+New to Julia? Start with the [Using Julia](using-julia.qmd) guide.
+
+## The ecosystem
+
+Small, composable packages that each do one thing well and combine into larger
+models. See the full list on the [Packages](packages/index.qmd) page.
+
+- **[CensoredDistributions.jl](packages/censoreddistributions.qmd)** — handle the censoring and truncation biases common in epidemiological delay data.
+- **[ConvolvedDistributions.jl](packages/convolveddistributions.qmd)** — convolve distributions, with shared quadrature.
+- **[ComposedDistributions.jl](packages/composeddistributions.qmd)** — a grammar for composing distributions.
+- **[ReparameterisedDistributions.jl](packages/reparameteriseddistributions.qmd)** — alternative parameterisations for Distributions.jl.
+
+## Background
+
+In R we built the [epinowcast](community.qmd) ecosystem and packages such as
+[EpiNow2](https://github.com/epiforecasts/EpiNow2) and
+[scoringutils](https://github.com/epiforecasts/scoringutils), now used by
+academics and public health teams internationally. EpiAware is the Julia
+equivalent: a domain-focused ecosystem in the mould of SciML or Turing.jl,
+with community infrastructure like [rOpenSci](https://ropensci.org) and the
+domain focus of [SpeedyWeather.jl](https://github.com/SpeedyWeather/SpeedyWeather.jl).
+
+We are at an early stage and looking for collaborators —
+[here is how to get involved](get-involved.qmd).

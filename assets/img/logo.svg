@@ -1,0 +1,24 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="EpiAware">
+  <title>EpiAware</title>
+  <defs>
+    <linearGradient id="joint" x1="0" y1="50" x2="0" y2="10" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#14708E"/>
+      <stop offset="1" stop-color="#2CA6A4"/>
+    </linearGradient>
+  </defs>
+  <!-- baseline -->
+  <path d="M5 50 H59" stroke="#9DB4C0" stroke-width="1.5" stroke-linecap="round" opacity="0.45"/>
+  <!-- many faint component distributions -->
+  <g fill="none" stroke="#2CA6A4" stroke-width="1.6" stroke-linecap="round" opacity="0.32">
+    <path d="M6 50 C 9 50 11 44 14 38 C 17 44 19 50 22 50"/>
+    <path d="M12 50 C 16 50 18 41 22 31 C 26 41 28 50 32 50"/>
+    <path d="M19 50 C 24 50 26 34 31 22 C 36 34 38 50 43 50"/>
+    <path d="M28 50 C 33 50 35 39 40 27 C 45 39 47 50 52 50"/>
+    <path d="M37 50 C 41 50 43 43 47 35 C 51 43 53 50 57 50"/>
+    <path d="M23 50 C 27 50 29 45 32 39 C 35 45 37 50 41 50"/>
+  </g>
+  <!-- the bold joint distribution -->
+  <path d="M8 50 C 18 50 23 40 30 20 C 33 13 35 11 38 13 C 44 17 49 34 56 46"
+        stroke="url(#joint)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="36.5" cy="11.5" r="3" fill="#F2A65A"/>
+</svg>

@@ -1,0 +1,23 @@
+---
+title: "ConvolvedDistributions.jl"
+description: "Convolve probability distributions, with shared numerical quadrature."
+categories: [distributions, convolution]
+---
+
+Sums of random delays — for example an incubation period followed by a
+reporting delay — are convolutions of their distributions. ConvolvedDistributions.jl
+convolves any `Distributions.jl` distributions and takes differences between
+them, sharing a common quadrature so the numerics stay consistent across the
+ecosystem.
+
+## Install
+
+```julia
+using Pkg
+Pkg.add("ConvolvedDistributions")
+```
+
+## Links
+
+- [Documentation](../docs.html?pkg=ConvolvedDistributions.jl)
+- [GitHub](https://github.com/EpiAware/ConvolvedDistributions.jl)

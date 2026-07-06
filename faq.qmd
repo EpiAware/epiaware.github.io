@@ -1,0 +1,50 @@
+---
+title: "FAQ"
+description: "Common questions about the EpiAware ecosystem."
+---
+
+## What is EpiAware?
+
+A set of composable Julia packages for infectious disease modelling. Each
+package does one thing — handling censored delays, convolving distributions,
+composing them — and they combine into joint models that propagate uncertainty.
+
+## Is it ready to use?
+
+The ecosystem is at an early stage. [CensoredDistributions.jl](packages/censoreddistributions.qmd)
+is the most developed and usable today. Other packages are in active development,
+and some interfaces will change. We will say clearly on each package's page how
+settled it is.
+
+## How does this relate to epinowcast and EpiNow2?
+
+EpiAware is the Julia successor to the R-based [epinowcast](community.qmd)
+ecosystem and packages like EpiNow2. The aim is the same — good tools for
+real-time infectious disease analysis — built as composable components in Julia.
+See [epinowcast & the forum](community.qmd).
+
+## I'm new to Julia. Where do I start?
+
+The [Using Julia](using-julia.qmd) guide covers installation, editor setup, and
+environments, and points to good resources for learning the language.
+
+## Which packages have analytical solutions or AD support?
+
+That varies by package and is documented in each package's own docs — browse
+them in the [documentation viewer](docs.qmd). CensoredDistributions.jl, for
+example, provides analytical solutions for common delay distributions and works
+with ForwardDiff, ReverseDiff, Mooncake, and Enzyme.
+
+## How do I cite EpiAware?
+
+Cite the specific package you used, referencing its GitHub repository and the
+version. Package-specific citation details live in each package's documentation.
+
+## Where do I get help or report a bug?
+
+- Questions: the [epinowcast forum](https://community.epinowcast.org/) or a package's GitHub Discussions
+- Bugs and feature requests: open an issue on the relevant GitHub repository
+- General Julia help: [Julia Discourse](https://discourse.julialang.org/) and [Slack](https://julialang.org/slack/)
+
+More on getting started as a contributor is on the [Get involved](get-involved.qmd)
+and [Contributing](contributing.qmd) pages.

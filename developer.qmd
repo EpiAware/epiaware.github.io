@@ -1,0 +1,62 @@
+---
+title: "Developer docs"
+description: "Working on EpiAware packages and this website."
+---
+
+Reference notes for developing EpiAware packages. Start with
+[Contributing](contributing.qmd) for the overall workflow, and each package's
+own developer documentation for specifics.
+
+## Faster test runs
+
+Quality checks (Aqua.jl, formatting, doctests) are the slowest part of a test
+run. Skip them while iterating:
+
+```bash
+julia --project=test test/runtests.jl skip_quality
+```
+
+Use [Revise.jl](https://github.com/timholy/Revise.jl) so code changes take
+effect without restarting Julia.
+
+## Code quality
+
+Packages run a consistent set of quality tools:
+
+- [Aqua.jl](https://github.com/JuliaTesting/Aqua.jl) — common package problems
+- [JET.jl](https://github.com/aviatesk/JET.jl) — static analysis (`@report_opt`, `@report_package`)
+- Doctests and formatting checks
+
+[EpiAwarePackageTools.jl](packages/epiawarepackagetools.qmd) provides the shared
+harnesses, including automatic-differentiation tests across backends.
+
+## Building documentation locally
+
+Each package builds its own docs from `docs/`:
+
+```bash
+julia --project=docs docs/make.jl
+```
+
+## This website
+
+This site is built with [Quarto](https://quarto.org/). To preview locally,
+install Quarto and run:
+
+```bash
+quarto preview      # live preview
+quarto render       # build the static site into _site/
+```
+
+Every push and pull request builds the site in CI, so a broken build is caught
+before merge. Pushes to `main` also deploy it to GitHub Pages. The workflow is
+in `.github/workflows/publish.yml`.
+
+To add a package to the [Packages](packages/index.qmd) list, copy
+`packages/_template.qmd` and fill it in — the card and its documentation entry
+are generated on build.
+
+## Releases
+
+Releases are cut from `main` by tagging a version, following each package's
+documented release process.

@@ -1,0 +1,34 @@
+---
+title: "Packages"
+description: "The EpiAware ecosystem — small, composable packages that combine into infectious disease models."
+listing:
+  id: package-listing
+  contents:
+    - "*.qmd"
+  type: grid
+  grid-columns: 2
+  fields: [title, description, categories]
+  sort: false
+  filter-ui: false
+  categories: true
+---
+
+Each package does one thing and combines with the others. Most extend Julia's
+[Distributions.jl](https://github.com/JuliaStats/Distributions.jl) so they share
+a common interface and compose cleanly. Read any package's documentation in the
+[unified docs browser](../docs.qmd), or follow the links on each page below.
+
+::: {#package-listing}
+:::
+
+## Adding a package
+
+The list above is generated automatically from the pages in `packages/`. To add
+a package, copy `packages/_template.qmd` to `packages/<yourpackage>.qmd`, fill in
+the front matter and body, and open a pull request — the card and its docs entry
+appear on build. See [Contributing](../contributing.qmd) for details.
+
+::: {.callout-note}
+Empty or placeholder ("shell") repositories are intentionally left off this list
+until they have real, documented functionality.
+:::

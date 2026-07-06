@@ -1,0 +1,32 @@
+---
+title: "CensoredDistributions.jl"
+description: "Tools for the censoring and truncation biases common in epidemiological delay data."
+categories: [distributions, censoring, flagship]
+---
+
+Delay data — the time between two events, such as infection and symptom onset —
+are usually recorded to the nearest day and observed through a limited window.
+Ignoring the resulting interval censoring and truncation biases delay estimates.
+CensoredDistributions.jl wraps any `Distributions.jl` distribution to handle
+primary event censoring, truncation, and secondary interval censoring, with
+analytical solutions where they exist and automatic differentiation throughout.
+
+This is the ecosystem's most developed package and a good place to start.
+
+## Install
+
+```julia
+using Pkg
+Pkg.add("CensoredDistributions")
+```
+
+```julia
+using CensoredDistributions, Distributions
+# a lognormal delay, primary-event and interval censored
+d = double_interval_censored(LogNormal(1.5, 0.5); interval = 1.0)
+```
+
+## Links
+
+- [Documentation](../docs.html?pkg=CensoredDistributions.jl) · [full docs site ↗](https://epiaware.github.io/CensoredDistributions.jl/)
+- [GitHub](https://github.com/EpiAware/CensoredDistributions.jl) · [Discussions](https://github.com/EpiAware/CensoredDistributions.jl/discussions)

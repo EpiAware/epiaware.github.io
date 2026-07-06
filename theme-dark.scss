@@ -1,0 +1,46 @@
+/*-- scss:defaults --*/
+
+$primary:   #2CA6A4;   // bright teal reads better on dark
+$secondary: #14708E;
+$accent:    #F2A65A;
+
+$body-bg:    #0f141a;
+$body-color: #d7dee6;
+
+$link-color:       #4fc3c0;
+$link-hover-color: #7fd6d3;
+
+$navbar-bg: #0c2a33;
+$navbar-fg: #ffffff;
+
+$font-family-sans-serif: "Inter", "Helvetica Neue", Arial, sans-serif;
+$headings-font-weight: 600;
+
+/*-- scss:rules --*/
+
+.navbar-brand img { height: 30px; }
+
+.hero {
+  padding: 4rem 1rem 3rem;
+  text-align: center;
+  background: radial-gradient(120% 100% at 50% 0%, rgba(44,166,164,0.18) 0%, rgba(20,112,142,0.08) 45%, rgba(15,20,26,0) 75%);
+  border-bottom: 1px solid #1c2731;
+  margin-bottom: 1.5rem;
+}
+.hero img.hero-logo { width: 104px; height: 104px; margin-bottom: 1rem; }
+.hero h1 { font-size: 2.7rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
+.hero .lead { font-size: 1.3rem; color: #9fb0c0; max-width: 720px; margin: 0 auto 1.5rem; }
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.feature-card {
+  border: 1px solid #26303b;
+  border-radius: 10px;
+  padding: 1.25rem 1.4rem;
+  background: #151c24;
+}
+.feature-card h3 { font-size: 1.1rem; margin-top: 0; }

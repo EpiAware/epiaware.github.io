@@ -1,0 +1,59 @@
+---
+title: "Contributing"
+description: "How to contribute to the EpiAware ecosystem."
+---
+
+We are at an early stage and actively looking for collaborators. If you are
+interested in composable modelling, infectious disease epidemiology, or Julia
+ecosystem development, you are welcome here — whether you contribute code,
+documentation, examples, or ideas. If you are not sure where to start, see
+[Get involved](get-involved.qmd).
+
+## Before you start
+
+- Read the [Using Julia](using-julia.qmd) guide to set up your environment.
+- Read the target package's own developer documentation — conventions can vary
+  slightly between packages.
+- For anything non-trivial, open an issue first so we can agree on the approach.
+
+## Project structure
+
+Most packages use multiple environments, each with its own `Project.toml`: the
+main package, `test`, `docs`, and often `benchmark`. Activate the one you need
+before working in it.
+
+## Development workflow
+
+Packages that use [Task](https://taskfile.dev/) expose common commands:
+
+```bash
+task --list        # see available tasks
+task setup         # set up the development environment
+task test-fast     # run tests, skipping slow quality checks
+task docs          # build the documentation locally
+task precommit     # run formatting and checks before committing
+```
+
+Without Task, the equivalents are plain `Pkg` and Julia commands — for example
+`julia --project=test test/runtests.jl` to run the tests.
+
+## Style
+
+We follow the [SciML style guide](https://github.com/SciML/SciMLStyle):
+`snake_case` for variables and functions, `CamelCase` for types, docstrings on
+everything exported, and short lines. Formatting and linting are checked in CI.
+
+## Tests and documentation
+
+- Write tests alongside your change; new features start with a test.
+- Document exported functions and types with docstrings.
+- Add or update examples where it helps a reader.
+
+## Opening a pull request
+
+Work on a feature branch, keep commits focused, and open a pull request against
+`main`. CI runs the tests, quality checks, and a documentation build — the same
+checks run on this website (see [Developer docs](developer.qmd)). A maintainer
+will review and help get it merged.
+
+Thank you for contributing.
