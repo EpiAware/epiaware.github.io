@@ -7,7 +7,9 @@ listing:
     - "*.qmd"
   type: grid
   grid-columns: 2
-  fields: [title, description, categories]
+  fields: [title, description, categories, status]
+  field-display-names:
+    status: "Status"
   sort: false
   filter-ui: false
   categories: true
@@ -17,6 +19,16 @@ Each package does one thing and combines with the others. Most extend Julia's
 [Distributions.jl](https://github.com/JuliaStats/Distributions.jl) so they share
 a common interface and compose cleanly. Read any package's documentation in the
 [unified docs browser](../docs.qmd), or follow the links on each page below.
+
+Each card carries a maturity **status**, based on where the package sits in its
+release cycle rather than a subjective judgement:
+
+- [**experimental**]{.status-pill .status-experimental} — usable, but not yet a
+  registered release; install from GitHub and expect the API to change.
+- [**maturing**]{.status-pill .status-maturing} — registered and installable with
+  `Pkg.add`, on a `0.x` line while the API settles.
+- [**stable**]{.status-pill .status-stable} — a `1.0`+ release with a committed,
+  semantically versioned API. *(none yet)*
 
 ::: {#package-listing}
 :::
@@ -30,5 +42,23 @@ appear on build. See [Contributing](../contributing.qmd) for details.
 
 ::: {.callout-note}
 Empty or placeholder ("shell") repositories are intentionally left off this list
-until they have real, documented functionality.
+until they have real, documented functionality. Planned packages that do not yet
+have docs are tracked on the [organisation profile](https://github.com/EpiAware).
 :::
+
+```{=html}
+<script>
+// Render each card's plain "Status" field as a coloured pill matching the
+// legend. Degrades gracefully to the default label/value table if JS is off.
+document.querySelectorAll('.quarto-grid-item table.card-other-values').forEach(function (table) {
+  var cell = table.querySelector('td.status');
+  if (!cell) return;
+  var value = cell.textContent.trim().toLowerCase();
+  if (!value) return;
+  var wrap = document.createElement('div');
+  wrap.className = 'card-status';
+  wrap.innerHTML = '<span class="status-pill status-' + value + '"><strong>' + value + '</strong></span>';
+  table.replaceWith(wrap);
+});
+</script>
+```

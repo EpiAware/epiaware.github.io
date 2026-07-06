@@ -2,6 +2,7 @@
 title: "CensoredDistributions.jl"
 description: "Tools for the censoring and truncation biases common in epidemiological delay data."
 categories: [distributions, censoring, flagship]
+status: maturing
 ---
 
 Delay data — the time between two events, such as infection and symptom onset —
