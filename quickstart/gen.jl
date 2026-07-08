@@ -19,10 +19,15 @@ show(stdout, MIME("text/plain"), tree); println()
 show(stdout, MIME("text/plain"), params_table(tree)); println()
 println(rand(Xoshiro(1), tree))
 
-# --- Example 2: build a joint model, show it, simulate, and plot -----------
-model = IDModel(
-    DirectInfections(; Z = RandomWalk(), initialisation_prior = Normal()),
-    PoissonError())
+# --- Example 2: a renewal model — AR(1) Rt, negbin reporting ---------------
+latent = AR(
+    damp_priors = [truncated(Normal(0.8, 0.05), 0, 1)],
+    init_priors = [Normal(0.0, 0.25)],
+    ϵ_t = HierarchicalNormal(std_prior = HalfNormal(0.1)))
+data = IDData(gen_distribution = Gamma(1.4, 1 / 0.38))
+renewal = Renewal(data; rt = latent, initialisation_prior = Normal(log(1.0), 1.0))
+error = NegativeBinomialError(cluster_factor_prior = HalfNormal(0.1))
+model = IDModel(renewal, error)
 show(stdout, MIME("text/plain"), model); println()
 
 n = 40
@@ -31,10 +36,10 @@ Random.seed!(1)
 sims = [simulator() for _ in 1:30]
 
 fig = Figure(size = (760, 340))
-ax = Axis(fig[1, 1]; xlabel = "day", ylabel = "cases",
-    title = "Prior predictive simulations")
+ax = Axis(fig[1, 1]; xlabel = "day", ylabel = "infections", yscale = log10,
+    title = "Prior predictive infection trajectories")
 for s in sims
-    lines!(ax, 1:n, s.generated_y_t; color = ("#2f6f9f", 0.28))
+    lines!(ax, 1:n, s.I_t; color = ("#2f6f9f", 0.3))
 end
 save(joinpath(IMG, "model.png"), fig)
 println("wrote model plot")

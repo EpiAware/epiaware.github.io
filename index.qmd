@@ -56,14 +56,15 @@ tree = Sequential([
 ```julia
 using ComposableTuringIDModels, Distributions
 
-# A random-walk latent process driving direct infections,
-# observed with Poisson error
+# AR(1) log-Rt → renewal infections → negative-binomial reports
+latent = AR(; ϵ_t = HierarchicalNormal(std_prior = HalfNormal(0.1)))
+data = IDData(gen_distribution = Gamma(1.4, 1 / 0.38))
 model = IDModel(
-    DirectInfections(; Z = RandomWalk(),
-        initialisation_prior = Normal()),
-    PoissonError())
+    Renewal(data; rt = latent,
+        initialisation_prior = Normal(log(1.0), 1.0)),
+    NegativeBinomialError())
 
-# Turn it into a Turing model and fit it to case data
+# Fit it to case data with Turing
 chain = sample(as_turing_model(model, cases, length(cases)),
                NUTS(), MCMCThreads(), 1_000, 2)
 ```
