@@ -27,36 +27,46 @@ listing:
 :::
 :::
 
-::: {.showcase}
-::: {.showcase-text}
-## Assemble a model from parts
+## Composable at every level
 
-Pick a latent process, an infection model, and an observation model, and
-[ComposableTuringIDModels.jl](packages/composableturingidmodels.qmd) turns the
-assembly into a single [Turing](https://turinglang.org) model you can simulate
-from and fit — with the full inference toolbox and uncertainty propagated
-throughout.
+EpiAware gives you composable pieces at two levels: build the exact
+distributions your data need, and assemble whole models from interchangeable
+parts. Use either on its own, or together.
 
-Swap any part on its own to test how an assumption shapes your conclusions.
+::: {.showcase-pair}
+::: {.showcase-card}
+#### Compose distributions
+
+```julia
+using ComposedDistributions, Distributions
+
+# A two-step delay chain, then a default prior set.
+tree = compose((onset_admit = [Gamma(2.0, 1.0),
+                               LogNormal(0.5, 0.4)],))
+priors = build_priors(params_table(tree))
+```
+
+[ComposedDistributions.jl →](packages/composeddistributions.qmd){.more-link}
 :::
 
-::: {.showcase-code}
+::: {.showcase-card}
+#### Build a joint model
+
 ```julia
 using ComposableTuringIDModels, Distributions, Turing
 
-# Compose a model from interchangeable parts: an AR latent
-# process, direct infections, and Poisson observations.
+# Assemble an AR latent process, direct infections, and
+# Poisson observations into one Turing model, then fit.
 model = IDModel(
-    DirectInfections(;
-        Z = DiffLatentModel(; model = AR(),
-                init_priors = [Normal(), Normal()]),
+    DirectInfections(; Z = DiffLatentModel(; model = AR(),
+            init_priors = [Normal(), Normal()]),
         initialisation_prior = Normal()),
     PoissonError())
-
-# Turn the assembly into a Turing model and fit it to data.
-turing_model = as_turing_model(model, cases, length(cases))
-chain = sample(turing_model, NUTS(), 1_000)
+chain = sample(as_turing_model(model, cases, length(cases)),
+               NUTS(), 1_000)
 ```
+
+[ComposableTuringIDModels.jl →](packages/composableturingidmodels.qmd){.more-link}
 :::
 :::
 

@@ -73,12 +73,13 @@ A small grammar for composing distributions into larger ones.
 
 ::: {.library-item}
 ::: {.library-main}
-#### [ReparameterisedDistributions.jl](reparameteriseddistributions.qmd) [experimental]{.status-pill .status-experimental}
-Alternative parameterisations for Distributions.jl distributions.
+#### [ModifiedDistributions.jl](modifieddistributions.qmd) [experimental]{.status-pill .status-experimental}
+Wrap Distributions.jl distributions to rescale, weight, modify hazards, or
+transform, while keeping the full distribution interface.
 :::
 ::: {.library-links}
-[Docs ↗](https://epiaware.github.io/ReparameterisedDistributions.jl/)
-[GitHub ↗](https://github.com/EpiAware/ReparameterisedDistributions.jl)
+[Docs ↗](https://modifieddistributions.epiaware.org/dev/)
+[GitHub ↗](https://github.com/EpiAware/ModifiedDistributions.jl)
 :::
 :::
 
