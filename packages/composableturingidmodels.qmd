@@ -33,5 +33,5 @@ Pkg.add(url = "https://github.com/EpiAware/ComposableTuringIDModels.jl")
 
 ## Links
 
-- [Documentation](../docs.html?pkg=ComposableTuringIDModels.jl) · [full docs site ↗](https://composableturingidmodels.epiaware.org/dev/)
+- [Documentation ↗](https://composableturingidmodels.epiaware.org/dev/)
 - [GitHub](https://github.com/EpiAware/ComposableTuringIDModels.jl) · [Discussions](https://github.com/EpiAware/ComposableTuringIDModels.jl/discussions)

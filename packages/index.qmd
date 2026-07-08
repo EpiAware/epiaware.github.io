@@ -1,51 +1,97 @@
 ---
 title: "Packages"
 description: "The EpiAware ecosystem — small, composable packages that combine into infectious disease models."
-listing:
-  id: package-listing
-  contents:
-    - "*.qmd"
-  type: grid
-  grid-columns: 2
-  fields: [title, description, categories, status]
-  field-display-names:
-    status: "Status"
-  sort: false
-  filter-ui: false
-  categories: true
+toc: true
+toc-title: "Categories"
 ---
 
 Each package does one thing and combines with the others. Most extend Julia's
 [Distributions.jl](https://github.com/JuliaStats/Distributions.jl) so they share
-a common interface and compose cleanly. Read any package's documentation in the
-[unified docs browser](../docs.qmd), or follow the links on each page below.
+a common interface and compose cleanly. Follow a package's **Docs** link to read
+its full documentation on its own site.
 
-Each card carries a maturity **status**, based on where the package sits in its
-release cycle rather than a subjective judgement:
+Each carries a maturity **status**, set from where it sits in its release cycle
+rather than a judgement:
 
-- [**experimental**]{.status-pill .status-experimental} — usable, but not yet a
+- [experimental]{.status-pill .status-experimental} — usable, but not yet a
   registered release; install from GitHub and expect the API to change.
-- [**maturing**]{.status-pill .status-maturing} — registered and installable with
+- [maturing]{.status-pill .status-maturing} — registered and installable with
   `Pkg.add`, on a `0.x` line while the API settles.
-- [**stable**]{.status-pill .status-stable} — a `1.0`+ release with a committed,
+- [stable]{.status-pill .status-stable} — a `1.0`+ release with a committed,
   semantically versioned API. *(none yet)*
 
-::: {#package-listing}
+## Modelling
+
+::: {.library-item}
+::: {.library-main}
+#### [ComposableTuringIDModels.jl](composableturingidmodels.qmd) [experimental]{.status-pill .status-experimental}
+Assemble infectious disease models from interchangeable infection and
+observation parts as a single Turing model. The package that ties the ecosystem
+together.
+:::
+::: {.library-links}
+[Docs ↗](https://composableturingidmodels.epiaware.org/dev/)
+[GitHub ↗](https://github.com/EpiAware/ComposableTuringIDModels.jl)
+:::
 :::
 
-```{=html}
-<script>
-// Render each card's plain "Status" field as a coloured pill matching the
-// legend. Degrades gracefully to the default label/value table if JS is off.
-document.querySelectorAll('.quarto-grid-item table.card-other-values').forEach(function (table) {
-  var cell = table.querySelector('td.status');
-  if (!cell) return;
-  var value = cell.textContent.trim().toLowerCase();
-  if (!value) return;
-  var wrap = document.createElement('div');
-  wrap.className = 'card-status';
-  wrap.innerHTML = '<span class="status-pill status-' + value + '"><strong>' + value + '</strong></span>';
-  table.replaceWith(wrap);
-});
-</script>
-```
+## Distributions
+
+::: {.library-item}
+::: {.library-main}
+#### [CensoredDistributions.jl](censoreddistributions.qmd) [maturing]{.status-pill .status-maturing}
+Handle the interval censoring and truncation biases common in epidemiological
+delay data, wrapping any Distributions.jl distribution.
+:::
+::: {.library-links}
+[Docs ↗](https://censoreddistributions.epiaware.org/)
+[GitHub ↗](https://github.com/EpiAware/CensoredDistributions.jl)
+:::
+:::
+
+::: {.library-item}
+::: {.library-main}
+#### [ConvolvedDistributions.jl](convolveddistributions.qmd) [experimental]{.status-pill .status-experimental}
+Convolve probability distributions, with shared numerical quadrature.
+:::
+::: {.library-links}
+[Docs ↗](https://convolveddistributions.epiaware.org/dev/)
+[GitHub ↗](https://github.com/EpiAware/ConvolvedDistributions.jl)
+:::
+:::
+
+::: {.library-item}
+::: {.library-main}
+#### [ComposedDistributions.jl](composeddistributions.qmd) [experimental]{.status-pill .status-experimental}
+A small grammar for composing distributions into larger ones.
+:::
+::: {.library-links}
+[Docs ↗](https://composeddistributions.epiaware.org/dev/)
+[GitHub ↗](https://github.com/EpiAware/ComposedDistributions.jl)
+:::
+:::
+
+::: {.library-item}
+::: {.library-main}
+#### [ReparameterisedDistributions.jl](reparameteriseddistributions.qmd) [experimental]{.status-pill .status-experimental}
+Alternative parameterisations for Distributions.jl distributions.
+:::
+::: {.library-links}
+[Docs ↗](https://epiaware.github.io/ReparameterisedDistributions.jl/)
+[GitHub ↗](https://github.com/EpiAware/ReparameterisedDistributions.jl)
+:::
+:::
+
+## Infrastructure
+
+::: {.library-item}
+::: {.library-main}
+#### [EpiAwarePackageTools.jl](epiawarepackagetools.qmd) [experimental]{.status-pill .status-experimental}
+Shared scaffolding, quality checks, and test utilities used across the
+ecosystem, including automatic-differentiation tests across backends.
+:::
+::: {.library-links}
+[Docs ↗](https://epiawarepackagetools.epiaware.org/)
+[GitHub ↗](https://github.com/EpiAware/EpiAwarePackageTools.jl)
+:::
+:::

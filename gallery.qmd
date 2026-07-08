@@ -12,8 +12,9 @@ work](#add-your-work).
 ::: {.gallery-grid}
 
 ::: {.gallery-card}
-[![](https://opengraph.githubassets.com/epiaware/epiforecasts/EpiNow2){fig-alt="EpiNow2"}](https://github.com/epiforecasts/EpiNow2)
-
+::: {.gallery-banner .g-teal}
+Real-time estimation
+:::
 ::: {.gallery-body}
 ### Real-time outbreak analysis
 Estimating reproduction numbers, growth rates, and nowcasts from delayed,
@@ -24,8 +25,9 @@ right-truncated data with EpiNow2 — used by public health teams internationall
 :::
 
 ::: {.gallery-card}
-[![](https://opengraph.githubassets.com/epiaware/epinowcast/epinowcast){fig-alt="epinowcast"}](https://github.com/epinowcast/epinowcast)
-
+::: {.gallery-banner .g-deep}
+Nowcasting
+:::
 ::: {.gallery-body}
 ### Nowcasting incident cases
 Correcting for reporting delays in real time with epinowcast, the partner
@@ -36,8 +38,9 @@ community whose methods EpiAware brings to Julia.
 :::
 
 ::: {.gallery-card}
-[![](https://opengraph.githubassets.com/epiaware/seabbs/a-workflow-for-infectious-disease-modelling){fig-alt="A workflow for infectious disease modelling"}](https://github.com/seabbs/a-workflow-for-infectious-disease-modelling)
-
+::: {.gallery-banner .g-amber}
+Modelling workflow
+:::
 ::: {.gallery-body}
 ### A modelling workflow
 An end-to-end workflow for infectious disease modelling — the approach the
@@ -48,10 +51,11 @@ composable components are built to support.
 :::
 
 ::: {.gallery-card}
-[![](https://opengraph.githubassets.com/epiaware/epiforecasts/scoringutils){fig-alt="scoringutils"}](https://github.com/epiforecasts/scoringutils)
-
+::: {.gallery-banner .g-slate}
+Forecast evaluation
+:::
 ::: {.gallery-body}
-### Forecast evaluation
+### Scoring forecasts
 Scoring and comparing probabilistic forecasts with scoringutils, part of the
 same toolset for real-time analysis.
 

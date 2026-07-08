@@ -22,4 +22,5 @@ Pkg.add("ReparameterisedDistributions")
 
 ## Links
 
+- [Documentation ↗](https://epiaware.github.io/ReparameterisedDistributions.jl/)
 - [GitHub](https://github.com/EpiAware/ReparameterisedDistributions.jl)

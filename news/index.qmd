@@ -1,0 +1,17 @@
+---
+title: "News"
+description: "Updates, releases, and writing from the EpiAware project."
+listing:
+  contents: posts
+  type: default
+  sort: "date desc"
+  categories: true
+  feed: true
+  fields: [date, title, author, description, categories, reading-time]
+page-layout: full
+title-block-banner: false
+---
+
+Releases, project updates, and writing from the people building EpiAware. Follow
+along, or join the conversation on the
+[epinowcast forum](https://community.epinowcast.org/).

@@ -22,20 +22,24 @@ website:
       - text: Docs
         menu:
           - text: ComposableTuringIDModels.jl
-            href: docs.html?pkg=ComposableTuringIDModels.jl
+            href: https://composableturingidmodels.epiaware.org/dev/
           - text: CensoredDistributions.jl
-            href: docs.html?pkg=CensoredDistributions.jl
+            href: https://censoreddistributions.epiaware.org/
           - text: ConvolvedDistributions.jl
-            href: docs.html?pkg=ConvolvedDistributions.jl
+            href: https://convolveddistributions.epiaware.org/dev/
           - text: ComposedDistributions.jl
-            href: docs.html?pkg=ComposedDistributions.jl
+            href: https://composeddistributions.epiaware.org/dev/
+          - text: ReparameterisedDistributions.jl
+            href: https://epiaware.github.io/ReparameterisedDistributions.jl/
           - text: EpiAwarePackageTools.jl
-            href: docs.html?pkg=EpiAwarePackageTools.jl
+            href: https://epiawarepackagetools.epiaware.org/
           - text: "---"
-          - text: All documentation
-            href: docs.qmd
+          - text: All packages
+            href: packages/index.qmd
       - text: Tutorials
         href: tutorials.qmd
+      - text: News
+        href: news/index.qmd
       - text: Gallery
         href: gallery.qmd
       - text: Guides

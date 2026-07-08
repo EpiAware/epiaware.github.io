@@ -31,7 +31,8 @@ environments, and points to good resources for learning the language.
 ## Which packages have analytical solutions or AD support?
 
 That varies by package and is documented in each package's own docs — browse
-them in the [documentation viewer](docs.qmd). CensoredDistributions.jl, for
+each package's own docs — see the [Packages](packages/index.qmd) page.
+CensoredDistributions.jl, for
 example, provides analytical solutions for common delay distributions and works
 with ForwardDiff, ReverseDiff, Mooncake, and Enzyme.
 

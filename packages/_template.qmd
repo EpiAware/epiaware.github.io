@@ -30,5 +30,5 @@ Pkg.add("YourPackage")
 
 ## Links
 
-- [Documentation](../docs.html?pkg=YourPackage.jl)
+- [Documentation ↗](https://yourpackage.epiaware.org/) <!-- the package's own docs site -->
 - [GitHub](https://github.com/EpiAware/YourPackage.jl)

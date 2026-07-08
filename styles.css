@@ -24,6 +24,47 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 }
 .cta-row { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; }
 
+/* Home: code showcase ----------------------------------------------------- */
+.showcase {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(320px, 1.4fr);
+  gap: 2rem;
+  align-items: center;
+  margin: 2.5rem 0 1rem;
+}
+.showcase-text h2 { margin-top: 0; }
+.showcase-code { min-width: 0; }
+.showcase-code div.sourceCode {
+  border-radius: 12px;
+  margin: 0;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+}
+.showcase-code pre { padding: 1.1rem 1.25rem; font-size: 0.86rem; }
+@media (max-width: 800px) {
+  .showcase { grid-template-columns: 1fr; gap: 1.25rem; }
+}
+
+/* "See all →" style links */
+.more-link { font-weight: 600; display: inline-block; margin: 0.25rem 0 0.5rem; }
+
+/* Library (Turing-style categorised package list) ------------------------- */
+.library-item {
+  display: flex; gap: 1.5rem; align-items: baseline;
+  justify-content: space-between; flex-wrap: wrap;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(128, 128, 128, 0.18);
+}
+.library-main { flex: 1 1 420px; min-width: 0; }
+.library-main h4 { margin: 0 0 0.3rem; font-size: 1.05rem; }
+.library-main h4 a { text-decoration: none; }
+.library-main .status-pill { margin-left: 0.4rem; vertical-align: middle; }
+.library-main p, .library-main { line-height: 1.5; }
+.library-links {
+  flex: 0 0 auto; white-space: nowrap;
+  display: flex; gap: 1rem; align-items: baseline;
+}
+.library-links a { font-weight: 600; font-size: 0.92rem; }
+
 /* Value propositions + foundations grid ----------------------------------- */
 .feature-grid {
   display: grid;
@@ -60,10 +101,18 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
-.gallery-card img {
-  width: 100%; aspect-ratio: 2 / 1; object-fit: cover; display: block;
-  background: #eef2f5;
+.gallery-banner {
+  aspect-ratio: 5 / 2;
+  display: flex; align-items: flex-end;
+  padding: 1rem 1.25rem;
+  color: #fff; font-weight: 600; font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
+.gallery-banner.g-teal  { background: linear-gradient(135deg, #0f7c8f, #23a6a0); }
+.gallery-banner.g-deep  { background: linear-gradient(135deg, #0c4a5c, #14708e); }
+.gallery-banner.g-amber { background: linear-gradient(135deg, #14708e, #e8965a); }
+.gallery-banner.g-slate { background: linear-gradient(135deg, #2b3a4a, #4a6572); }
 .gallery-card .gallery-body { padding: 1.1rem 1.25rem 1.25rem; }
 .gallery-card .gallery-body h3 { font-size: 1.05rem; margin: 0 0 0.35rem; }
 .gallery-card .gallery-body p { font-size: 0.92rem; margin: 0 0 0.75rem; opacity: 0.9; }
@@ -107,29 +156,3 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 }
 .team-card .name { font-weight: 600; }
 .team-card .role { font-size: 0.9rem; opacity: 0.8; }
-
-/* Full-bleed documentation viewer ----------------------------------------- */
-/* Everything below the top menu bar is the package docs. A slim toolbar
-   carries the current package and links out; the frame fills the rest. */
-.docs-toolbar {
-  display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap;
-  padding: 0.5rem 1rem;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
-  font-size: 0.9rem;
-}
-.docs-toolbar label { font-weight: 600; margin: 0; }
-.docs-toolbar select {
-  padding: 0.3rem 0.55rem; border-radius: 6px;
-  border: 1px solid rgba(128, 128, 128, 0.4); background: transparent;
-  color: inherit; font-size: 0.9rem; min-width: 240px;
-}
-.docs-toolbar .toolbar-spacer { flex: 1 1 auto; }
-.docs-toolbar a { font-weight: 600; white-space: nowrap; }
-#docs-frame {
-  display: block;
-  width: 100%;
-  height: calc(100vh - var(--docs-chrome, 110px));
-  min-height: 480px;
-  border: 0;
-  background: #fff;
-}

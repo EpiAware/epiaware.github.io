@@ -1,0 +1,36 @@
+---
+title: "A composable ecosystem for infectious disease modelling"
+description: "Why we are building EpiAware, and where it is today."
+author: "Sam Abbott"
+date: "2026-07-08"
+categories: [announcement]
+---
+
+Real-time infectious disease analysis usually forces a choice between two hard
+paths. You either chain separate models together, passing point estimates
+between them and losing the uncertainty along the way, or you write one large
+model tuned to a single problem that is hard to adapt or reuse.
+
+EpiAware takes a third path. It is a set of small Julia packages that each do
+one thing — handling censored delays, convolving distributions, composing them —
+and combine into joint models that propagate uncertainty correctly. The package
+that ties them together,
+[ComposableTuringIDModels.jl](/packages/composableturingidmodels.qmd), lets you
+assemble a model from interchangeable infection and observation parts and turns
+it into a single [Turing](https://turinglang.org) model you can simulate from
+and fit.
+
+## Where it is today
+
+The ecosystem is at an early stage.
+[CensoredDistributions.jl](/packages/censoreddistributions.qmd) is the most
+developed and usable today; the joint-modelling and distribution packages are in
+active development, and some interfaces will change. Each package's page says
+how settled it is.
+
+## Get involved
+
+We are actively looking for collaborators — whether you contribute code,
+documentation, examples, or a modelling problem that composable tools could
+help with. See [Get involved](/get-involved.qmd), or start a conversation on the
+[epinowcast forum](https://community.epinowcast.org/).
