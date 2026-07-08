@@ -29,22 +29,10 @@ listing:
 
 ::: {.landing-split}
 ::: {.landing-points}
-Work at the level your problem needs: compose the distributions your data
-require, or assemble a whole model from parts. That choice of entry points is
-what sets EpiAware apart.
-
-::: {.point}
-[**Composable**]{.point-title} — pieces that each do one thing and combine into
-joint models, so you assemble the model a problem needs.
-:::
-::: {.point}
-[**Uncertainty-aware**]{.point-title} — error is propagated correctly across
-components, not lost between separate models.
-:::
-::: {.point}
-[**Built for response**]{.point-title} — designed for real-time outbreak
-analysis, under the pressures of a live response.
-:::
+- **Composable** — small parts that combine into joint models.
+- **Uncertainty-aware** — uncertainty propagated correctly across components.
+- **Built for response** — designed for real-time outbreak analysis.
+- **Built on Julia** — fast, autodiff-ready, on top of Turing and SciML.
 
 [Get started →](quickstart.qmd){.more-link}
 :::
@@ -53,11 +41,14 @@ analysis, under the pressures of a live response.
 [Compose distributions]{.code-label}
 
 ```julia
-using ComposedDistributions, Distributions
+using ComposedDistributions, ModifiedDistributions, Distributions
 
-# Compose the delays from symptom onset to each outcome
-onset_to = compose((admission = LogNormal(1.0, 0.5),
-                    death     = Gamma(2.0, 3.0)))
+# Compose a case's delays; affine() rescales one of them
+tree = Sequential([
+    Gamma(2.0, 1.5),
+    compose((admission = affine(LogNormal(1.0, 0.5); scale = 1.5),
+             death     = Gamma(2.0, 3.0))),
+])
 ```
 
 [Assemble and fit a model]{.code-label}
@@ -93,14 +84,14 @@ Handle the censoring and truncation biases common in epidemiological delay
 data. [Docs ↗](https://censoreddistributions.epiaware.org/)
 :::
 ::: {.feature-card}
-### [ConvolvedDistributions.jl](packages/convolveddistributions.qmd)
-Convolve distributions, with shared quadrature.
-[Docs ↗](https://convolveddistributions.epiaware.org/dev/)
+### [ComposedDistributions.jl](packages/composeddistributions.qmd)
+A grammar for composing distributions into event trees.
+[Docs ↗](https://composeddistributions.epiaware.org/dev/)
 :::
 ::: {.feature-card}
-### [ComposedDistributions.jl](packages/composeddistributions.qmd)
-A grammar for composing distributions.
-[Docs ↗](https://composeddistributions.epiaware.org/dev/)
+### [ModifiedDistributions.jl](packages/modifieddistributions.qmd)
+Rescale, weight, or modify distributions, keeping the full interface.
+[Docs ↗](https://modifieddistributions.epiaware.org/dev/)
 :::
 :::
 
