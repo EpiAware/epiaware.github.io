@@ -21,6 +21,8 @@ website:
         href: packages/index.qmd
       - text: Docs
         menu:
+          - text: ComposableTuringIDModels.jl
+            href: docs.html?pkg=ComposableTuringIDModels.jl
           - text: CensoredDistributions.jl
             href: docs.html?pkg=CensoredDistributions.jl
           - text: ConvolvedDistributions.jl

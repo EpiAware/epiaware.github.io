@@ -52,6 +52,11 @@ components that combine into joint models while correctly propagating
 uncertainty — so you can assemble the model a problem needs instead of
 rebuilding it each time.
 
+[ComposableTuringIDModels.jl](packages/composableturingidmodels.qmd) ties this
+together: assemble a model from interchangeable infection and observation parts
+and it becomes a single [Turing](https://turinglang.org) model you can simulate
+from and fit. The other packages provide the building blocks it composes.
+
 The aim is to improve outbreak response, as
 [epiforecasts](https://epiforecasts.io) does for real-time analysis, and to
 make it easier to follow good infectious disease modelling workflows —

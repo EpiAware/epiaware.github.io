@@ -17,6 +17,9 @@ toc: false
 ```{=html}
 <script>
 const EPIAWARE_DOCS = [
+  { name: "ComposableTuringIDModels.jl",
+    docs: "https://composableturingidmodels.epiaware.org/dev/",
+    repo: "https://github.com/EpiAware/ComposableTuringIDModels.jl" },
   { name: "CensoredDistributions.jl",
     docs: "https://epiaware.github.io/CensoredDistributions.jl/",
     repo: "https://github.com/EpiAware/CensoredDistributions.jl" },
