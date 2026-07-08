@@ -29,8 +29,8 @@ website:
             href: https://convolveddistributions.epiaware.org/dev/
           - text: ComposedDistributions.jl
             href: https://composeddistributions.epiaware.org/dev/
-          - text: ReparameterisedDistributions.jl
-            href: https://epiaware.github.io/ReparameterisedDistributions.jl/
+          - text: ModifiedDistributions.jl
+            href: https://modifieddistributions.epiaware.org/dev/
           - text: EpiAwarePackageTools.jl
             href: https://epiawarepackagetools.epiaware.org/
           - text: "---"
