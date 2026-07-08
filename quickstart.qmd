@@ -74,29 +74,37 @@ rand(tree)
 
 ## Build and simulate a model
 
-Assemble a model from interchangeable parts — a latent random walk driving
-direct infections, observed with Poisson error — with `IDModel`, which also
+Assemble a model from interchangeable parts — an AR(1) process on the log
+reproduction number, coupled to a renewal infection process through a
+generation interval, observed with negative-binomial error. `IDModel` also
 prints its structure:
 
 ```julia
 using ComposableTuringIDModels, Distributions
 
-model = IDModel(
-    DirectInfections(; Z = RandomWalk(), initialisation_prior = Normal()),
-    PoissonError())
+latent = AR(
+    damp_priors = [truncated(Normal(0.8, 0.05), 0, 1)],
+    init_priors = [Normal(0.0, 0.25)],
+    ϵ_t = HierarchicalNormal(std_prior = HalfNormal(0.1)))
+data = IDData(gen_distribution = Gamma(1.4, 1 / 0.38))
+renewal = Renewal(data; rt = latent,
+    initialisation_prior = Normal(log(1.0), 1.0))
+
+model = IDModel(renewal, NegativeBinomialError(
+    cluster_factor_prior = HalfNormal(0.1)))
 ```
 
 ```
 IDModel
-├─ infection: DirectInfections
-│  └─ Z: RandomWalk
+├─ infection: Renewal
+│  └─ rt: AR
 │     └─ ϵ_t: HierarchicalNormal
-└─ observation: PoissonError
+└─ observation: NegativeBinomialError
 ```
 
 `as_turing_model` turns the assembly into a [Turing](https://turinglang.org)
 model. Pass `missing` for the data and it simulates from the prior — here 30
-draws of a 40-day outbreak:
+draws of a 40-day infection trajectory:
 
 ```julia
 n = 40
@@ -104,14 +112,14 @@ simulator = as_turing_model(model, missing, n)
 sims = [simulator() for _ in 1:30]   # each has generated_y_t, I_t, Z_t
 
 fig = Figure()
-ax = Axis(fig[1, 1]; xlabel = "day", ylabel = "cases")
+ax = Axis(fig[1, 1]; xlabel = "day", ylabel = "infections", yscale = log10)
 for s in sims
-    lines!(ax, 1:n, s.generated_y_t; color = (:steelblue, 0.28))
+    lines!(ax, 1:n, s.I_t; color = (:steelblue, 0.3))
 end
 fig
 ```
 
-![](assets/img/examples/model.png){fig-alt="Thirty prior predictive case trajectories over 40 days"}
+![](assets/img/examples/model.png){fig-alt="Thirty prior predictive infection trajectories over 40 days on a log scale"}
 
 To fit real data, pass the case series instead of `missing` and sample:
 
