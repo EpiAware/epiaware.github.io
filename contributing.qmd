@@ -9,6 +9,14 @@ ecosystem development, you are welcome here — whether you contribute code,
 documentation, examples, or ideas. If you are not sure where to start, see
 [Get involved](get-involved.qmd).
 
+## Onboarding
+
+We want to build proper onboarding for new contributors — shared infrastructure,
+documented standards, and a clear process — but we are not there yet. For now the
+best first step is simply to reach out: post on the
+[epinowcast forum](https://community.epinowcast.org/) or open an issue, and we
+will help you find a good place to start.
+
 ## Before you start
 
 - Read the [Using Julia](using-julia.qmd) guide to set up your environment.
