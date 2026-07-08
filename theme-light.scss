@@ -1,48 +1,48 @@
 /*-- scss:defaults --*/
 
-$primary:   #14708E;   // deep teal
-$secondary: #2CA6A4;   // bright teal
-$accent:    #F2A65A;   // warm amber
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+// Brand — teal with a warm amber accent, matching the logo.
+$primary:   #0f7c8f;   // refined deep teal
+$secondary: #23a6a0;   // bright teal
+$accent:    #e8965a;   // warm amber
+
+// Neutrals — plenty of white space, near-black text.
+$body-bg:    #ffffff;
+$body-color: #1b2430;
 
 $link-color:       $primary;
 $link-hover-color: darken($primary, 12%);
 
-$body-color: #1c2530;
-$navbar-bg:  $primary;
-$navbar-fg:  #ffffff;
+// Minimal navbar: light, quiet, a hairline underneath.
+$navbar-bg: #ffffff;
+$navbar-fg: #1b2430;
+$navbar-hl: $primary;
 
-$font-family-sans-serif: "Inter", "Helvetica Neue", Arial, sans-serif;
-$headings-font-weight: 600;
+$font-family-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI",
+  Roboto, Helvetica, Arial, sans-serif;
+$headings-font-weight: 700;
+
+$border-radius: 0.6rem;
 
 /*-- scss:rules --*/
 
-.navbar-brand img { height: 30px; }
+.navbar {
+  border-bottom: 1px solid #e9edf1;
+  box-shadow: none;
+}
 
 .hero {
-  padding: 4rem 1rem 3rem;
-  text-align: center;
-  background: radial-gradient(120% 100% at 50% 0%, rgba(44,166,164,0.14) 0%, rgba(20,112,142,0.06) 45%, rgba(255,255,255,0) 75%);
+  background: radial-gradient(120% 90% at 50% -10%,
+    rgba(35, 166, 160, 0.12) 0%,
+    rgba(15, 124, 143, 0.05) 40%,
+    rgba(255, 255, 255, 0) 72%);
   border-bottom: 1px solid #eef2f5;
-  margin-bottom: 1.5rem;
 }
-.hero img.hero-logo { width: 104px; height: 104px; margin-bottom: 1rem; }
-.hero h1 { font-size: 2.7rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -0.5px; }
-.hero .lead { font-size: 1.3rem; color: #46586b; max-width: 720px; margin: 0 auto 1.5rem; }
+.hero .lead { color: #46586b; }
 
-.btn-primary { --bs-btn-bg: #{$primary}; --bs-btn-border-color: #{$primary}; }
+.feature-card { border: 1px solid #e6ebf0; background: #fbfcfd; }
+.feature-card .value-icon { color: $primary; }
 
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
-  margin: 1.5rem 0;
-}
-.feature-card {
-  border: 1px solid #e3e8ee;
-  border-radius: 10px;
-  padding: 1.25rem 1.4rem;
-  background: #fbfcfd;
-}
-.feature-card h3 { font-size: 1.1rem; margin-top: 0; }
-
-.foundations a { font-weight: 600; }
+.gallery-card { border: 1px solid #e6ebf0; background: #ffffff; }
+.gallery-card .gallery-body { border-top: 1px solid #eef2f5; }

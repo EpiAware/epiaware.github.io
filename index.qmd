@@ -19,6 +19,30 @@ page-layout: full
 :::
 :::
 
+::: {.feature-grid}
+::: {.feature-card}
+<span class="value-icon"><i class="bi bi-puzzle"></i></span>
+
+### Composable
+Small packages that each do one thing and combine into joint models, so you
+assemble the model a problem needs instead of rebuilding it.
+:::
+::: {.feature-card}
+<span class="value-icon"><i class="bi bi-graph-up-arrow"></i></span>
+
+### Uncertainty-aware
+Components propagate uncertainty correctly when combined, avoiding the error
+that creeps in when separate models are chained together.
+:::
+::: {.feature-card}
+<span class="value-icon"><i class="bi bi-lightning-charge"></i></span>
+
+### Built for response
+Designed for real-time infectious disease analysis under the time pressure and
+resource limits of a live outbreak.
+:::
+:::
+
 ## Why EpiAware
 
 Models that integrate multiple data sources give better evidence for outbreak
@@ -54,16 +78,6 @@ The shared vocabulary of probability distributions our packages extend.
 :::
 
 New to Julia? Start with the [Using Julia](using-julia.qmd) guide.
-
-## The ecosystem
-
-Small, composable packages that each do one thing well and combine into larger
-models. See the full list on the [Packages](packages/index.qmd) page.
-
-- **[CensoredDistributions.jl](packages/censoreddistributions.qmd)** — handle the censoring and truncation biases common in epidemiological delay data.
-- **[ConvolvedDistributions.jl](packages/convolveddistributions.qmd)** — convolve distributions, with shared quadrature.
-- **[ComposedDistributions.jl](packages/composeddistributions.qmd)** — a grammar for composing distributions.
-- **[ReparameterisedDistributions.jl](packages/reparameteriseddistributions.qmd)** — alternative parameterisations for Distributions.jl.
 
 ## Background
 

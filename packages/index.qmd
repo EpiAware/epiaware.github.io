@@ -33,19 +33,6 @@ release cycle rather than a subjective judgement:
 ::: {#package-listing}
 :::
 
-## Adding a package
-
-The list above is generated automatically from the pages in `packages/`. To add
-a package, copy `packages/_template.qmd` to `packages/<yourpackage>.qmd`, fill in
-the front matter and body, and open a pull request — the card and its docs entry
-appear on build. See [Contributing](../contributing.qmd) for details.
-
-::: {.callout-note}
-Empty or placeholder ("shell") repositories are intentionally left off this list
-until they have real, documented functionality. Planned packages that do not yet
-have docs are tracked on the [organisation profile](https://github.com/EpiAware).
-:::
-
 ```{=html}
 <script>
 // Render each card's plain "Status" field as a coloured pill matching the

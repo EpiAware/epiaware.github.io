@@ -1,25 +1,18 @@
 ---
-title: "Documentation"
+pagetitle: "Documentation — EpiAware"
 description: "Browse the documentation for every EpiAware package without leaving the site."
 page-layout: custom
 toc: false
 ---
 
-::: {.docs-intro}
-Pick a package to read its documentation here, or open it in a new tab. Each
-package's full docs are maintained in its own repository; this view keeps them
-all in one place.
-:::
-
-::: {.docs-browser}
 ::: {.docs-toolbar}
 <label for="pkg-select">Package</label>
 <select id="pkg-select" aria-label="Choose a package"></select>
+<span class="toolbar-spacer"></span>
 <a id="docs-open-ext" href="#" target="_blank" rel="noopener">Open in new tab ↗</a>
 <a id="docs-repo" href="#" target="_blank" rel="noopener">Source ↗</a>
 :::
 <iframe id="docs-frame" title="Package documentation" src="about:blank" loading="lazy"></iframe>
-:::
 
 ```{=html}
 <script>
@@ -65,9 +58,19 @@ const EPIAWARE_DOCS = [
     history.replaceState(null, "", url);
   }
 
+  // Match the frame height to the space left below the navbar + toolbar.
+  function fit() {
+    const nav = document.querySelector(".navbar");
+    const bar = document.querySelector(".docs-toolbar");
+    const chrome = (nav ? nav.offsetHeight : 55) + (bar ? bar.offsetHeight : 50);
+    document.documentElement.style.setProperty("--docs-chrome", chrome + "px");
+  }
+
   const start = new URLSearchParams(window.location.search).get("pkg");
   const startIdx = start && byName(start) >= 0 ? byName(start) : 0;
   sel.addEventListener("change", () => show(parseInt(sel.value, 10)));
+  window.addEventListener("resize", fit);
+  fit();
   show(startIdx);
 })();
 </script>
