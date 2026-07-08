@@ -17,25 +17,10 @@ website:
     title: "EpiAware"
     search: true
     left:
-      - text: Packages
-        href: packages/index.qmd
+      - text: Quick start
+        href: quickstart.qmd
       - text: Docs
-        menu:
-          - text: ComposableTuringIDModels.jl
-            href: https://composableturingidmodels.epiaware.org/dev/
-          - text: CensoredDistributions.jl
-            href: https://censoreddistributions.epiaware.org/
-          - text: ConvolvedDistributions.jl
-            href: https://convolveddistributions.epiaware.org/dev/
-          - text: ComposedDistributions.jl
-            href: https://composeddistributions.epiaware.org/dev/
-          - text: ModifiedDistributions.jl
-            href: https://modifieddistributions.epiaware.org/dev/
-          - text: EpiAwarePackageTools.jl
-            href: https://epiawarepackagetools.epiaware.org/
-          - text: "---"
-          - text: All packages
-            href: packages/index.qmd
+        href: packages/index.qmd
       - text: Tutorials
         href: tutorials.qmd
       - text: News
@@ -63,6 +48,8 @@ website:
           - text: epinowcast & the forum
             href: community.qmd
     right:
+      - text: Forum
+        href: https://community.epinowcast.org/
       - icon: github
         href: https://github.com/EpiAware
         aria-label: EpiAware on GitHub

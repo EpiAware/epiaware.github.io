@@ -40,11 +40,12 @@ parts. Use either on its own, or together.
 ```julia
 using ComposedDistributions, Distributions
 
-# A two-step delay chain, then a default prior set.
-tree = compose((onset_admit = [Gamma(2.0, 1.0),
-                               LogNormal(0.5, 0.4)],))
-priors = build_priors(params_table(tree))
+# A case's delays: infection → onset → admission → death
+chain = Sequential([Gamma(2.0, 1.5),
+                    LogNormal(1.0, 0.5), Gamma(2.0, 3.0)])
 ```
+
+![](assets/img/examples/composed.png){fig-alt="Delay from infection to each event"}
 
 [ComposedDistributions.jl →](packages/composeddistributions.qmd){.more-link}
 :::
@@ -53,20 +54,18 @@ priors = build_priors(params_table(tree))
 #### Build a joint model
 
 ```julia
-using ComposableTuringIDModels, Distributions, Turing
+using ComposableTuringIDModels, Distributions
 
-# Assemble an AR latent process, direct infections, and
-# Poisson observations into one Turing model, then fit.
+# A random-walk-driven model, observed with Poisson error
 model = IDModel(
-    DirectInfections(; Z = DiffLatentModel(; model = AR(),
-            init_priors = [Normal(), Normal()]),
+    DirectInfections(; Z = RandomWalk(),
         initialisation_prior = Normal()),
     PoissonError())
-chain = sample(as_turing_model(model, cases, length(cases)),
-               NUTS(), 1_000)
 ```
 
-[ComposableTuringIDModels.jl →](packages/composableturingidmodels.qmd){.more-link}
+![](assets/img/examples/model.png){fig-alt="Prior predictive case simulations"}
+
+[Build & fit it in the Quick start →](quickstart.qmd){.more-link}
 :::
 :::
 

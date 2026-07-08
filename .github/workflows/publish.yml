@@ -27,6 +27,23 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
+      - name: Set up Julia
+        uses: julia-actions/setup-julia@v2
+        with:
+          version: '1'
+
+      - name: Cache Julia
+        uses: julia-actions/cache@v2
+
+      # Regenerate the Quick start figures from the latest packages so they
+      # stay current. Best-effort: if it fails, the committed figures are used
+      # and the deploy still proceeds.
+      - name: Regenerate Quick start figures
+        continue-on-error: true
+        run: |
+          julia --project=quickstart quickstart/setup.jl
+          julia --project=quickstart quickstart/gen.jl
+
       - name: Render site
         run: quarto render
 
