@@ -3,6 +3,14 @@ pagetitle: "EpiAware — composable tools for infectious disease modelling"
 description: "A composable Julia ecosystem for infectious disease modelling."
 toc: false
 page-layout: full
+listing:
+  - id: news-listing
+    contents: news/posts
+    type: grid
+    grid-columns: 3
+    max-items: 3
+    sort: "date desc"
+    fields: [date, title, description]
 ---
 
 ::: {.hero}
@@ -16,6 +24,39 @@ page-layout: full
 [Explore the packages](packages/index.qmd){.btn .btn-primary .btn-lg role="button"}
 [Get involved](get-involved.qmd){.btn .btn-outline-primary .btn-lg role="button"}
 [GitHub](https://github.com/EpiAware){.btn .btn-outline-secondary .btn-lg role="button"}
+:::
+:::
+
+::: {.showcase}
+::: {.showcase-text}
+## Assemble a model from parts
+
+Pick a latent process, an infection model, and an observation model, and
+[ComposableTuringIDModels.jl](packages/composableturingidmodels.qmd) turns the
+assembly into a single [Turing](https://turinglang.org) model you can simulate
+from and fit — with the full inference toolbox and uncertainty propagated
+throughout.
+
+Swap any part on its own to test how an assumption shapes your conclusions.
+:::
+
+::: {.showcase-code}
+```julia
+using ComposableTuringIDModels, Distributions, Turing
+
+# Compose a model from interchangeable parts: an AR latent
+# process, direct infections, and Poisson observations.
+model = IDModel(
+    DirectInfections(;
+        Z = DiffLatentModel(; model = AR(),
+                init_priors = [Normal(), Normal()]),
+        initialisation_prior = Normal()),
+    PoissonError())
+
+# Turn the assembly into a Turing model and fit it to data.
+turing_model = as_turing_model(model, cases, length(cases))
+chain = sample(turing_model, NUTS(), 1_000)
+```
 :::
 :::
 
@@ -43,19 +84,39 @@ resource limits of a live outbreak.
 :::
 :::
 
-## Why EpiAware
+## Core packages
 
-Models that integrate multiple data sources give better evidence for outbreak
-response than chains of separate models, but building them is slow and needs
-expertise across several domains. EpiAware provides validated, reusable
-components that combine into joint models while correctly propagating
-uncertainty — so you can assemble the model a problem needs instead of
-rebuilding it each time.
+::: {.feature-grid}
+::: {.feature-card}
+### [ComposableTuringIDModels.jl](packages/composableturingidmodels.qmd)
+Assemble infectious disease models from interchangeable parts as a single
+Turing model. [Docs ↗](https://composableturingidmodels.epiaware.org/dev/)
+:::
+::: {.feature-card}
+### [CensoredDistributions.jl](packages/censoreddistributions.qmd)
+Handle the censoring and truncation biases common in epidemiological delay
+data. [Docs ↗](https://censoreddistributions.epiaware.org/)
+:::
+::: {.feature-card}
+### [ConvolvedDistributions.jl](packages/convolveddistributions.qmd)
+Convolve distributions, with shared quadrature.
+[Docs ↗](https://convolveddistributions.epiaware.org/dev/)
+:::
+::: {.feature-card}
+### [ComposedDistributions.jl](packages/composeddistributions.qmd)
+A grammar for composing distributions.
+[Docs ↗](https://composeddistributions.epiaware.org/dev/)
+:::
+:::
 
-The aim is to improve outbreak response, as
-[epiforecasts](https://epiforecasts.io) does for real-time analysis, and to
-make it easier to follow good infectious disease modelling workflows —
-especially under the time pressure and resource limits of a live response.
+[See all packages →](packages/index.qmd){.more-link}
+
+## From the blog
+
+::: {#news-listing}
+:::
+
+[All news →](news/index.qmd){.more-link}
 
 ## Built on Julia
 

@@ -1,0 +1,37 @@
+---
+title: "ComposableTuringIDModels.jl"
+description: "Assemble infectious disease models from interchangeable, composable parts as a single Turing model."
+categories: [modelling, turing, flagship]
+status: experimental
+---
+
+The package that ties the ecosystem together. Instead of writing one monolithic
+model, you assemble a model from interchangeable infection and observation parts
+— each infection model owning its own latent process — and
+ComposableTuringIDModels.jl turns the assembly into a single
+[Turing](https://turinglang.org) model you can simulate from and fit.
+
+Every part becomes a Turing / [DynamicPPL](https://github.com/TuringLang/DynamicPPL.jl)
+model through one `as_turing_model` constructor, so parts nest freely as
+submodels and the full inference toolbox (NUTS, Pathfinder, prior simulation)
+applies. Swap the latent process, infection process, or observation model on its
+own to test how each assumption shapes your conclusions.
+
+It ships a library of interchangeable parts: random-walk and AR/MA/ARIMA latent
+processes, renewal and exponential-growth infection models, ODE (SIR/SEIR)
+processes, Poisson and negative-binomial observations, reporting delays,
+ascertainment, and aggregation.
+
+## Install
+
+Experimental — install from GitHub while the API settles:
+
+```julia
+using Pkg
+Pkg.add(url = "https://github.com/EpiAware/ComposableTuringIDModels.jl")
+```
+
+## Links
+
+- [Documentation ↗](https://composableturingidmodels.epiaware.org/dev/)
+- [GitHub](https://github.com/EpiAware/ComposableTuringIDModels.jl) · [Discussions](https://github.com/EpiAware/ComposableTuringIDModels.jl/discussions)

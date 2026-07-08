@@ -20,5 +20,5 @@ Pkg.add("EpiAwarePackageTools")
 
 ## Links
 
-- [Documentation](../docs.html?pkg=EpiAwarePackageTools.jl)
+- [Documentation ↗](https://epiawarepackagetools.epiaware.org/)
 - [GitHub](https://github.com/EpiAware/EpiAwarePackageTools.jl)

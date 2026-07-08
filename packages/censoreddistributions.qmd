@@ -29,5 +29,5 @@ d = double_interval_censored(LogNormal(1.5, 0.5); interval = 1.0)
 
 ## Links
 
-- [Documentation](../docs.html?pkg=CensoredDistributions.jl) · [full docs site ↗](https://epiaware.github.io/CensoredDistributions.jl/)
+- [Documentation ↗](https://censoreddistributions.epiaware.org/)
 - [GitHub](https://github.com/EpiAware/CensoredDistributions.jl) · [Discussions](https://github.com/EpiAware/CensoredDistributions.jl/discussions)

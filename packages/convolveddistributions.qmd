@@ -20,5 +20,5 @@ Pkg.add("ConvolvedDistributions")
 
 ## Links
 
-- [Documentation](../docs.html?pkg=ConvolvedDistributions.jl)
+- [Documentation ↗](https://convolveddistributions.epiaware.org/dev/)
 - [GitHub](https://github.com/EpiAware/ConvolvedDistributions.jl)

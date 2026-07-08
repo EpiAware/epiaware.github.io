@@ -9,8 +9,9 @@ publish a few good end-to-end examples than a long list of stubs.
 
 In the meantime:
 
-- Each package's own documentation includes worked examples. Browse them in the
-  [documentation viewer](docs.qmd) — [CensoredDistributions.jl](docs.html?pkg=CensoredDistributions.jl)
+- Each package's own documentation includes worked examples — see the
+  [Packages](packages/index.qmd) page.
+  [CensoredDistributions.jl](https://censoreddistributions.epiaware.org/)
   has the most complete set, including fitting delay distributions with
   [Turing.jl](https://turinglang.org).
 - The [Bayesian Workflow](https://avehtari.github.io/Bayesian-Workflow/) book and

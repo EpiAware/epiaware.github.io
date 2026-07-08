@@ -19,5 +19,5 @@ Pkg.add("ComposedDistributions")
 
 ## Links
 
-- [Documentation](../docs.html?pkg=ComposedDistributions.jl)
+- [Documentation ↗](https://composeddistributions.epiaware.org/dev/)
 - [GitHub](https://github.com/EpiAware/ComposedDistributions.jl)
