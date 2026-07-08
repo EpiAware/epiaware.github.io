@@ -4,6 +4,7 @@ using Pkg
 Pkg.add([
     PackageSpec(url = "https://github.com/EpiAware/ConvolvedDistributions.jl"),
     PackageSpec(url = "https://github.com/EpiAware/ComposedDistributions.jl"),
+    PackageSpec(url = "https://github.com/EpiAware/ModifiedDistributions.jl"),
     PackageSpec(url = "https://github.com/EpiAware/ComposableTuringIDModels.jl"),
     PackageSpec(name = "Distributions"),
     PackageSpec(name = "CairoMakie"),

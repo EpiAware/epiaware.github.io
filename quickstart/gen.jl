@@ -1,39 +1,25 @@
-# Runs the Quick start examples and writes their plots. Executed in CI so the
-# figures stay in step with the packages. Env is passed with --project.
-using ComposedDistributions, ComposableTuringIDModels, Distributions, CairoMakie,
-    Random
+# Runs the Quick start examples in CI so the page stays in step with the
+# packages: the composed tree and its properties are exercised (a break shows
+# up as a failed build), and the model figure is regenerated. Env is passed
+# with --project.
+using ComposedDistributions, ModifiedDistributions, ComposableTuringIDModels,
+    Distributions, CairoMakie, Random
 
 const ROOT = dirname(@__DIR__)
 const IMG = joinpath(ROOT, "assets", "img", "examples")
 mkpath(IMG)
-teal, blue, amber, red = "#0f7c8f", "#2f6f9f", "#e8965a", "#c0554e"
 
-# --- Example 1: compose delays to several outcomes, a named tree -----------
-incubation = Gamma(2.0, 1.5)      # infection -> symptom onset
-admission  = LogNormal(1.0, 0.5)  # onset -> hospital admission
-death      = Gamma(2.0, 3.0)      # onset -> death
+# --- Example 1: a fancy composed tree, shown through its own properties ----
+tree = Sequential([
+    Gamma(2.0, 1.5),                                     # infection → onset
+    compose((admission = affine(LogNormal(1.0, 0.5); scale = 1.5),
+             death     = Gamma(2.0, 3.0))),              # onset → outcome
+])
+show(stdout, MIME("text/plain"), tree); println()
+show(stdout, MIME("text/plain"), params_table(tree)); println()
+println(rand(Xoshiro(1), tree))
 
-onset_to = compose((admission = admission, death = death))
-show(stdout, MIME("text/plain"), onset_to); println()
-
-# fold in the incubation delay to get the delay from infection
-to_onset     = incubation
-to_admission = convolved(incubation, admission)
-to_death     = convolved(incubation, death)
-
-ts = range(0, 32; length = 320)
-fig1 = Figure(size = (760, 340))
-ax1 = Axis(fig1[1, 1]; xlabel = "days since infection", ylabel = "density",
-    title = "Delay from infection to each event")
-for (d, lab, c) in [(to_onset, "onset", teal), (to_admission, "admission", blue),
-                    (to_death, "death", red)]
-    band!(ax1, ts, zero(ts), pdf.(d, ts); color = (c, 0.15))
-    lines!(ax1, ts, pdf.(d, ts); label = lab, color = c, linewidth = 3)
-end
-axislegend(ax1)
-save(joinpath(IMG, "composed.png"), fig1)
-
-# --- Example 2: build a joint model and simulate ---------------------------
+# --- Example 2: build a joint model, show it, simulate, and plot -----------
 model = IDModel(
     DirectInfections(; Z = RandomWalk(), initialisation_prior = Normal()),
     PoissonError())
@@ -44,11 +30,11 @@ simulator = as_turing_model(model, missing, n)
 Random.seed!(1)
 sims = [simulator() for _ in 1:30]
 
-fig2 = Figure(size = (760, 340))
-ax2 = Axis(fig2[1, 1]; xlabel = "day", ylabel = "cases",
+fig = Figure(size = (760, 340))
+ax = Axis(fig[1, 1]; xlabel = "day", ylabel = "cases",
     title = "Prior predictive simulations")
 for s in sims
-    lines!(ax2, 1:n, s.generated_y_t; color = (blue, 0.28))
+    lines!(ax, 1:n, s.generated_y_t; color = ("#2f6f9f", 0.28))
 end
-save(joinpath(IMG, "model.png"), fig2)
-println("wrote plots to $IMG")
+save(joinpath(IMG, "model.png"), fig)
+println("wrote model plot")

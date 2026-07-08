@@ -22,49 +22,55 @@ Pkg.add(url = "https://github.com/EpiAware/ComposableTuringIDModels.jl")
 
 ## Compose delays across events
 
-A case has several delays — from symptom onset to hospital admission, and to
-death. `compose` wires named delays into an event tree that prints its own
-structure:
+A case moves through several delays — an incubation, then competing outcomes
+from onset. Wire them into one tree with `Sequential` and `compose`, and rescale
+a delay with `affine` from
+[ModifiedDistributions](packages/modifieddistributions.qmd):
 
 ```julia
-using ComposedDistributions, Distributions
+using ComposedDistributions, ModifiedDistributions, Distributions
 
-incubation = Gamma(2.0, 1.5)      # infection → onset
-admission  = LogNormal(1.0, 0.5)  # onset → admission
-death      = Gamma(2.0, 3.0)      # onset → death
-
-onset_to = compose((admission = admission, death = death))
+tree = Sequential([
+    Gamma(2.0, 1.5),                                     # infection → onset
+    compose((admission = affine(LogNormal(1.0, 0.5); scale = 1.5),
+             death     = Gamma(2.0, 3.0))),              # onset → outcome
+])
 ```
 
+The tree prints its own structure — branches, steps, and modifiers and all:
+
 ```
-Parallel (2 branches)
-├─ admission: LogNormal{Float64}(μ=1.0, σ=0.5)
-└─ death: Gamma{Float64}(α=2.0, θ=3.0)
+Sequential (2 steps)
+├─ step_1: Gamma{Float64}(α=2.0, θ=1.5)
+└─ step_2: Parallel (2 branches)
+   ├─ admission: Affine(LogNormal{Float64}(μ=1.0, σ=0.5))
+   └─ death: Gamma{Float64}(α=2.0, θ=3.0)
 ```
 
-Folding the incubation delay in with `convolved` gives the delay from infection
-to each event — and the result is an ordinary distribution you can `pdf`,
-`rand`, and plot:
+Read its free parameters as a flat table, keyed by edge and parameter:
 
 ```julia
-using CairoMakie
-
-to_onset     = incubation
-to_admission = convolved(incubation, admission)
-to_death     = convolved(incubation, death)
-
-ts = 0:0.1:32
-fig = Figure()
-ax = Axis(fig[1, 1]; xlabel = "days since infection", ylabel = "density")
-for (d, label) in [(to_onset, "onset"), (to_admission, "admission"),
-                   (to_death, "death")]
-    lines!(ax, ts, pdf.(d, ts); label, linewidth = 3)
-end
-axislegend(ax)
-fig
+params_table(tree)
 ```
 
-![](assets/img/examples/composed.png){fig-alt="Density of the delay from infection to onset, admission, and death"}
+```
+params_table (6 rows)
+  edge              param  value  support
+  ────────────────  ─────  ─────  ──────────
+  step_1            shape  2.0    (0.0, Inf)
+  step_1            scale  1.5    (0.0, Inf)
+  step_2.admission  mu     1.0    (0.0, Inf)
+  step_2.admission  sigma  0.5    (0.0, Inf)
+  step_2.death      shape  2.0    (0.0, Inf)
+  step_2.death      scale  3.0    (0.0, Inf)
+```
+
+The whole tree is generative — simulate a case's event times straight from it:
+
+```julia
+rand(tree)
+# (step_1 = 2.37, step_2_admission = 2.72, step_2_death = 6.11)
+```
 
 ## Build and simulate a model
 
