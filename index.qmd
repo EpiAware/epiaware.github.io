@@ -27,69 +27,42 @@ listing:
 :::
 :::
 
-## Composable at every level
+::: {.landing-split}
+::: {.landing-points}
+Build infectious disease models from small, composable parts.
 
-EpiAware gives you composable pieces at two levels: build the exact
-distributions your data need, and assemble whole models from interchangeable
-parts. Use either on its own, or together.
-
-::: {.showcase-pair}
-::: {.showcase-card}
-#### Compose distributions
-
-```julia
-using ComposedDistributions, Distributions
-
-# A case's delays: infection → onset → admission → death
-chain = Sequential([Gamma(2.0, 1.5),
-                    LogNormal(1.0, 0.5), Gamma(2.0, 3.0)])
-```
-
-![](assets/img/examples/composed.png){fig-alt="Delay from infection to each event"}
-
-[ComposedDistributions.jl →](packages/composeddistributions.qmd){.more-link}
+::: {.point}
+[**Composable**]{.point-title} — pieces that each do one thing and combine into
+joint models, so you assemble the model a problem needs.
+:::
+::: {.point}
+[**Uncertainty-aware**]{.point-title} — error is propagated correctly across
+components, not lost between separate models.
+:::
+::: {.point}
+[**Built for response**]{.point-title} — designed for real-time outbreak
+analysis, under the pressures of a live response.
 :::
 
-::: {.showcase-card}
-#### Build a joint model
+[Get started →](quickstart.qmd){.more-link}
+:::
 
+::: {.landing-code}
 ```julia
 using ComposableTuringIDModels, Distributions
 
-# A random-walk-driven model, observed with Poisson error
+# Assemble a model from interchangeable parts: a random-walk
+# latent process driving direct infections, observed with
+# Poisson error.
 model = IDModel(
     DirectInfections(; Z = RandomWalk(),
         initialisation_prior = Normal()),
     PoissonError())
+
+# Turn it into a Turing model and fit it to case data
+chain = sample(as_turing_model(model, cases, length(cases)),
+               NUTS(), MCMCThreads(), 1_000, 2)
 ```
-
-![](assets/img/examples/model.png){fig-alt="Prior predictive case simulations"}
-
-[Build & fit it in the Quick start →](quickstart.qmd){.more-link}
-:::
-:::
-
-::: {.feature-grid}
-::: {.feature-card}
-<span class="value-icon"><i class="bi bi-puzzle"></i></span>
-
-### Composable
-Small packages that each do one thing and combine into joint models, so you
-assemble the model a problem needs instead of rebuilding it.
-:::
-::: {.feature-card}
-<span class="value-icon"><i class="bi bi-graph-up-arrow"></i></span>
-
-### Uncertainty-aware
-Components propagate uncertainty correctly when combined, avoiding the error
-that creeps in when separate models are chained together.
-:::
-::: {.feature-card}
-<span class="value-icon"><i class="bi bi-lightning-charge"></i></span>
-
-### Built for response
-Designed for real-time infectious disease analysis under the time pressure and
-resource limits of a live outbreak.
 :::
 :::
 

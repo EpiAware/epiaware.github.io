@@ -8,17 +8,18 @@ const IMG = joinpath(ROOT, "assets", "img", "examples")
 mkpath(IMG)
 teal, blue, amber, red = "#0f7c8f", "#2f6f9f", "#e8965a", "#c0554e"
 
-# --- Example 1: compose a case's delay chain across events -----------------
-chain = Sequential([
-    Gamma(2.0, 1.5),      # infection -> symptom onset
-    LogNormal(1.0, 0.5),  # onset -> hospital admission
-    Gamma(2.0, 3.0),      # admission -> death
-])
-show(stdout, MIME("text/plain"), chain); println()
+# --- Example 1: compose delays to several outcomes, a named tree -----------
+incubation = Gamma(2.0, 1.5)      # infection -> symptom onset
+admission  = LogNormal(1.0, 0.5)  # onset -> hospital admission
+death      = Gamma(2.0, 3.0)      # onset -> death
 
-to_onset     = Gamma(2.0, 1.5)
-to_admission = convolved(to_onset, LogNormal(1.0, 0.5))
-to_death     = convolved(to_admission, Gamma(2.0, 3.0))
+onset_to = compose((admission = admission, death = death))
+show(stdout, MIME("text/plain"), onset_to); println()
+
+# fold in the incubation delay to get the delay from infection
+to_onset     = incubation
+to_admission = convolved(incubation, admission)
+to_death     = convolved(incubation, death)
 
 ts = range(0, 32; length = 320)
 fig1 = Figure(size = (760, 340))

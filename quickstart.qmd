@@ -20,39 +20,38 @@ Pkg.add(url = "https://github.com/EpiAware/ComposedDistributions.jl")
 Pkg.add(url = "https://github.com/EpiAware/ComposableTuringIDModels.jl")
 ```
 
-## Compose a delay chain
+## Compose delays across events
 
-A case moves through events — infection, symptom onset, hospital admission,
-death — each a delay on the one before. Chain them with `Sequential`, and the
-tree prints its own structure:
+A case has several delays — from symptom onset to hospital admission, and to
+death. `compose` wires named delays into an event tree that prints its own
+structure:
 
 ```julia
 using ComposedDistributions, Distributions
 
-chain = Sequential([
-    Gamma(2.0, 1.5),      # infection → onset
-    LogNormal(1.0, 0.5),  # onset → admission
-    Gamma(2.0, 3.0),      # admission → death
-])
+incubation = Gamma(2.0, 1.5)      # infection → onset
+admission  = LogNormal(1.0, 0.5)  # onset → admission
+death      = Gamma(2.0, 3.0)      # onset → death
+
+onset_to = compose((admission = admission, death = death))
 ```
 
 ```
-Sequential (3 steps)
-├─ step_1: Gamma{Float64}(α=2.0, θ=1.5)
-├─ step_2: LogNormal{Float64}(μ=1.0, σ=0.5)
-└─ step_3: Gamma{Float64}(α=2.0, θ=3.0)
+Parallel (2 branches)
+├─ admission: LogNormal{Float64}(μ=1.0, σ=0.5)
+└─ death: Gamma{Float64}(α=2.0, θ=3.0)
 ```
 
-The delay from infection to each event is the convolution of the steps so far —
-`convolved` composes them, and the result is an ordinary distribution you can
-`pdf`, `rand`, and plot:
+Folding the incubation delay in with `convolved` gives the delay from infection
+to each event — and the result is an ordinary distribution you can `pdf`,
+`rand`, and plot:
 
 ```julia
 using CairoMakie
 
-to_onset     = Gamma(2.0, 1.5)
-to_admission = convolved(to_onset, LogNormal(1.0, 0.5))
-to_death     = convolved(to_admission, Gamma(2.0, 3.0))
+to_onset     = incubation
+to_admission = convolved(incubation, admission)
+to_death     = convolved(incubation, death)
 
 ts = 0:0.1:32
 fig = Figure()
