@@ -29,7 +29,9 @@ listing:
 
 ::: {.landing-split}
 ::: {.landing-points}
-Build infectious disease models from small, composable parts.
+Work at the level your problem needs: compose the distributions your data
+require, or assemble a whole model from parts. That choice of entry points is
+what sets EpiAware apart.
 
 ::: {.point}
 [**Composable**]{.point-title} — pieces that each do one thing and combine into
@@ -48,12 +50,23 @@ analysis, under the pressures of a live response.
 :::
 
 ::: {.landing-code}
+[Compose distributions]{.code-label}
+
+```julia
+using ComposedDistributions, Distributions
+
+# Compose the delays from symptom onset to each outcome
+onset_to = compose((admission = LogNormal(1.0, 0.5),
+                    death     = Gamma(2.0, 3.0)))
+```
+
+[Assemble and fit a model]{.code-label}
+
 ```julia
 using ComposableTuringIDModels, Distributions
 
-# Assemble a model from interchangeable parts: a random-walk
-# latent process driving direct infections, observed with
-# Poisson error.
+# A random-walk latent process driving direct infections,
+# observed with Poisson error
 model = IDModel(
     DirectInfections(; Z = RandomWalk(),
         initialisation_prior = Normal()),
