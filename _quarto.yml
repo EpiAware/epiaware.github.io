@@ -15,13 +15,23 @@ website:
     logo: assets/img/logo.svg
     logo-alt: "EpiAware"
     title: "EpiAware"
-    background: primary
     search: true
     left:
       - text: Packages
         href: packages/index.qmd
       - text: Docs
-        href: docs.qmd
+        menu:
+          - text: CensoredDistributions.jl
+            href: docs.html?pkg=CensoredDistributions.jl
+          - text: ConvolvedDistributions.jl
+            href: docs.html?pkg=ConvolvedDistributions.jl
+          - text: ComposedDistributions.jl
+            href: docs.html?pkg=ComposedDistributions.jl
+          - text: EpiAwarePackageTools.jl
+            href: docs.html?pkg=EpiAwarePackageTools.jl
+          - text: "---"
+          - text: All documentation
+            href: docs.qmd
       - text: Tutorials
         href: tutorials.qmd
       - text: Gallery

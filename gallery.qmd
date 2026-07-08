@@ -1,32 +1,69 @@
 ---
 title: "Gallery"
 description: "How people are using EpiAware and the tools it builds on."
+toc: false
 ---
 
-A gallery of real use cases — analyses, models, and responses built with
-EpiAware and its predecessors. It is just getting started, so it currently
-points to the work the ecosystem grows out of. If you have used the tools, we
-would like to feature it — see [adding your work](#add-your-work) below.
+Analyses, models, and outbreak responses built with EpiAware and the tools it
+grows out of. While the Julia packages mature, these show the kind of work the
+ecosystem is designed for. Used the tools yourself? [Add your
+work](#add-your-work).
 
-## From the wider ecosystem
+::: {.gallery-grid}
 
-While the Julia packages mature, these show the kind of work EpiAware is built
-for:
+::: {.gallery-card}
+[![](https://opengraph.githubassets.com/epiaware/epiforecasts/EpiNow2){fig-alt="EpiNow2"}](https://github.com/epiforecasts/EpiNow2)
 
-- **Real-time outbreak analysis** with [EpiNow2](https://github.com/epiforecasts/EpiNow2)
-  and [epinowcast](https://www.epinowcast.org), used by academics and public
-  health teams internationally to estimate reproduction numbers, growth rates,
-  and nowcasts from delayed, right-truncated data.
-- **A workflow for infectious disease modelling** —
-  [seabbs/a-workflow-for-infectious-disease-modelling](https://github.com/seabbs/a-workflow-for-infectious-disease-modelling),
-  the modelling approach the ecosystem is designed to support.
-- **Forecasting and evaluation** with
-  [scoringutils](https://github.com/epiforecasts/scoringutils) for scoring
-  probabilistic forecasts.
+::: {.gallery-body}
+### Real-time outbreak analysis
+Estimating reproduction numbers, growth rates, and nowcasts from delayed,
+right-truncated data with EpiNow2 — used by public health teams internationally.
+
+[EpiNow2 ↗](https://github.com/epiforecasts/EpiNow2)
+:::
+:::
+
+::: {.gallery-card}
+[![](https://opengraph.githubassets.com/epiaware/epinowcast/epinowcast){fig-alt="epinowcast"}](https://github.com/epinowcast/epinowcast)
+
+::: {.gallery-body}
+### Nowcasting incident cases
+Correcting for reporting delays in real time with epinowcast, the partner
+community whose methods EpiAware brings to Julia.
+
+[epinowcast ↗](https://www.epinowcast.org)
+:::
+:::
+
+::: {.gallery-card}
+[![](https://opengraph.githubassets.com/epiaware/seabbs/a-workflow-for-infectious-disease-modelling){fig-alt="A workflow for infectious disease modelling"}](https://github.com/seabbs/a-workflow-for-infectious-disease-modelling)
+
+::: {.gallery-body}
+### A modelling workflow
+An end-to-end workflow for infectious disease modelling — the approach the
+composable components are built to support.
+
+[View the workflow ↗](https://github.com/seabbs/a-workflow-for-infectious-disease-modelling)
+:::
+:::
+
+::: {.gallery-card}
+[![](https://opengraph.githubassets.com/epiaware/epiforecasts/scoringutils){fig-alt="scoringutils"}](https://github.com/epiforecasts/scoringutils)
+
+::: {.gallery-body}
+### Forecast evaluation
+Scoring and comparing probabilistic forecasts with scoringutils, part of the
+same toolset for real-time analysis.
+
+[scoringutils ↗](https://github.com/epiforecasts/scoringutils)
+:::
+:::
+
+:::
 
 ## Add your work {#add-your-work}
 
 Used EpiAware, CensoredDistributions.jl, or another package for an analysis or
 model? Share it on the [epinowcast forum](https://community.epinowcast.org/) or
-open a pull request adding it here. A short description, a link, and an image go
+open a pull request adding a card here — a short description, a link, and it goes
 a long way.
