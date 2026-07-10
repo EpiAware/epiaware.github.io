@@ -1,0 +1,104 @@
+---
+title: "Assemble an infectious disease model"
+description: "Build a joint model from a latent process, infection mechanism, and observation layers — all through a single `as_turing_model` interface."
+toc: true
+toc-location: left
+---
+
+:::::: {.side-space}
+
+::: {.section-start-space}
+
+## The assembled way of thinking
+
+An epidemiological model has three roles: a **latent** process (what drives
+transmission over time), an **infection** process (how the latent process
+generates infections), and an **observation** process (how infections become
+the data you see). Each role is an interchangeable part; all parts speak the
+same [`as_turing_model`](https://composableturingidmodels.epiaware.org/dev/)
+interface, so they nest and combine freely.
+
+The code below builds a complete model: an AR(1) process on the log
+reproduction number feeds a renewal equation, and the resulting infections pass
+through a reporting delay, ascertainment, and negative-binomial noise — all
+in one self-contained `IDModel` assembly.
+
+:::
+
+::: {.code-example-column .section-start-space .section-end-space}
+::: {.code-window .box}
+::: {.code-window-header}
+::: {.code-window-dots}
+
+```{=html}
+<span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+```
+
+:::
+
+::: {.code-window-title}
+
+```{=html}
+<span>renewal_model.jl</span>
+```
+
+:::
+
+:::
+
+```{.julia .code-overflow-scroll}
+using ComposableTuringIDModels, Distributions, Turing
+
+# Renewal infections with inline latent process
+data = IDData(gen_distribution = Gamma(1.4, 1 / 0.38))
+
+model = IDModel(
+    Renewal(data;
+        rt = AR(; ϵ_t = HierarchicalNormal(
+            std_prior = HalfNormal(0.1))),
+        initialisation_prior = Normal(log(1.0), 1.0)),
+
+    # Multiple observation layers:
+    #   delay → ascertainment → negative-binomial noise
+    LatentDelay(
+        Ascertainment(
+            NegativeBinomialError(),
+            ascertainment_prior = Beta(10, 2)),
+        truncated(Normal(5.0, 2.0), 0.0, Inf)))
+
+# Fit to case data with Turing's NUTS
+chain = sample(as_turing_model(model, cases, length(cases)),
+               NUTS(), MCMCThreads(), 1_000, 2)
+```
+
+:::
+:::
+
+## Why assemble a model?
+
+- **Swap a part to change an assumption.** Replace `NegativeBinomialError()`
+  with `PoissonError()` to test overdispersion; swap the renewal equation for
+  `DirectInfections` to remove the generation-interval assumption. One-line
+  changes, no model rewrites.
+- **Transparent structure.** `IDModel` prints its nested parts, so the model
+  architecture reads directly from the code and the output.
+- **Simulate and infer from the same object.** Pass `missing` to
+  `as_turing_model` to draw prior predictive simulations; pass real data to
+  run NUTS inference.
+- **Multiple observation layers.** Reporting delays, ascertainment,
+  right-truncation, and day-of-week effects are composable modifiers that wrap
+  the core observation model. Layers are added or removed independently.
+- **Full Turing toolchain.** Every assembly becomes a
+  [Turing.jl](https://turinglang.org) model, so NUTS, Pathfinder, prior
+  simulation, and the entire Turing ecosystem work unchanged.
+
+## Where next
+
+- Read the [ComposableTuringIDModels.jl overview](https://composableturingidmodels.epiaware.org/dev/overview/)
+  for the design and the full part catalogue.
+- See the [quickstart tutorial](https://composableturingidmodels.epiaware.org/dev/)
+  for a walkthrough from installation to inference.
+- Interested in the delay side of the model? See the
+  [composed distributions approach](composed-distributions.qmd).
+
+::::::
