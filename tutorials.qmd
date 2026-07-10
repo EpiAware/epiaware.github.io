@@ -3,20 +3,34 @@ title: "Tutorials"
 description: "Worked examples using the EpiAware packages together."
 ---
 
-Tutorials that use the packages together — building a small joint model from
-composable parts — are on the way. They are not ready yet; we would rather
-publish a few good end-to-end examples than a long list of stubs.
+Get started with one of two complementary approaches, then explore the
+in-depth tutorials below.
 
-In the meantime:
+## Approaches
 
-- Each package's own documentation includes worked examples — see the
-  [Packages](packages/index.qmd) page.
-  [CensoredDistributions.jl](https://censoreddistributions.epiaware.org/)
-  has the most complete set, including fitting delay distributions with
-  [Turing.jl](https://turinglang.org).
-- The [Bayesian Workflow](https://avehtari.github.io/Bayesian-Workflow/) book and
-  [a workflow for infectious disease modelling](https://github.com/seabbs/a-workflow-for-infectious-disease-modelling)
-  give the modelling approach these tools are designed to support.
+Two ways of working with the EpiAware ecosystem — start with whichever fits
+your question.
+
+| Approach | What it does |
+|---|---|
+| [Compose distributions](approaches/composed-distributions.qmd) | Model a case's progression as a tree of delays using `Sequential`, `Parallel`, `Resolve`, and `Compete`. Starting point for delay estimation and event simulation. |
+| [Assemble an infectious disease model](approaches/assembled-model.qmd) | Build a joint model from a latent process, infection mechanism, and observation layers. Starting point for inference and forecasting. |
+
+## In-depth tutorials
+
+Tutorials that combine the packages in a full analysis are in development.
+Each package's own documentation includes worked examples — see the
+[Packages](packages/index.qmd) page.
+
+[CensoredDistributions.jl](https://censoreddistributions.epiaware.org/) has
+the most complete set, including the
+[BDBV line-list analysis](https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/bdbv-linelist-analysis/)
+— a Bayesian workflow that builds one composed distribution for the whole case,
+fits it, and checks recovery against published estimates.
+
+The [Bayesian Workflow](https://avehtari.github.io/Bayesian-Workflow/) book and
+[a workflow for infectious disease modelling](https://github.com/seabbs/a-workflow-for-infectious-disease-modelling)
+give the modelling approach these tools are designed to support.
 
 Have a tutorial you'd like to see, or one you'd like to write? Suggest it on the
 [forum](https://community.epinowcast.org/) or see [Contributing](contributing.qmd).

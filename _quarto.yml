@@ -17,8 +17,12 @@ website:
     title: "EpiAware"
     search: true
     left:
-      - text: Quick start
-        href: quickstart.qmd
+      - text: Approaches
+        menu:
+          - text: Composed distributions
+            href: approaches/composed-distributions.qmd
+          - text: Assembled Turing model
+            href: approaches/assembled-model.qmd
       - text: Docs
         href: packages/index.qmd
       - text: Tutorials

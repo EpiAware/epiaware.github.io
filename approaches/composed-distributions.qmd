@@ -1,0 +1,107 @@
+---
+title: "Compose distributions into event trees"
+description: "Wire delays into a tree structure with Sequential, Parallel, Resolve, and Compete — one object that simulates and scores a record."
+toc: true
+toc-location: left
+---
+
+:::::: {.side-space}
+
+::: {.section-start-space}
+
+## The composed way of thinking
+
+A case's progression through detection and care is a tree of delays. A single
+composed distribution describes the whole record: it simulates a case's event
+path with `rand` and scores an observed record with `logpdf`.
+
+The [Bundibugyo Ebola line-list analysis](https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/bdbv-linelist-analysis/)
+is the north-star example — it builds one composed tree for onset-to-admission,
+admission-to-resolution (death vs discharge), and onset-to-notification, fits
+it to real data, and recovers the published delay estimates.
+
+The code window below builds a similar tree: two parallel pathways — clinical
+and surveillance — each a sequential chain with a disjunction inside.
+
+:::
+
+::: {.code-example-column .section-start-space .section-end-space}
+::: {.code-window .box}
+::: {.code-window-header}
+::: {.code-window-dots}
+
+```{=html}
+<span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+```
+
+:::
+
+::: {.code-window-title}
+
+```{=html}
+<span>composed_delays.jl</span>
+```
+
+:::
+
+:::
+
+```{.julia .code-overflow-scroll}
+using ComposedDistributions, Distributions
+
+# BDBV-inspired delay tree: parallel pathways
+# with Sequential, Resolve, and Compete nested together
+tree = compose((
+    clinical = sequential(
+        :onset_admit => Gamma(1.2, 3.0),
+        :admit_resolve => resolve(
+            :death => (Gamma(2.0, 3.5), 0.3),
+            :discharge => (Gamma(1.0, 8.0), 0.7))),
+    surveillance = sequential(
+        :onset_notif => Gamma(0.7, 20.0),
+        :notif_compete => compete(
+            :confirmed => Gamma(2.0, 1.0),
+            :lost => Gamma(5.0, 0.5))),
+))
+
+# Inspect tree, params, and default priors
+event_tree(tree)
+params_table(tree)
+priors = build_priors(params_table(tree))
+
+# Simulate a record and score it
+rand(tree)
+logpdf(tree, ans)
+```
+
+:::
+:::
+
+## Why compose distributions?
+
+- **One object, two directions.** The same tree simulates records (`rand`) and
+  scores them (`logpdf`), so a model is built once and used in both directions.
+- **Named events.** Every delay in the tree has a label — `onset_admit`,
+  `death`, `discharge` — so the record structure is self-documenting.
+- **Flat parameters.** `params_table` inventories every free parameter in one
+  table keyed by edge path, and `build_priors` derives a prior per parameter
+  from its support.
+- **Composable.** Trees nest: a `Resolve` node is a valid step in a
+  `Sequential` chain, a `Parallel` set is built from a NamedTuple, and the five
+  composers (`Sequential`, `Parallel`, `Resolve`, `Compete`, `Choose`) cover
+  every event relationship.
+- **Censoring is part of the tree.** Each leaf can be wrapped in
+  `double_interval_censored` so the censoring is carried inside the composed
+  object rather than handled separately — see the
+  [CensoredDistributions tutorial](https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/bdbv-linelist-analysis/).
+
+## Where next
+
+- Read the full BDBV line-list analysis at
+  [CensoredDistributions.jl](https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/bdbv-linelist-analysis/)
+  — the north-star example for this approach.
+- The [ComposedDistributions.jl documentation](https://composeddistributions.epiaware.org/dev/)
+  covers all five composers, structural edits, and parameter tying.
+- Ready to fit a full model? See the [assembled model approach](assembled-model.qmd).
+
+::::::
