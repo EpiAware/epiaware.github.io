@@ -21,33 +21,147 @@ listing:
 {{< include _includes/header.qmd >}}
 
 :::
+<!-- Header End Here -->
 
-<!-- Approaches -->
-::: {.approach-cards .section-start-space .section-end-space}
+<!-- What is EpiAware Section -->
+::: {.what-is-turing-grid .section-start-space .section-end-space}
 
-::: {.gallery-card}
-::: {.gallery-banner .g-teal}
-Compose distributions
-:::
-::: {.gallery-body}
-### Compose event trees
-Wire delays into a tree — Sequential, Parallel, Resolve, Compete — one object that simulates and scores records with marginalisation.
-[Explore &rarr;](tutorials/composing-distributions.qmd)
-:::
-:::
+::: {.feature-text-column}
 
-::: {.gallery-card}
-::: {.gallery-banner .g-deep}
-Assemble a model
-:::
-::: {.gallery-body}
-### Assemble from parts
-Latent process, infection mechanism, observation layers — each a swappable part through the single `as_turing_model` interface.
-[Explore &rarr;](tutorials/assembled-model.qmd)
-:::
-:::
+::: {.feature-item}
+::: {.feature-item-header}
+
+```{=html}
+<span class="feature-icon icon-composable"></span>
+```
+
+##### Composable
 
 :::
+
+Small, interchangeable parts — delays, latent processes, infection and observation models — that combine into a full joint model. Swap a part to test a different assumption.
+
+:::
+
+::: {.feature-item}
+::: {.feature-item-header}
+
+```{=html}
+<span class="feature-icon icon-uncertainty"></span>
+```
+
+##### Uncertainty-aware
+
+:::
+
+Uncertainty propagated correctly from the latent process through infection dynamics and observation.
+
+:::
+
+::: {.feature-item}
+::: {.feature-item-header}
+
+```{=html}
+<span class="feature-icon icon-response"></span>
+```
+
+##### Built for response
+
+:::
+
+Designed for real-time outbreak analysis: nowcasting, forecasting, and scenario modelling from the same model definition, with reporting delays and ascertainment built in.
+
+:::
+
+::: {.feature-item}
+::: {.feature-item-header}
+
+```{=html}
+<span class="feature-icon icon-julia"></span>
+```
+
+##### Built on Julia
+
+:::
+
+Fast, autodiff-ready, and tightly integrated with Turing.jl, SciML, and the Julia scientific ecosystem.
+
+:::
+
+::: {.feature-item}
+::: {.feature-item-header}
+
+```{=html}
+<span class="feature-icon icon-approaches"></span>
+```
+
+##### Multiple approaches
+
+:::
+
+Aims to support multiple approaches to composing infectious disease models —
+[composing distributions](tutorials/composing-distributions.qmd) into event trees
+or [building from parts with ComposableTuringIDModels](tutorials/assembled-model.qmd).
+
+:::
+
+:::
+
+::: {.code-example-column}
+::: {.code-window .box}
+::: {.code-window-header}
+::: {.code-window-dots}
+
+```{=html}
+<span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+```
+
+::: 
+
+::: {.code-window-title}
+
+```{=html}
+<span>composed_delays.jl</span>
+```
+
+:::
+
+:::
+
+```{.julia .code-overflow-scroll}
+using ComposedDistributions, Distributions
+
+# BDBV-inspired delay tree: parallel pathways
+# with Sequential, Resolve, and Compete nested together
+tree = compose((
+    clinical = sequential(
+        :onset_admit => Gamma(1.2, 3.0),
+        :admit_resolve => resolve(
+            :death => (Gamma(2.0, 3.5), 0.3),
+            :discharge => (Gamma(1.0, 8.0), 0.7))),
+    surveillance = sequential(
+        :onset_notif => Gamma(0.7, 20.0),
+        :notif_compete => compete(
+            :confirmed => Gamma(2.0, 1.0),
+            :lost => Gamma(5.0, 0.5))),
+))
+
+# Inspect tree, params, and default priors
+event_tree(tree)
+params_table(tree)
+priors = build_priors(params_table(tree))
+
+# Simulate a record and score it
+rand(tree)
+logpdf(tree, ans)
+```
+
+:::
+:::
+
+:::
+<!-- What is EpiAware Section Ends Here -->
+
 
 <!-- Core Packages Section -->
 :::: {.section-header .section-start-space}
@@ -56,31 +170,45 @@ Latent process, infection mechanism, observation layers — each a swappable par
 
 ### Core Packages
 <p>The EpiAware ecosystem is built on a foundation of powerful, composable packages.</p>
+
 :::
 
 ```{=html}
 <a href="packages/index.qmd" class="button desktop-only-button">Explore Ecosystem &rarr;</a>
 ```
+
 ::::
 
 ::::: {.core-packages-grid .section-end-space}
 
 ::: {.package-card .box #core-card}
+
 ##### [ComposableTuringIDModels.jl <i class="bi bi-box-arrow-up-right" style="font-size: 0.4em;"></i>](packages/composableturingidmodels.qmd){.panel-title}
 <p>Assemble infectious disease models from interchangeable parts as a single Turing model.</p>
+
 :::
+
 ::: {.package-card .box #core-card}
+
 ##### [CensoredDistributions.jl <i class="bi bi-box-arrow-up-right" style="font-size: 0.4em;"></i>](packages/censoreddistributions.qmd){.panel-title}
 <p>Handle the censoring and truncation biases common in epidemiological delay data.</p>
+
 :::
+
 ::: {.package-card .box #core-card}
+
 ##### [ComposedDistributions.jl <i class="bi bi-box-arrow-up-right" style="font-size: 0.4em;"></i>](packages/composeddistributions.qmd){.panel-title}
 <p>A grammar for composing distributions into event trees.</p>
+
 :::
+
 ::: {.package-card .box #core-card}
+
 ##### [ModifiedDistributions.jl <i class="bi bi-box-arrow-up-right" style="font-size: 0.4em;"></i>](packages/modifieddistributions.qmd){.panel-title}
 <p>Rescale, weight, or modify distributions, keeping the full distribution interface.</p>
+
 :::
+
 :::::
 
 ::: {.mobile-only-button-container}
@@ -88,32 +216,114 @@ Latent process, infection mechanism, observation layers — each a swappable par
 <a href="packages/index.qmd" class="button btn">Explore Ecosystem &rarr;</a>
 ```
 :::
+<!-- Core Packages Section Ends Here -->
+
+
+<!-- A model built from parts Section -->
+:::: {.section-header .section-start-space}
+
+::: {#model}
+
+### A model built from parts
+<p>Assemble a latent process, an infection model, and observation layers into one Turing model. The structure is clear — every part is named and stays inline.</p>
+
+:::
+
+```{=html}
+<a href="quickstart.qmd" class="button desktop-only-button">Quick Start &rarr;</a>
+```
+
+::::
+
+::: {.code-example-column .section-end-space}
+::: {.code-window .box}
+::: {.code-window-header}
+::: {.code-window-dots}
+
+```{=html}
+<span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+```
+
+:::
+
+::: {.code-window-title}
+
+```{=html}
+<span>renewal_model.jl</span>
+```
+
+:::
+
+:::
+
+```{.julia .code-overflow-scroll}
+using ComposableTuringIDModels, Distributions, Turing
+
+# Renewal infections with inline latent process
+data = IDData(gen_distribution = Gamma(1.4, 1 / 0.38))
+
+model = IDModel(
+    Renewal(data;
+        rt = AR(; ϵ_t = HierarchicalNormal(
+            std_prior = HalfNormal(0.1))),
+        initialisation_prior = Normal(log(1.0), 1.0)),
+
+    # Multiple observation layers:
+    #   delay → ascertainment → negative-binomial noise
+    LatentDelay(
+        Ascertainment(
+            NegativeBinomialError(),
+            ascertainment_prior = Beta(10, 2)),
+        truncated(Normal(5.0, 2.0), 0.0, Inf)))
+
+# Fit to case data with Turing's NUTS
+chain = sample(as_turing_model(model, cases, length(cases)),
+               NUTS(), MCMCThreads(), 1_000, 2)
+```
+
+:::
+:::
+<!-- A model built from parts Section Ends Here -->
+
 
 <!-- News & Updates Section -->
 :::: {.section-header .section-start-space}
+
 ::: {#news}
+
 ### News & Updates
 <p>Read the latest from the EpiAware team.</p>
+
 :::
+
 ```{=html}
 <a href="news/index.qmd" class="button desktop-only-button">View more &rarr;</a>
 ```
 ::::
+
 ::: {#news-listing}
 :::
+
 ::: {.mobile-only-button-container}
 ```{=html}
 <a href="news/index.qmd" class="button">View more &rarr;</a>
 ```
 :::
+<!-- News & Updates Section Ends Here -->
+
 
 <!-- Built on Julia Section -->
 ::: {.section-header .section-start-space}
+
 ::: {#built-on-julia}
+
 ### Built on Julia
 <p>We build in Julia for its type system, multiple dispatch, and automatic differentiation, on top of the scientific infrastructure.</p>
+
 :::
+
 :::
+
 ::: {.feature-grid .foundations .section-end-space}
 ::: {.feature-card}
 ### [SciML](https://sciml.ai)
@@ -128,17 +338,23 @@ Probabilistic programming and Bayesian inference.
 The shared vocabulary of probability distributions our packages extend.
 :::
 :::
+
 ::: {.text-center .section-end-space}
 New to Julia? Start with the [Using Julia](using-julia.qmd) guide.
 :::
 
 <!-- Background Section -->
 ::: {.section-header .section-start-space}
+
 ::: {#background}
+
 ### Background
 <p>From R to Julia — the story behind EpiAware.</p>
+
 :::
+
 :::
+
 ::: {.section-end-space}
 In R we built the [epinowcast](community.qmd) ecosystem and packages such as
 [EpiNow2](https://github.com/epiforecasts/EpiNow2) and

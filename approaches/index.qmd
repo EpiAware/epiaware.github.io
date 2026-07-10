@@ -12,7 +12,7 @@ can be combined in a single analysis.
 
 ::: {.approach-card style="border: 1px solid var(--border-color, #e6ebf0); border-radius: 12px; padding: 2rem; background: var(--bs-card-bg, #fbfcfd);"}
 
-### Compose distributions into event trees
+### Composing distributions
 
 Model a case's progression as a tree of delays — incubation, admission,
 competing outcomes — using `Sequential`, `Parallel`, `Resolve`, and `Compete`
@@ -26,7 +26,7 @@ from ComposedDistributions.jl. One object simulates and scores a record.
 
 ::: {.approach-card style="border: 1px solid var(--border-color, #e6ebf0); border-radius: 12px; padding: 2rem; background: var(--bs-card-bg, #fbfcfd);"}
 
-### Assemble an infectious disease model
+### Composable Turing models
 
 Build a joint model from a latent process, an infection mechanism, and
 observation layers — all interchangeable parts that plug together through the
