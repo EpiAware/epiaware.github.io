@@ -6,16 +6,24 @@ date: "2026-07-10"
 categories: [announcement]
 ---
 
-EpiAware is a set of composable Julia packages for infectious disease modelling.
-The approach builds on work in the epiforecasts corner of code — the modelling workflow
-and the composability grant — that showed how interchangeable parts make robust
-outbreak analysis workflows easier to build and maintain. EpiAware brings that
-design to Julia, with composability as the principle from the start.
+The aim is composable modelling to improve outbreak response and situational
+awareness — making it easier to implement a robust analysis workflow that
+preserves uncertainty through every step, from nowcasting to forecasting.
 
-There is no single way to work with these tools. The [approaches](/approaches/)
-pages document two starting points — composing distributions into event trees and
-assembling a full model from parts — that happen to exist now; more will follow
-as the ecosystem grows.
+EpiAware is one set of tools exploring this space. The [approaches](/approaches/)
+pages document two starting points we have right now — composing distributions
+into event trees and assembling a full model from parts — but the idea is to
+explore multiple approaches that interoperate, not to settle on one. We aim to
+work alongside other efforts with the same goal, such as
+[DDSALineLists.jl](https://github.com/epirecipes/DDSALineLists.jl) and
+[CategoricalOutbreaks.jl](https://github.com/epirecipes/CategoricalOutbreaks.jl)
+from [epirecipes](https://github.com/epirecipes).
+
+The design builds on work in the epiforecasts corner of code — the modelling
+workflow and the composability grant — that showed how interchangeable parts
+make robust outbreak analysis workflows easier to build and maintain. EpiAware
+brings that experience to Julia, with composability as the principle from the
+start.
 
 ## Where it is today
 

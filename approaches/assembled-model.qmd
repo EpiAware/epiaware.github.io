@@ -125,13 +125,16 @@ chain = sample(as_turing_model(model, cases, length(cases)),
 
 ## The approach
 
-An epidemiological model couples three processes: what drives transmission
-over time (the latent process), how that driver generates infections (the
-infection process), and how those infections become the observed data (the
-observation process). The key design choice is that each of these is an
-interchangeable part, and every part speaks the same `as_turing_model`
-interface — so any latent process nests inside any infection model, and any
-observation model wraps the result.
+ComposableTuringIDModels is a meta-language for composing Turing models — it
+provides the wiring that lets any latent process, infection model, and
+observation layer nest inside one another through the single
+`as_turing_model` interface. An epidemiological model couples three
+processes: what drives transmission over time (the latent process), how that
+driver generates infections (the infection process), and how those infections
+become the observed data (the observation process). The key design choice is
+that each of these is an interchangeable part, and every part speaks the same
+`as_turing_model` interface — so any latent process nests inside any
+infection model, and any observation model wraps the result.
 
 ### No model rewrites, only part swaps
 
