@@ -176,6 +176,11 @@ that could drift from the model.
 
 - The [ComposedDistributions.jl documentation](https://composeddistributions.epiaware.org/dev/)
   covers the full API and worked examples.
+- [ConvolvedDistributions.jl](https://convolveddistributions.epiaware.org/) handles
+  the convolutions (sums) of delays that arise naturally in event trees.
+- [ModifiedDistributions.jl](https://modifieddistributions.epiaware.org/) lets you
+  rescale, weight, or otherwise transform individual leaves without changing the
+  tree structure.
 - [CensoredDistributions.jl](https://censoreddistributions.epiaware.org/) adds
   the censoring layer for real line-list data.
 - Ready to fit a full model with infection dynamics? See the
