@@ -6,36 +6,29 @@ date: "2026-07-10"
 categories: [announcement]
 ---
 
-The aim is composable modelling to improve outbreak response and situational
-awareness — making it easier to implement a robust analysis workflow that
-preserves uncertainty through every step, from nowcasting to forecasting.
+Turing-based composability for infectious disease modelling — the case for
+composable modelling made in the epiforecasts modelling workflow and
+composability grant, now in Julia.
 
-EpiAware is one set of tools exploring this space. The [approaches](/approaches/)
-pages document two starting points we have right now — composing distributions
-into event trees and assembling a full model from parts — but the idea is to
-explore multiple approaches that interoperate, not to settle on one. We aim to
-work alongside other efforts with the same goal, such as
-[DDSALineLists.jl](https://github.com/epirecipes/DDSALineLists.jl) and
-[CategoricalOutbreaks.jl](https://github.com/epirecipes/CategoricalOutbreaks.jl)
-from [epirecipes](https://github.com/epirecipes), and [EpiBranch.jl](https://epiforecasts.io/EpiBranch.jl/dev/)
-for branching-process models.
-
-The design builds on work in the epiforecasts corner of code — the modelling
-workflow and the composability grant — that showed how interchangeable parts
-make robust outbreak analysis workflows easier to build and maintain. EpiAware
-brings that experience to Julia, with composability as the principle from the
-start.
+- **Aim**: interchangeable components that combine into joint models, propagate
+  uncertainty, and make robust outbreak analysis workflows easier to build.
+- **Approach**: multiple interoperable approaches — [composing
+  distributions](tutorials/composing-distributions.qmd) into event trees,
+  [assembling a full model](tutorials/assembled-model.qmd) from parts, and
+  more as the ecosystem grows.
+- **Alongside**: other efforts with the same goal —
+  [DDSALineLists.jl](https://github.com/epirecipes/DDSALineLists.jl),
+  [CategoricalOutbreaks.jl](https://github.com/epirecipes/CategoricalOutbreaks.jl),
+  [EpiBranch.jl](https://epiforecasts.io/EpiBranch.jl/dev/).
 
 ## Where it is today
 
-The ecosystem is at an early stage.
 [CensoredDistributions.jl](/packages/censoreddistributions.qmd) is the most
-developed and usable today; the joint-modelling and composition packages are in
-active development. Each package's page says how settled it is.
+developed. The joint-modelling and composition packages are in active
+development. Each package's page says how settled it is.
 
 ## Get involved
 
-We are looking for collaborators — whether you contribute code, documentation,
-examples, or a modelling problem that composable tools could help with. See
+Collaborators welcome — code, docs, examples, or a modelling problem. See
 [Get involved](/get-involved.qmd), or start a conversation on the
 [epinowcast forum](https://community.epinowcast.org/).

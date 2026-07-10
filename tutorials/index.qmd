@@ -1,0 +1,29 @@
+---
+title: "Tutorials"
+description: "Worked examples using the EpiAware packages together."
+---
+
+## Get started
+
+Two tutorials to get started — start with whichever fits your question.
+
+::: {.feature-grid}
+::: {.feature-card}
+### Compose distributions into event trees
+Wire delays into a tree — Sequential, Parallel, Resolve, Compete — one object that simulates and scores records. Starts with the composed way of thinking.
+[Start tutorial &rarr;](composing-distributions.qmd)
+:::
+::: {.feature-card}
+### Assemble an infectious disease model
+Build a joint model from a latent process, infection mechanism, and observation layers — all swappable parts through as_turing_model. Starts with the assembled way of thinking.
+[Start tutorial &rarr;](assembled-model.qmd)
+:::
+:::
+
+## Further reading
+
+- Each package's own documentation has worked examples — see the [Packages](/packages/index.qmd) page.
+- [CensoredDistributions.jl](https://censoreddistributions.epiaware.org/) has the most complete set, including a full BDBV line-list analysis.
+- The [Bayesian Workflow](https://avehtari.github.io/Bayesian-Workflow/) book gives the modelling approach these tools support.
+
+Have a tutorial you'd like to see? Suggest it on the [forum](https://community.epinowcast.org/) or see [Contributing](/contributing.qmd).

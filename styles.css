@@ -236,6 +236,16 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 /* Text utility */
 .text-center { text-align: center; }
 
+/* Approach cards on homepage */
+.approach-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 640px) {
+  .approach-cards { grid-template-columns: 1fr; }
+}
+
 /* Approach cards */
 .approach-card h3 { margin-top: 0; }
 

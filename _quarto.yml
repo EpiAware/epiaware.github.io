@@ -17,12 +17,12 @@ website:
     title: "EpiAware"
     search: true
     left:
-      - text: Approaches
+      - text: Tutorials
         menu:
-          - text: Composed distributions
-            href: approaches/composed-distributions.qmd
-          - text: Assembled Turing model
-            href: approaches/assembled-model.qmd
+          - text: Compose distributions into event trees
+            href: tutorials/composing-distributions.qmd
+          - text: Assemble a Turing model
+            href: tutorials/assembled-model.qmd
       - text: Docs
         href: packages/index.qmd
       - text: Tutorials
