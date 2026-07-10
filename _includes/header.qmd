@@ -1,0 +1,9 @@
+```{=html}
+<div class="hero-section">
+  <div class="hero-content text-center">
+    <img src="assets/img/logo.svg" alt="EpiAware Logo" class="hero-logo hero-logo-light">
+    <img src="assets/img/logo.svg" alt="EpiAware Logo" class="hero-logo hero-logo-dark">
+    <p class="hero-subtitle">Composable tools for infectious disease modelling in Julia.</p>
+  </div>
+</div>
+```

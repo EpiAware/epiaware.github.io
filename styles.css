@@ -1,61 +1,237 @@
 /* Structural rules shared across the light and dark themes.
    Colour tokens live in theme-light.scss / theme-dark.scss. */
 
+/* Button fill style (Turing-like) ---------------------------------------- */
+.button--fill {
+  background: var(--epi-primary, #0f7c8f);
+  color: #fff !important;
+  border: none;
+}
+.button--fill:hover {
+  background: var(--epi-primary-dark, #0b5e6d);
+  color: #fff !important;
+}
+
 .navbar-title { font-weight: 700; letter-spacing: 0.2px; }
 .navbar-brand img { height: 30px; }
 
 /* Headings a touch tighter for a cleaner, modern feel. */
 h1, h2, h3 { letter-spacing: -0.02em; }
 
-/* Hero -------------------------------------------------------------------- */
-.hero {
-  padding: 4.5rem 1rem 3.5rem;
-  text-align: center;
-  margin-bottom: 2rem;
+/* Section layout helpers (Turing-inspired) -------------------------------- */
+.side-space {
+  max-width: 1350px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 4rem;
+  padding-right: 4rem;
 }
-.hero img.hero-logo { width: 96px; height: 96px; margin-bottom: 1.25rem; }
-.hero h1 {
-  font-size: 3rem; font-weight: 700; margin-bottom: 0.5rem;
-  letter-spacing: -0.03em;
-}
-.hero .lead {
-  font-size: 1.3rem; max-width: 680px; margin: 0 auto 1.75rem;
-  line-height: 1.5;
-}
-.cta-row { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; }
-
-/* Home: split — key points (left) + a code example (right) ---------------- */
-.landing-split {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
-  gap: 2.5rem;
+.section-start-space { padding-top: 2rem; }
+.section-end-space { padding-bottom: 2rem; }
+.section-header {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  margin: 1rem 0 2.75rem;
 }
-.landing-points > p:first-child {
-  font-size: 1.4rem; font-weight: 600; line-height: 1.35;
-  letter-spacing: -0.01em; margin-bottom: 1.3rem;
+.section-header h3 {
+  margin-bottom: 0;
 }
-.landing-points .point { margin: 0 0 0.9rem; line-height: 1.5; }
-.point-title { font-weight: 700; }
-.landing-code { min-width: 0; }
-.code-label {
-  display: block; font-size: 0.72rem; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.6;
-  margin: 0 0 0.4rem;
+
+/* Logo header */
+.logo-header {
+  padding: 0;
+  margin-bottom: 0;
 }
-.landing-code .code-label:not(:first-child) { margin-top: 1.1rem; }
-.landing-code div.sourceCode {
-  border-radius: 12px; margin: 0;
+
+/* Hero (Turing-inspired) -------------------------------------------------- */
+.hero-section {
+  padding: 4rem 1rem;
+  padding-bottom: 0%;
+  text-align: center;
+}
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto 3rem auto;
+}
+.hero-logo {
+  max-width: 45%;
+  height: auto;
+  margin-bottom: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-subtitle {
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  color: #46586b;
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* What is EpiAware Grid (Turing-inspired) -------------------------------- */
+.what-is-turing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 3rem;
+  align-items: center;
+}
+.feature-text-column {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.feature-item-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+.feature-item h5 {
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 0;
+}
+.feature-item p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+.feature-cta-button {
+  margin-top: 2rem;
+  text-align: center;
+}
+.btn-lg {
+  padding: 14px 32px;
+  font-size: 1.1rem;
+}
+
+/* Feature icons (EpiAware-branded) --------------------------------------- */
+.feature-icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+.icon-composable {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.9999 3L7.99988 10H15.9999L11.9999 3Z' stroke='%230f7c8f' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M13.9999 17C13.9999 17.7956 14.3159 18.5587 14.8786 19.1213C15.4412 19.6839 16.2042 20 16.9999 20C17.7955 20 18.5586 19.6839 19.1212 19.1213C19.6838 18.5587 19.9999 17.7956 19.9999 17C19.9999 16.2044 19.6838 15.4413 19.1212 14.8787C18.5586 14.3161 17.7955 14 16.9999 14C16.2042 14 15.4412 14.3161 14.8786 14.8787C14.3159 15.4413 13.9999 16.2044 13.9999 17Z' stroke='%230f7c8f' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M4.00012 15C4.00012 14.7348 4.10548 14.4804 4.29302 14.2929C4.48055 14.1054 4.73491 14 5.00012 14H9.00012C9.26534 14 9.51969 14.1054 9.70723 14.2929C9.89477 14.4804 10.0001 14.7348 10.0001 15V19C10.0001 19.2652 9.89477 19.5196 9.70723 19.7071C9.51969 19.8946 9.26534 20 9.00012 20H5.00012C4.73491 20 4.48055 19.8946 4.29302 19.7071C4.10548 19.5196 4.00012 19.2652 4.00012 19V15Z' stroke='%230f7c8f' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.icon-uncertainty {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21C7 21 7 17 8 12C9 7 9 3 11 3C11.5304 3 12.0391 3.21071 12.4142 3.58579C12.7893 3.96086 13 4.46957 13 5' stroke='%230f7c8f' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M13.9999 12L19.9999 18' stroke='%230f7c8f' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M13.9999 18L19.9999 12' stroke='%230f7c8f' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.icon-response {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2L2 7L12 12L22 7L12 2Z' stroke='%230f7c8f' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M2 17L12 22L22 17' stroke='%230f7c8f' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M2 12L12 17L22 12' stroke='%230f7c8f' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.icon-julia {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='3' stroke='%230f7c8f' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='8' r='3' stroke='%230f7c8f' stroke-width='1.5'/%3E%3Ccircle cx='8' cy='16' r='3' stroke='%230f7c8f' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='16' r='3' stroke='%230f7c8f' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+
+/* Code window with window-dots (Turing-inspired) ------------------------- */
+.code-example-column .code-window {
+  padding: 0;
+  overflow: hidden;
+  border-radius: 12px;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.10);
 }
-.landing-code pre { padding: 1rem 1.2rem; font-size: 0.86rem; }
+.code-example-column .code-window-header {
+  padding: 0.9rem 1.2rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color, #e6ebf0);
+  position: relative;
+}
+.code-example-column .code-window-dots {
+  display: flex;
+  gap: 0.55rem;
+}
+.code-example-column .code-window-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+.code-example-column .dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.code-example-column .dot.red { background-color: #ff5f56; }
+.code-example-column .dot.yellow { background-color: #ffbd2e; }
+.code-example-column .dot.green { background-color: #27c93f; }
+.code-example-column .sourceCode {
+  border: none !important;
+  border-radius: 0 0 12px 12px !important;
+  margin: 0 !important;
+}
+.code-example-column .sourceCode pre {
+  padding: 1.5rem !important;
+  margin: 0;
+}
+.code-example-column .quarto-code-tools {
+  background-color: transparent !important;
+  top: 0.5rem !important;
+  right: 0.5rem !important;
+}
+.code-example-column.section-end-space {
+  margin: 1rem 0 2rem;
+}
+
+/* Core packages grid (Turing-inspired) ----------------------------------- */
+.core-packages-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  justify-content: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.package-card {
+  text-align: left;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+.package-card p {
+  margin-bottom: 0%;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.package-card .panel-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Desktop-only / mobile-only button visibility --------------------------- */
+.desktop-only-button { display: inline-flex; }
+.mobile-only-button-container { display: none; }
+
 @media (max-width: 820px) {
-  .landing-split { grid-template-columns: 1fr; gap: 1.5rem; }
+  .side-space { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .what-is-turing-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .core-packages-grid { grid-template-columns: repeat(2, 1fr); }
+  .desktop-only-button { display: none; }
+  .mobile-only-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .core-packages-grid { grid-template-columns: 1fr; }
 }
 
 /* "See all →" style links */
 .more-link { font-weight: 600; display: inline-block; margin: 0.25rem 0 0.5rem; }
+
+/* Text utility */
+.text-center { text-align: center; }
 
 /* Library (Turing-style categorised package list) ------------------------- */
 .library-item {

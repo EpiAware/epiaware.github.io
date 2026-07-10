@@ -6,6 +6,9 @@
 $primary:   #0f7c8f;   // refined deep teal
 $secondary: #23a6a0;   // bright teal
 $accent:    #e8965a;   // warm amber
+$epi-primary: #0f7c8f;
+$epi-primary-dark: #0b5e6d;
+$epi-primary-light: #1a9aab;
 
 // Neutrals — plenty of white space, near-black text.
 $body-bg:    #ffffff;
@@ -27,19 +30,50 @@ $border-radius: 0.6rem;
 
 /*-- scss:rules --*/
 
+:root {
+  --epi-primary: #0f7c8f;
+  --epi-primary-dark: #0b5e6d;
+  --epi-primary-light: #1a9aab;
+  --border-color: #e6ebf0;
+}
+
 .navbar {
   border-bottom: 1px solid #e9edf1;
   box-shadow: none;
 }
 
-.hero {
+.hero-section {
   background: radial-gradient(120% 90% at 50% -10%,
     rgba(35, 166, 160, 0.12) 0%,
     rgba(15, 124, 143, 0.05) 40%,
     rgba(255, 255, 255, 0) 72%);
   border-bottom: 1px solid #eef2f5;
 }
-.hero .lead { color: #46586b; }
+.hero-subtitle { color: #46586b; }
+.hero-logo-dark { display: none; }
+.hero-logo-light { display: block; }
+
+.feature-item h5 { color: #1b2430; }
+.feature-item p { color: #46586b; }
+
+.code-example-column .code-window {
+  border: 1px solid #e6ebf0;
+  background: #ffffff;
+}
+.code-example-column .code-window-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+.code-example-column .code-window-title { color: #868e96; }
+.code-example-column .sourceCode {
+  background-color: #fbfcfd !important;
+}
+
+.package-card {
+  border: 1px solid #e6ebf0;
+  background: #fbfcfd;
+}
+.package-card .panel-title { color: #1b2430; }
 
 .feature-card { border: 1px solid #e6ebf0; background: #fbfcfd; }
 .feature-card .value-icon { color: $primary; }
