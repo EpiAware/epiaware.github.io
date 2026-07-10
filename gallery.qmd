@@ -65,6 +65,44 @@ same toolset for real-time analysis.
 
 :::
 
+::: {.gallery-card}
+::: {.gallery-banner .g-teal}
+Ebola delay estimation
+:::
+::: {.gallery-body}
+### BDBV — delay distributions and stratified CFR
+Bayesian estimation of delay distributions and the case-fatality ratio from the 2012 Isiro Bundibugyo Ebola line list, using the composed-distributions approach.
+
+[View analysis ↗](https://epiforecasts.io/bdbv-linelist-analysis/dev/)
+:::
+:::
+
+::: {.gallery-card}
+::: {.gallery-banner .g-deep}
+Andes virus modelling
+:::
+::: {.gallery-body}
+### ANDV — joint incubation, transmission, and growth
+Joint estimation of incubation periods, transmission timing, and the reproduction number for Andes virus (hantavirus), combining delay and renewal modelling.
+
+[View analysis ↗](https://epiforecasts.io/andv-linelist-analysis/dev/)
+:::
+:::
+
+::: {.gallery-card}
+::: {.gallery-banner .g-amber}
+Outbreak size
+:::
+::: {.gallery-body}
+### Estimating current outbreak size
+Real-time estimation of the size of the 2026 DRC Bundibugyo ebolavirus outbreak, demonstrating the kind of rapid-response analysis the tools are designed for.
+
+[View analysis ↗](https://epiforecasts.io/BVDOutbreakSize/stable/)
+:::
+:::
+
+:::
+
 ## Add your work {#add-your-work}
 
 Used EpiAware, CensoredDistributions.jl, or another package for an analysis or

@@ -103,14 +103,6 @@ Fast, autodiff-ready, and tightly integrated with Turing.jl, SciML, and the Juli
 
 :::
 
-::: {.feature-cta-button}
-
-```{=html}
-<a href="approaches/" class="button btn-lg button--fill">Explore approaches &rarr;</a>
-```
-
-:::
-
 :::
 
 ::: {.code-example-column}

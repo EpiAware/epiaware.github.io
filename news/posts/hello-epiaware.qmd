@@ -2,35 +2,37 @@
 title: "A composable ecosystem for infectious disease modelling"
 description: "Why we are building EpiAware, and where it is today."
 author: "Sam Abbott"
-date: "2026-07-08"
+date: "2026-07-10"
 categories: [announcement]
 ---
 
-Real-time infectious disease analysis usually forces a choice between two hard
-paths. You either chain separate models together, passing point estimates
-between them and losing the uncertainty along the way, or you write one large
-model tuned to a single problem that is hard to adapt or reuse.
+Outbreak response demands analyses that are fast, robust, and adaptable — but infectious disease modelling tools often force a trade-off between flexibility and rigour. You either chain separate models together, passing point estimates and losing uncertainty, or write one large model tuned to a single problem that is hard to reuse.
 
-EpiAware takes a third path. It is a set of small Julia packages that each do
-one thing — handling censored delays, convolving distributions, composing them —
-and combine into joint models that propagate uncertainty correctly. The package
-that ties them together,
-[ComposableTuringIDModels.jl](/packages/composableturingidmodels.qmd), lets you
-assemble a model from interchangeable infection and observation parts and turns
-it into a single [Turing](https://turinglang.org) model you can simulate from
-and fit.
+EpiAware takes a different approach. It is a set of small Julia packages that each own one piece of the problem — handling censored delays, convolving distributions, composing them into event trees, or assembling a full model from interchangeable parts — and combine into joint models that propagate uncertainty correctly.
+
+## Two ways of thinking
+
+The ecosystem supports two complementary approaches. You can work with the same underlying packages in whichever way fits your question and combine them in a single analysis.
+
+**[Compose distributions into event trees](/approaches/composed-distributions.qmd).** Model a case's progression as a tree of delays — incubation, admission, competing outcomes — using ComposedDistributions.jl. One object simulates and scores a record, with marginalisation handling censored and partially observed data per row. The same tree representation works for delay distributions in renewal processes, for observation models in Turing fits, and for composable differential-equation models.
+
+**[Assemble a full infection model from parts](/approaches/assembled-model.qmd).** Build a joint model from a latent process, an infection mechanism, and observation layers through ComposableTuringIDModels.jl. Each part is an interchangeable component that speaks the same `as_turing_model` interface, so swapping an assumption — from renewal to exponential growth, from Poisson to negative-binomial observation — is a one-line change, not a model rewrite.
+
+Both approaches share the same goal: making it easier to implement a robust workflow for real-time outbreak analysis, from nowcasting to forecasting, while preserving uncertainty every step of the way.
+
+## Improving outbreak response
+
+Our aim is to lower the barrier to a rigorous outbreak analysis workflow. That means:
+
+- **Composable parts that match the scientific question.** Build the model your data needs, not the model your software forces you to use. Swap assumptions cleanly.
+- **Uncertainty through the full pipeline.** No point-estimate handoffs between a nowcast, a forecast, and a scenario model. The same assembly does all three.
+- **Reusable components.** A delay model written for one outbreak should not need rewriting for the next. The components are package-sized and tested across analyses.
+- **A community around the tools.** The epinowcast community has been building real-time analysis tools in R for years. EpiAware brings that experience to Julia, with composability as the design principle from the start.
 
 ## Where it is today
 
-The ecosystem is at an early stage.
-[CensoredDistributions.jl](/packages/censoreddistributions.qmd) is the most
-developed and usable today; the joint-modelling and distribution packages are in
-active development, and some interfaces will change. Each package's page says
-how settled it is.
+The ecosystem is at an early stage. [CensoredDistributions.jl](/packages/censoreddistributions.qmd) is the most developed and usable today; the joint-modelling and composition packages are in active development. Each package's page says how settled it is. The [approaches](/approaches/) pages explain the design thinking behind each way of working.
 
 ## Get involved
 
-We are actively looking for collaborators — whether you contribute code,
-documentation, examples, or a modelling problem that composable tools could
-help with. See [Get involved](/get-involved.qmd), or start a conversation on the
-[epinowcast forum](https://community.epinowcast.org/).
+We are looking for collaborators — whether you contribute code, documentation, examples, or a modelling problem that composable tools could help with. See [Get involved](/get-involved.qmd), or start a conversation on the [epinowcast forum](https://community.epinowcast.org/).

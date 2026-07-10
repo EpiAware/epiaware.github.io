@@ -7,23 +7,72 @@ toc-location: left
 
 :::::: {.side-space}
 
-## The composed way of thinking
+::: {.what-is-turing-grid .section-start-space .section-end-space}
 
-A case's progression through detection and care is a tree of delays. A single
-composed distribution describes the whole record — the same object that
-simulates a case's event path with `rand` also scores an observed record with
-`logpdf`. The object is dual-purpose: it is the model in both directions.
+::: {.feature-text-column}
 
-The tree below builds two parallel pathways from onset — a clinical chain
-(admission then resolution via death or discharge) and a surveillance chain
-(notification then a competing-hazard outcome). This mirrors the structure of
-a real Ebola line-list analysis, where four delays describe a case's
-progression through detection and care, with censoring, case-fatality
-covariates, and posterior recovery all handled through the one composed object.
+::: {.feature-item}
+::: {.feature-item-header}
+
+```{=html}
+<span class="feature-icon icon-composable"></span>
+```
+
+##### Composing trees of events
 
 :::
 
-::: {.code-example-column .section-start-space .section-end-space}
+A case's progression — onset, admission, death or discharge — is a tree of
+delays. Compose them into one distribution that both simulates and scores
+records, with no separate model for each direction.
+
+:::
+
+::: {.feature-item}
+::: {.feature-item-header}
+
+```{=html}
+<span class="feature-icon icon-uncertainty"></span>
+```
+
+##### Efficient individual-level models
+
+:::
+
+Each record is scored independently through marginalisation over its observed
+windows — no data aggregation, no per-row likelihood wrangling. The same
+object handles censored, partially observed, and complete records.
+
+:::
+
+::: {.feature-item}
+::: {.feature-item-header}
+
+```{=html}
+<span class="feature-icon icon-response"></span>
+```
+
+##### Same representation, multiple uses
+
+:::
+
+The same tree representation works for delay distributions in renewal
+processes, for observation models in Turing fits, and for dropping into
+composable differentiable-equation models — no translation step.
+
+:::
+
+::: {.feature-cta-button}
+
+```{=html}
+<a href="https://composeddistributions.epiaware.org/dev/" class="button btn-lg button--fill">Documentation &rarr;</a>
+```
+
+:::
+
+:::
+
+::: {.code-example-column}
 ::: {.code-window .box}
 ::: {.code-window-header}
 ::: {.code-window-dots}
@@ -75,65 +124,60 @@ logpdf(tree, ans)
 :::
 :::
 
-## Why compose distributions?
+:::
 
-**One object, two directions.** The same tree is generative and analytic.
-`rand(tree)` draws a named event record; `logpdf(tree, record)` scores it.
-The model is built once and used in both directions — no separate simulator.
+## The approach
 
-**Named events.** Every delay in the tree has a label — `onset_admit`, `death`,
-`discharge`, `notif_compete` — so the record structure is self-documenting.
-The flat event names are the columns a data row supplies, and a missing column
-drives whether that delay is conditioned on or marginalised.
+The central idea is that a case's event history is a tree — a root event
+(onset), branches for each subsequent event (admission, notification), and
+disjunctions where the path splits (death vs discharge). Every node is a
+probability distribution over a delay, and the whole tree is itself a
+distribution.
 
-**Flat parameters.** `params_table` inventories every free parameter in one
-table keyed by edge path, with the support a prior must respect.
-`build_priors` derives a prior per parameter from that support (positive shape
-→ positive-truncated Normal), then partial overrides are done by path — name
-only the leaves you care about.
+This is not a simulation framework that happens to support scoring, or a
+scoring framework that happens to support simulation. The same object is the
+model in both directions: `rand` draws a full event path from the tree,
+`logpdf` scores an observed record against it. The two operations share the
+same internal representation, so a model built for simulation is immediately
+the model used for inference.
 
-**Composers cover every event relationship.** Five composers wire delays
-together:
-- `Sequential` — conjunctive chain (steps add up)
-- `Parallel` — independent branches off a shared origin
-- `Resolve` — fixed-probability disjunction (one outcome, known split)
-- `Compete` — racing hazards (which outcome occurs is coupled to when)
-- `Choose` — data-selected disjunction (a field picks the sub-model)
+### Marginalisation at the record level
 
-Trees nest freely: a `Resolve` node is a valid step in a `Sequential` chain,
-and a `compose` result drops into another `compose` as a branch.
+Line-list data is sparse — some delays are observed, some are censored, some
+are missing entirely. Each record supplies only the columns it has, and the
+composed distribution marginalises over the unobserved branches internally.
+This per-record marginalisation is what makes the approach scale to
+individual-level models without per-row likelihood wrangling: the composed
+object carries the censoring structure and applies it per record.
 
-**Censoring is part of the tree.** Each leaf can be wrapped in
-`double_interval_censored` (a one-day primary and secondary window), so the
-censoring is carried inside the composed object rather than handled as a
-separate step. This is what makes the line-list analysis fit without per-row
-likelihood wrangling.
+The same machinery handles complete records (all delays observed), censored
+records (some delays interval-censored), and partially observed records (some
+delays missing). The model does not change — only the columns each row
+supplies.
 
-## Fitting the line list
+### A single representation for the workflow
 
-A full analysis builds the tree once as a template, then fits it to a set of
-records through the vectorised `composed_distribution_model` interface. Each
-row supplies the event columns and (for the resolve node) per-case branch
-probabilities from a separate covariate model — the case-fatality ratio as a
-logistic regression on health-worker status, case definition, and age. The
-resolve node consumes the resulting probability through the reserved
-`:branch_probs` field, and the death-versus-discharge split carries the
-case-fatality information without a separate likelihood.
+The tree representation is not tied to one package or one use. The same object
+that defines a delay distribution for a renewal model also drops into a
+Turing fit unchanged, and the same compositional structure works for
+differentiable-equation models. There is no translation between the
+delay model, the infection model, and the observation model — the composed
+object is the shared vocabulary.
 
-The posterior is read back with `update(template, chain)`, which walks the
-fitted chain and rebuilds the object per draw. Each fitted delay's mean is
-read off the latent fit with `mean(latent(fit))`, returning a NamedTuple
-keyed by the same event names the tree was built with. The onset-to-death
-delay (the convolution of two edges) comes straight from the fitted tree
-without re-fitting.
+### Posterior readback through the same tree
+
+After fitting, the posterior is read back by applying the parameter draws to
+the same tree. `update(template, chain)` walks each draw through the tree and
+returns a distribution per draw, so every delay mean, convolution, or
+contrast comes from the fitted object itself — no separate post-processing
+that could drift from the model.
 
 ## Where next
 
 - The [ComposedDistributions.jl documentation](https://composeddistributions.epiaware.org/dev/)
-  covers all five composers, structural edits (`splice`, `prune`, `tie`),
-  parameter tying, and the full API.
+  covers the full API and worked examples.
 - [CensoredDistributions.jl](https://censoreddistributions.epiaware.org/) adds
-  the censoring layer that makes this approach work with real line-list data.
+  the censoring layer for real line-list data.
 - Ready to fit a full model with infection dynamics? See the
   [assembled model approach](assembled-model.qmd).
 
