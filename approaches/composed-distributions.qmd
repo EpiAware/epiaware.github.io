@@ -7,21 +7,19 @@ toc-location: left
 
 :::::: {.side-space}
 
-::: {.section-start-space}
-
 ## The composed way of thinking
 
 A case's progression through detection and care is a tree of delays. A single
-composed distribution describes the whole record: it simulates a case's event
-path with `rand` and scores an observed record with `logpdf`.
+composed distribution describes the whole record — the same object that
+simulates a case's event path with `rand` also scores an observed record with
+`logpdf`. The object is dual-purpose: it is the model in both directions.
 
-The [Bundibugyo Ebola line-list analysis](https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/bdbv-linelist-analysis/)
-is the north-star example — it builds one composed tree for onset-to-admission,
-admission-to-resolution (death vs discharge), and onset-to-notification, fits
-it to real data, and recovers the published delay estimates.
-
-The code window below builds a similar tree: two parallel pathways — clinical
-and surveillance — each a sequential chain with a disjunction inside.
+The tree below builds two parallel pathways from onset — a clinical chain
+(admission then resolution via death or discharge) and a surveillance chain
+(notification then a competing-hazard outcome). This mirrors the structure of
+a real Ebola line-list analysis, where four delays describe a case's
+progression through detection and care, with censoring, case-fatality
+covariates, and posterior recovery all handled through the one composed object.
 
 :::
 
@@ -79,29 +77,64 @@ logpdf(tree, ans)
 
 ## Why compose distributions?
 
-- **One object, two directions.** The same tree simulates records (`rand`) and
-  scores them (`logpdf`), so a model is built once and used in both directions.
-- **Named events.** Every delay in the tree has a label — `onset_admit`,
-  `death`, `discharge` — so the record structure is self-documenting.
-- **Flat parameters.** `params_table` inventories every free parameter in one
-  table keyed by edge path, and `build_priors` derives a prior per parameter
-  from its support.
-- **Composable.** Trees nest: a `Resolve` node is a valid step in a
-  `Sequential` chain, a `Parallel` set is built from a NamedTuple, and the five
-  composers (`Sequential`, `Parallel`, `Resolve`, `Compete`, `Choose`) cover
-  every event relationship.
-- **Censoring is part of the tree.** Each leaf can be wrapped in
-  `double_interval_censored` so the censoring is carried inside the composed
-  object rather than handled separately — see the
-  [CensoredDistributions tutorial](https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/bdbv-linelist-analysis/).
+**One object, two directions.** The same tree is generative and analytic.
+`rand(tree)` draws a named event record; `logpdf(tree, record)` scores it.
+The model is built once and used in both directions — no separate simulator.
+
+**Named events.** Every delay in the tree has a label — `onset_admit`, `death`,
+`discharge`, `notif_compete` — so the record structure is self-documenting.
+The flat event names are the columns a data row supplies, and a missing column
+drives whether that delay is conditioned on or marginalised.
+
+**Flat parameters.** `params_table` inventories every free parameter in one
+table keyed by edge path, with the support a prior must respect.
+`build_priors` derives a prior per parameter from that support (positive shape
+→ positive-truncated Normal), then partial overrides are done by path — name
+only the leaves you care about.
+
+**Composers cover every event relationship.** Five composers wire delays
+together:
+- `Sequential` — conjunctive chain (steps add up)
+- `Parallel` — independent branches off a shared origin
+- `Resolve` — fixed-probability disjunction (one outcome, known split)
+- `Compete` — racing hazards (which outcome occurs is coupled to when)
+- `Choose` — data-selected disjunction (a field picks the sub-model)
+
+Trees nest freely: a `Resolve` node is a valid step in a `Sequential` chain,
+and a `compose` result drops into another `compose` as a branch.
+
+**Censoring is part of the tree.** Each leaf can be wrapped in
+`double_interval_censored` (a one-day primary and secondary window), so the
+censoring is carried inside the composed object rather than handled as a
+separate step. This is what makes the line-list analysis fit without per-row
+likelihood wrangling.
+
+## Fitting the line list
+
+A full analysis builds the tree once as a template, then fits it to a set of
+records through the vectorised `composed_distribution_model` interface. Each
+row supplies the event columns and (for the resolve node) per-case branch
+probabilities from a separate covariate model — the case-fatality ratio as a
+logistic regression on health-worker status, case definition, and age. The
+resolve node consumes the resulting probability through the reserved
+`:branch_probs` field, and the death-versus-discharge split carries the
+case-fatality information without a separate likelihood.
+
+The posterior is read back with `update(template, chain)`, which walks the
+fitted chain and rebuilds the object per draw. Each fitted delay's mean is
+read off the latent fit with `mean(latent(fit))`, returning a NamedTuple
+keyed by the same event names the tree was built with. The onset-to-death
+delay (the convolution of two edges) comes straight from the fitted tree
+without re-fitting.
 
 ## Where next
 
-- Read the full BDBV line-list analysis at
-  [CensoredDistributions.jl](https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/bdbv-linelist-analysis/)
-  — the north-star example for this approach.
 - The [ComposedDistributions.jl documentation](https://composeddistributions.epiaware.org/dev/)
-  covers all five composers, structural edits, and parameter tying.
-- Ready to fit a full model? See the [assembled model approach](assembled-model.qmd).
+  covers all five composers, structural edits (`splice`, `prune`, `tie`),
+  parameter tying, and the full API.
+- [CensoredDistributions.jl](https://censoreddistributions.epiaware.org/) adds
+  the censoring layer that makes this approach work with real line-list data.
+- Ready to fit a full model with infection dynamics? See the
+  [assembled model approach](assembled-model.qmd).
 
 ::::::
