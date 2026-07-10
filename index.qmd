@@ -99,7 +99,7 @@ Fast, autodiff-ready, and tightly integrated with Turing.jl, SciML, and the Juli
 
 :::
 
-[Compose distributions](approaches/composed-distributions.qmd) into event trees, or [assemble a full model](approaches/assembled-model.qmd) from a latent process, infection mechanism, and observation layers — the same package ecosystem supports both ways of thinking.
+Two starting points right now — [composing distributions](approaches/composed-distributions.qmd) into event trees and [assembling a full model](approaches/assembled-model.qmd) from interchangeable parts — but the idea is to explore many approaches that interoperate, not to settle on one.
 
 :::
 

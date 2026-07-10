@@ -17,7 +17,8 @@ explore multiple approaches that interoperate, not to settle on one. We aim to
 work alongside other efforts with the same goal, such as
 [DDSALineLists.jl](https://github.com/epirecipes/DDSALineLists.jl) and
 [CategoricalOutbreaks.jl](https://github.com/epirecipes/CategoricalOutbreaks.jl)
-from [epirecipes](https://github.com/epirecipes).
+from [epirecipes](https://github.com/epirecipes), and [EpiBranch.jl](https://epiforecasts.io/EpiBranch.jl/dev/)
+for branching-process models.
 
 The design builds on work in the epiforecasts corner of code — the modelling
 workflow and the composability grant — that showed how interchangeable parts
