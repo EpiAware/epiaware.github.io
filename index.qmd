@@ -99,9 +99,7 @@ Fast, autodiff-ready, and tightly integrated with Turing.jl, SciML, and the Juli
 
 :::
 
-Aims to support multiple approaches to composing infectious disease models —
-[composing distributions](tutorials/composing-distributions.qmd) into event trees
-or [building from parts with ComposableTuringIDModels](tutorials/assembled-model.qmd).
+Aims to support multiple approaches to composing infectious disease models — [composing distributions](tutorials/composing-distributions.qmd) into event trees, or [assembling a full model from parts](tutorials/assembled-model.qmd).
 
 :::
 
@@ -151,7 +149,7 @@ event_tree(tree)
 params_table(tree)
 priors = build_priors(params_table(tree))
 
-# Simulate a record and score it
+# Draw a synthetic case, or evaluate a real one's likelihood
 rand(tree)
 logpdf(tree, ans)
 ```
@@ -230,7 +228,7 @@ logpdf(tree, ans)
 :::
 
 ```{=html}
-<a href="quickstart.qmd" class="button desktop-only-button">Quick Start &rarr;</a>
+<a href="tutorials/assembled-model.qmd" class="button desktop-only-button">Read the tutorial &rarr;</a>
 ```
 
 ::::
@@ -356,16 +354,10 @@ New to Julia? Start with the [Using Julia](using-julia.qmd) guide.
 :::
 
 ::: {.section-end-space}
-In R we built the [epinowcast](community.qmd) ecosystem and packages such as
-[EpiNow2](https://github.com/epiforecasts/EpiNow2) and
-[scoringutils](https://github.com/epiforecasts/scoringutils), now used by
-academics and public health teams internationally. EpiAware is the Julia
-equivalent: a domain-focused ecosystem in the mould of SciML or Turing.jl,
-with community infrastructure like [rOpenSci](https://ropensci.org) and the
-domain focus of [SpeedyWeather.jl](https://github.com/SpeedyWeather/SpeedyWeather.jl).
+In R we built the [epinowcast](community.qmd) ecosystem and packages such as [EpiNow2](https://github.com/epiforecasts/EpiNow2) and [scoringutils](https://github.com/epiforecasts/scoringutils), now used by academics and public health teams internationally.
+EpiAware is the Julia equivalent, a domain-focused ecosystem in the mould of SciML or Turing.jl, with community infrastructure like [rOpenSci](https://ropensci.org) and the domain focus of [SpeedyWeather.jl](https://github.com/SpeedyWeather/SpeedyWeather.jl).
 
-We are at an early stage and looking for collaborators —
-[here is how to get involved](get-involved.qmd).
+We are at an early stage and looking for collaborators — [here is how to get involved](get-involved.qmd).
 :::
 
 ::::::

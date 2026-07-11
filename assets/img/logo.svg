@@ -20,5 +20,4 @@
   <!-- the bold joint distribution -->
   <path d="M8 50 C 18 50 23 40 30 20 C 33 13 35 11 38 13 C 44 17 49 34 56 46"
         stroke="url(#joint)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="36.5" cy="11.5" r="3" fill="#F2A65A"/>
 </svg>

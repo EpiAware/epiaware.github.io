@@ -6,15 +6,14 @@ date: "2026-07-10"
 categories: [announcement]
 ---
 
-Turing-based composability for infectious disease modelling — the case for
-composable modelling made in the epiforecasts modelling workflow and
-composability grant, now in Julia.
+Turing-based composability for infectious disease modelling.
+This brings the case for composable modelling, made in the epiforecasts modelling workflow and composability grant, into Julia.
 
 - **Aim**: interchangeable components that combine into joint models, propagate
-  uncertainty, and make robust outbreak analysis workflows easier to build.
+  uncertainty, and make outbreak analysis workflows easier to build.
 - **Approach**: multiple interoperable approaches — [composing
-  distributions](tutorials/composing-distributions.qmd) into event trees,
-  [assembling a full model](tutorials/assembled-model.qmd) from parts, and
+  distributions](/tutorials/composing-distributions.qmd) into event trees,
+  [assembling a full model](/tutorials/assembled-model.qmd) from parts, and
   more as the ecosystem grows.
 - **Alongside**: other efforts with the same goal —
   [DDSALineLists.jl](https://github.com/epirecipes/DDSALineLists.jl),
@@ -23,12 +22,11 @@ composability grant, now in Julia.
 
 ## Where it is today
 
-[CensoredDistributions.jl](/packages/censoreddistributions.qmd) is the most
-developed. The joint-modelling and composition packages are in active
-development. Each package's page says how settled it is.
+[CensoredDistributions.jl](/packages/censoreddistributions.qmd) is the most developed.
+The joint-modelling and composition packages are in active development.
+Each package's page says how settled it is.
 
 ## Get involved
 
-Collaborators welcome — code, docs, examples, or a modelling problem. See
-[Get involved](/get-involved.qmd), or start a conversation on the
-[epinowcast forum](https://community.epinowcast.org/).
+Collaborators welcome — code, docs, examples, or a modelling problem.
+See [Get involved](/get-involved.qmd), or start a conversation on the [epinowcast forum](https://community.epinowcast.org/).

@@ -1,7 +1,7 @@
 ---
 title: "Compose distributions into event trees"
-description: "Wire delays into a tree structure with Sequential, Parallel, Resolve, and Compete — one object that simulates and scores a record."
-aliases: [/approaches/composed-distributions.qmd]
+description: "Wire delays into a tree structure with Sequential, Parallel, Resolve, and Compete — one object that simulates a case and fits to observed ones."
+aliases: [/approaches/composed-distributions.html]
 toc: true
 toc-location: left
 ---
@@ -24,8 +24,8 @@ toc-location: left
 :::
 
 A case's progression — onset, admission, death or discharge — is a tree of
-delays. Compose them into one distribution that both simulates and scores
-records, with no separate model for each direction.
+delays. Compose them into one distribution that both simulates cases and fits
+to observed ones, with no separate model for each direction.
 
 :::
 
@@ -36,13 +36,14 @@ records, with no separate model for each direction.
 <span class="feature-icon icon-uncertainty"></span>
 ```
 
-##### Efficient individual-level models
+##### Works with individual records
 
 :::
 
-Each record is scored independently through marginalisation over its observed
-windows — no data aggregation, no per-row likelihood wrangling. The same
-object handles censored, partially observed, and complete records.
+Each line-list record contributes its own likelihood, and the tree fills in
+whichever delays weren't observed for that case.
+The same object handles complete, censored, and partially observed records,
+with no aggregation step.
 
 :::
 
@@ -117,7 +118,7 @@ event_tree(tree)
 params_table(tree)
 priors = build_priors(params_table(tree))
 
-# Simulate a record and score it
+# Draw a synthetic case, or evaluate a real one's likelihood
 rand(tree)
 logpdf(tree, ans)
 ```
@@ -129,49 +130,34 @@ logpdf(tree, ans)
 
 ## The approach
 
-The central idea is that a case's event history is a tree — a root event
-(onset), branches for each subsequent event (admission, notification), and
-disjunctions where the path splits (death vs discharge). Every node is a
-probability distribution over a delay, and the whole tree is itself a
-distribution.
+A case's event history is a tree.
+There is a root event (onset), a branch for each later event (admission, notification), and a split where the path forks (death or discharge).
+Every node is a probability distribution over a delay, and the whole tree is itself a distribution.
 
-This is not a simulation framework that happens to support scoring, or a
-scoring framework that happens to support simulation. The same object is the
-model in both directions: `rand` draws a full event path from the tree,
-`logpdf` scores an observed record against it. The two operations share the
-same internal representation, so a model built for simulation is immediately
-the model used for inference.
+The same object works in both directions.
+`rand` draws a full event path from the tree; `logpdf` gives the likelihood of an observed case.
+Both share one internal representation, so the model you build to simulate is the model you use to fit.
 
-### Marginalisation at the record level
+### Handles partial line-list data
 
-Line-list data is sparse — some delays are observed, some are censored, some
-are missing entirely. Each record supplies only the columns it has, and the
-composed distribution marginalises over the unobserved branches internally.
-This per-record marginalisation is what makes the approach scale to
-individual-level models without per-row likelihood wrangling: the composed
-object carries the censoring structure and applies it per record.
+Line-list data is sparse: some delays are observed, some are censored, some are missing entirely.
+Each case supplies only the delays it has, and the tree accounts for the rest by integrating over the branches it did not see.
+Because each case is handled on its own, the approach works directly on individual-level data — the composed object carries the censoring structure and applies it case by case.
 
-The same machinery handles complete records (all delays observed), censored
-records (some delays interval-censored), and partially observed records (some
-delays missing). The model does not change — only the columns each row
-supplies.
+The same object handles complete cases, censored cases, and partially observed cases.
+The model does not change, only the delays each case supplies.
 
-### A single representation for the workflow
+### One representation across the workflow
 
-The tree representation is not tied to one package or one use. The same object
-that defines a delay distribution for a renewal model also drops into a
-Turing fit unchanged, and the same compositional structure works for
-differentiable-equation models. There is no translation between the
-delay model, the infection model, and the observation model — the composed
-object is the shared vocabulary.
+The tree is not tied to one package or one use.
+The same object that defines a delay distribution for a renewal model drops into a Turing fit unchanged, and the same structure works for differential-equation models.
+There is no translation step between the delay model, the infection model, and the observation model — the composed object is the shared vocabulary.
 
-### Posterior readback through the same tree
+### Read the posterior back through the same tree
 
-After fitting, the posterior is read back by applying the parameter draws to
-the same tree. `update(template, chain)` walks each draw through the tree and
-returns a distribution per draw, so every delay mean, convolution, or
-contrast comes from the fitted object itself — no separate post-processing
-that could drift from the model.
+After fitting, the posterior is read back by applying the parameter draws to the same tree.
+`update(template, chain)` walks each draw through the tree and returns a distribution per draw, so every delay mean, convolution, or contrast comes from the fitted object itself.
+Nothing is recomputed in separate post-processing that could drift from the model.
 
 ## Where next
 

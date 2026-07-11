@@ -11,10 +11,11 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  pull-requests: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: false
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -27,31 +28,56 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Set up Julia
-        uses: julia-actions/setup-julia@v2
-        with:
-          version: '1'
-
-      - name: Cache Julia
-        uses: julia-actions/cache@v2
-
-      # Regenerate the Quick start figures from the latest packages so they
-      # stay current. Best-effort: if it fails, the committed figures are used
-      # and the deploy still proceeds.
-      - name: Regenerate Quick start figures
-        continue-on-error: true
-        run: |
-          julia --project=quickstart quickstart/setup.jl
-          julia --project=quickstart quickstart/gen.jl
-
       - name: Render site
         run: quarto render
+
+      # Preview artifact for pull requests: reviewers can download the rendered
+      # site from the run summary. See the sticky comment posted below.
+      - name: Upload preview artifact
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-preview
+          path: _site
+          retention-days: 14
 
       - name: Upload Pages artifact
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
+
+  preview-comment:
+    name: Comment preview link
+    if: github.event_name == 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post or update preview comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/` +
+              `${context.repo.repo}/actions/runs/${context.runId}`;
+            const marker = '<!-- site-preview -->';
+            const body = `${marker}\n### 📄 Site preview built\n\n` +
+              `The rendered site for this PR is available as the ` +
+              `**site-preview** artifact on ` +
+              `[this run](${runUrl}). Download it and open ` +
+              `\`_site/index.html\` to review.`;
+            const {owner, repo} = context.repo;
+            const issue_number = context.issue.number;
+            const comments = await github.rest.issues.listComments(
+              {owner, repo, issue_number});
+            const existing = comments.data.find(
+              c => c.body && c.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment(
+                {owner, repo, comment_id: existing.id, body});
+            } else {
+              await github.rest.issues.createComment(
+                {owner, repo, issue_number, body});
+            }
 
   deploy:
     name: Deploy to GitHub Pages

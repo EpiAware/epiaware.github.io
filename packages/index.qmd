@@ -96,3 +96,46 @@ ecosystem, including automatic-differentiation tests across backends.
 [GitHub ↗](https://github.com/EpiAware/EpiAwarePackageTools.jl)
 :::
 :::
+
+## Related tools
+
+Other Julia efforts working towards composable, reusable infectious disease
+modelling, built outside EpiAware.
+We think interoperability matters more than where a tool is built, so we link to
+them and aim to work well alongside them.
+
+::: {.library-item}
+::: {.library-main}
+#### [EpiBranch.jl](https://github.com/epiforecasts/EpiBranch.jl)
+Branching process models for infectious disease epidemiology.
+:::
+::: {.library-links}
+[Docs ↗](https://epiforecasts.io/EpiBranch.jl/dev/)
+[GitHub ↗](https://github.com/epiforecasts/EpiBranch.jl)
+:::
+:::
+
+::: {.library-item}
+::: {.library-main}
+#### [DDSALineLists.jl](https://github.com/epirecipes/DDSALineLists.jl)
+Synthetic epidemic line lists from a discrete-time dynamic survival analysis
+generative model.
+:::
+::: {.library-links}
+[GitHub ↗](https://github.com/epirecipes/DDSALineLists.jl)
+:::
+:::
+
+::: {.library-item}
+::: {.library-main}
+#### [CategoricalOutbreaks.jl](https://github.com/epirecipes/CategoricalOutbreaks.jl)
+Categorical outbreak line-list representations and aggregation, built with
+Catlab.
+:::
+::: {.library-links}
+[GitHub ↗](https://github.com/epirecipes/CategoricalOutbreaks.jl)
+:::
+:::
+
+Building something in this space?
+[Tell us on the forum](https://community.epinowcast.org/) and we will add it.

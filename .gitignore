@@ -3,7 +3,5 @@
 *.html.md
 .DS_Store
 .exgen/
-quickstart/Project.toml
-quickstart/Manifest.toml
 .pi-subagents/
 .pi/

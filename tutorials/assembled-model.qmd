@@ -1,7 +1,7 @@
 ---
 title: "Assemble an infectious disease model"
 description: "Build a joint model from a latent process, infection mechanism, and observation layers — all through a single `as_turing_model` interface."
-aliases: [/approaches/assembled-model.qmd]
+aliases: [/approaches/assembled-model.html]
 toc: true
 toc-location: left
 ---
@@ -126,53 +126,33 @@ chain = sample(as_turing_model(model, cases, length(cases)),
 
 ## The approach
 
-ComposableTuringIDModels is a meta-language for composing Turing models — it
-provides the wiring that lets any latent process, infection model, and
-observation layer nest inside one another through the single
-`as_turing_model` interface. An epidemiological model couples three
-processes: what drives transmission over time (the latent process), how that
-driver generates infections (the infection process), and how those infections
-become the observed data (the observation process). The key design choice is
-that each of these is an interchangeable part, and every part speaks the same
-`as_turing_model` interface — so any latent process nests inside any
-infection model, and any observation model wraps the result.
+ComposableTuringIDModels provides the wiring that lets a latent process, an infection model, and an observation model nest inside one another through a single `as_turing_model` interface.
+An epidemiological model couples three processes: what drives transmission over time (the latent process), how that driver generates infections (the infection process), and how those infections become the observed data (the observation process).
+Each of these is an interchangeable part, and every part speaks the same `as_turing_model` interface, so any latent process nests inside any infection model, and any observation model wraps the result.
 
 ### No model rewrites, only part swaps
 
-Changing an assumption means swapping one part for another — replacing the
-renewal equation with exponential growth, switching from Poisson to
-negative-binomial observation, adding a reporting delay. The model structure
-stays the same; the swapped part carries the new assumption. This makes it
-practical to test sensitivity to each modelling choice without maintaining
-N bespoke models for N assumptions.
+Changing an assumption means swapping one part for another: replacing the renewal equation with exponential growth, switching from Poisson to negative-binomial observation, or adding a reporting delay.
+The model structure stays the same and the swapped part carries the new assumption.
+This makes it practical to test sensitivity to each modelling choice without maintaining a separate model for every combination of assumptions.
 
 ### Layered observation models
 
-Real data is never a direct readout of infections. Reporting delays,
-ascertainment (under-reporting), right-truncation, day-of-week effects, and
-count noise each modify how infections become data. These are composable
-modifiers: each wraps the underlying observation model and adds one
-transformation. Layers are added or removed independently — a delay is a
-`LatentDelay` wrapper, ascertainment is an `Ascertainment` wrapper, noise
-is the core error model — and every layer is still a part that speaks
-`as_turing_model`.
+Real data is never a direct readout of infections.
+Reporting delays, ascertainment (under-reporting), right-truncation, day-of-week effects, and count noise each change how infections become data.
+These are composable layers: each wraps the observation model below it and adds one transformation.
+Layers are added or removed independently — a delay is a `LatentDelay` wrapper, ascertainment is an `Ascertainment` wrapper, noise is the core error model — and every layer is still a part that speaks `as_turing_model`.
 
 ### One assembly for the full workflow
 
-The same `IDModel` that defines the joint distribution also generates prior
-predictives, conditions on observed data, runs NUTS inference, and produces
-posterior draws. There is no separate simulation model, inference model, and
-forecasting model — the assembly is the model for every step. This means
-the generative story, the inference, and the forecast all share the same
-structure, and a change to the model propagates through the workflow
-automatically.
+The same `IDModel` that defines the joint distribution also draws from the prior, conditions on observed data, runs inference, and produces posterior draws.
+There is no separate simulation model, inference model, and forecasting model — the assembly is the model for every step.
+The generative story, the inference, and the forecast all share one structure, so a change to the model carries through the whole workflow.
 
 ### Full Turing toolchain
 
-Every assembly is a DynamicPPL model under the hood, so the full Turing
-ecosystem applies: NUTS and Pathfinder for sampling, MCMCThreads for
-parallel chains, prior and posterior predictive checks, and the standard
-Turing diagnostics. There is no separate inference engine to learn.
+Every assembly is a DynamicPPL model underneath, so the full Turing ecosystem applies: NUTS and Pathfinder for sampling, MCMCThreads for parallel chains, prior and posterior predictive checks, and the standard Turing diagnostics.
+There is no separate inference engine to learn.
 
 ## Where next
 
@@ -181,6 +161,6 @@ Turing diagnostics. There is no separate inference engine to learn.
 - See the [overview](https://composableturingidmodels.epiaware.org/dev/overview/)
   for the full design rationale and the nested architecture diagram.
 - Interested in the delay side of the model? See the
-  [composed distributions approach](composed-distributions.qmd).
+  [composing distributions tutorial](composing-distributions.qmd).
 
 ::::::
