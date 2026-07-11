@@ -1,0 +1,172 @@
+---
+title: "Composable Turing models"
+description: "Build a joint model from a latent process, infection mechanism, and observation layers — all through a single `as_turing_model` interface."
+toc: true
+toc-location: left
+---
+
+:::::: {.side-space}
+
+::: {.what-is-turing-grid .section-start-space .section-end-space}
+
+::: {.feature-text-column}
+
+::: {.feature-item}
+::: {.feature-item-header}
+
+```{=html}
+<span class="feature-icon icon-composable"></span>
+```
+
+##### Interchangeable parts, one interface
+
+:::
+
+A model has three roles: latent process, infection mechanism, and observation model.
+Each is an interchangeable part, and all speak the same `as_turing_model` interface, so they nest freely and swap without rewrites.
+
+:::
+
+::: {.feature-item}
+::: {.feature-item-header}
+
+```{=html}
+<span class="feature-icon icon-uncertainty"></span>
+```
+
+##### Uncertainty through the whole model
+
+:::
+
+Uncertainty propagates from the latent process through infection dynamics, reporting delays, ascertainment, and observation noise.
+It is all captured in one posterior from a single fit, not passed between separate models.
+
+:::
+
+::: {.feature-item}
+::: {.feature-item-header}
+
+```{=html}
+<span class="feature-icon icon-response"></span>
+```
+
+##### Built for the workflow, not the model
+
+:::
+
+The same assembly simulates from the prior, conditions on data, nowcasts unobserved infections, and forecasts forward, with no separate model for each step in the analysis workflow.
+
+:::
+
+::: {.feature-cta-button}
+
+```{=html}
+<a href="https://composableturingidmodels.epiaware.org/dev/" class="button btn-lg button--fill">Documentation &rarr;</a>
+```
+
+:::
+
+:::
+
+::: {.code-example-column}
+::: {.code-window .box}
+::: {.code-window-header}
+::: {.code-window-dots}
+
+```{=html}
+<span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+```
+
+:::
+
+::: {.code-window-title}
+
+```{=html}
+<span>renewal_model.jl</span>
+```
+
+:::
+
+:::
+
+```{.julia .code-overflow-scroll}
+using ComposableTuringIDModels, Distributions, Turing
+
+# Renewal infections with inline latent process
+data = IDData(gen_distribution = Gamma(1.4, 1 / 0.38))
+
+model = IDModel(
+    Renewal(data;
+        rt = AR(; ϵ_t = HierarchicalNormal(
+            std_prior = HalfNormal(0.1))),
+        initialisation_prior = Normal(log(1.0), 1.0)),
+
+    # Multiple observation layers:
+    #   delay → ascertainment → negative-binomial noise
+    LatentDelay(
+        Ascertainment(
+            NegativeBinomialError(),
+            ascertainment_prior = Beta(10, 2)),
+        truncated(Normal(5.0, 2.0), 0.0, Inf)))
+
+# Fit to case data with Turing's NUTS
+chain = sample(as_turing_model(model, cases, length(cases)),
+               NUTS(), MCMCThreads(), 1_000, 2)
+```
+
+:::
+:::
+
+:::
+
+## The approach
+
+A model is assembled from small parts rather than written as one bespoke model.
+Each part fills one of three roles: a **latent** process describes an unobserved series over time, such as a log reproduction number or a growth rate; an **infection** process turns that series into unobserved infections, directly or through exponential growth or the renewal equation; and an **observation** process turns infections into the observed data.
+
+### One interface, no type hierarchy
+
+Every part is a plain struct with a single method of `as_turing_model`, which returns a `DynamicPPL.Model`.
+There is no deep type hierarchy — a part is identified by the method it implements, not by its place in a tree.
+That is what makes the parts interchangeable: anything implementing the interface can stand in anywhere the interface is expected.
+
+A part that contains another part builds the inner model and draws it as a **submodel**, so parts nest through the very interface they expose.
+The latent process is not a separate stage bolted on the front; it is folded into the infection model, which takes it as a slot and draws it while building the infections.
+
+### No model rewrites, only part swaps
+
+Changing an assumption means swapping one part for another: replacing the renewal equation with exponential growth, switching from Poisson to negative-binomial observation, or adding a reporting delay.
+The model structure stays the same and the swapped part carries the new assumption.
+This makes it practical to test sensitivity to each modelling choice without maintaining a separate model for every combination of assumptions.
+
+### Layered observation models
+
+Real data is never a direct readout of infections.
+Reporting delays, ascertainment (under-reporting), right-truncation, day-of-week effects, and count noise each change how infections become data.
+These are composable layers: each wraps the observation model below it and adds one transformation.
+Layers are added or removed independently — a delay is a `LatentDelay` wrapper, ascertainment is an `Ascertainment` wrapper, noise is the core error model — and every layer is still a part that speaks `as_turing_model`.
+
+### One assembly for the full workflow
+
+The same `IDModel` that defines the joint distribution also draws from the prior, conditions on observed data, runs inference, and produces posterior draws.
+There is no separate simulation model, inference model, and forecasting model — the assembly is the model for every step.
+The generative story, the inference, and the forecast all share one structure, so a change to the model carries through the whole workflow.
+
+### Full Turing toolchain
+
+Every assembly is a DynamicPPL model underneath, so the full Turing ecosystem applies: NUTS and Pathfinder for sampling, MCMCThreads for parallel chains, prior and posterior predictive checks, and the standard Turing diagnostics.
+There is no separate inference engine to learn.
+
+## Where next
+
+- Run it: the [Tutorials](/tutorials/index.qmd) gallery collects the runnable
+  case studies for this approach, starting with the
+  [overview](https://composableturingidmodels.epiaware.org/dev/overview).
+- The [ComposableTuringIDModels.jl documentation](https://composableturingidmodels.epiaware.org/dev/)
+  covers the part catalogue, design, and worked examples.
+- See the [overview](https://composableturingidmodels.epiaware.org/dev/overview/)
+  for the full design rationale and the nested architecture diagram.
+- Interested in the delay side of the model? See the
+  [composed distributions approach](composed-distributions.qmd).
+
+::::::

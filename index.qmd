@@ -39,7 +39,7 @@ listing:
 
 :::
 
-Small, interchangeable parts — delays, latent processes, infection and observation models — that combine into a full joint model. Swap a part to test a different assumption.
+Small, interchangeable parts — delays, latent processes, infection and observation models — combine into one joint model. Swap a part to test an assumption, keeping a single rigorous model instead of chaining separate ones.
 
 :::
 
@@ -99,9 +99,22 @@ Fast, autodiff-ready, and tightly integrated with Turing.jl, SciML, and the Juli
 
 :::
 
-Aims to support multiple approaches to composing infectious disease models —
-[composing distributions](tutorials/composing-distributions.qmd) into event trees
-or [building from parts with ComposableTuringIDModels](tutorials/assembled-model.qmd).
+Aims to support multiple approaches to composing infectious disease models — [composed distributions](approaches/composed-distributions.qmd) as event trees, or [composable Turing models](approaches/composable-turing-models.qmd) built from parts.
+
+:::
+
+::: {.feature-item}
+::: {.feature-item-header}
+
+```{=html}
+<span class="feature-icon icon-llm"></span>
+```
+
+##### LLM-assisted model building
+
+:::
+
+Named, composable parts give large language models a clear vocabulary to assemble and adapt models from, lowering the barrier to a first analysis.
 
 :::
 
@@ -151,7 +164,7 @@ event_tree(tree)
 params_table(tree)
 priors = build_priors(params_table(tree))
 
-# Simulate a record and score it
+# Draw a synthetic case, or evaluate a real one's likelihood
 rand(tree)
 logpdf(tree, ans)
 ```
@@ -161,6 +174,27 @@ logpdf(tree, ans)
 
 :::
 <!-- What is EpiAware Section Ends Here -->
+
+
+<!-- Why composable Section -->
+:::: {.section-header .section-start-space}
+
+::: {#why-composable}
+
+### Why composable?
+<p>Modelling to inform infectious disease policy has to be timely, rigorous, and collaborative. The usual approaches force a trade-off; composability is a way out.</p>
+
+:::
+
+::::
+
+::: {.section-end-space}
+- **Chaining separate models** is flexible, but passing estimates between stages loses information and can introduce bias.
+- **One joint model** is rigorous, but tends to be monolithic, built for a single problem, and hard to adapt or share.
+- **Composable models** keep the rigour of a joint model and regain the flexibility of separate ones, by building from interchangeable, reusable parts.
+- A domain expert can **contribute one component** without understanding the whole system, and shared parts let teams trace differences to assumptions, not implementation.
+:::
+<!-- Why composable Section Ends Here -->
 
 
 <!-- Core Packages Section -->
@@ -230,7 +264,7 @@ logpdf(tree, ans)
 :::
 
 ```{=html}
-<a href="quickstart.qmd" class="button desktop-only-button">Quick Start &rarr;</a>
+<a href="approaches/composable-turing-models.qmd" class="button desktop-only-button">Read the approach &rarr;</a>
 ```
 
 ::::
@@ -356,16 +390,10 @@ New to Julia? Start with the [Using Julia](using-julia.qmd) guide.
 :::
 
 ::: {.section-end-space}
-In R we built the [epinowcast](community.qmd) ecosystem and packages such as
-[EpiNow2](https://github.com/epiforecasts/EpiNow2) and
-[scoringutils](https://github.com/epiforecasts/scoringutils), now used by
-academics and public health teams internationally. EpiAware is the Julia
-equivalent: a domain-focused ecosystem in the mould of SciML or Turing.jl,
-with community infrastructure like [rOpenSci](https://ropensci.org) and the
-domain focus of [SpeedyWeather.jl](https://github.com/SpeedyWeather/SpeedyWeather.jl).
+In R we built the [epinowcast](community.qmd) ecosystem and packages such as [EpiNow2](https://github.com/epiforecasts/EpiNow2) and [scoringutils](https://github.com/epiforecasts/scoringutils), now used by academics and public health teams internationally.
+EpiAware is the Julia equivalent, a domain-focused ecosystem in the mould of SciML or Turing.jl, with community infrastructure like [rOpenSci](https://ropensci.org) and the domain focus of [SpeedyWeather.jl](https://github.com/SpeedyWeather/SpeedyWeather.jl).
 
-We are at an early stage and looking for collaborators —
-[here is how to get involved](get-involved.qmd).
+We are at an early stage and looking for collaborators — [here is how to get involved](get-involved.qmd).
 :::
 
 ::::::

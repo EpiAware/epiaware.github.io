@@ -1,8 +1,0 @@
----
-title: "Tutorials"
-description: "Worked examples using the EpiAware packages together."
-aliases: [/tutorials]
-redirect: tutorials/index.qmd
----
-
-This page has moved. See the [tutorials index](tutorials/index.qmd).

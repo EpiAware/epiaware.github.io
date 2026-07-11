@@ -17,16 +17,18 @@ website:
     title: "EpiAware"
     search: true
     left:
-      - text: Tutorials
+      - text: Approaches
         menu:
-          - text: Compose distributions into event trees
-            href: tutorials/composing-distributions.qmd
-          - text: Assemble a Turing model
-            href: tutorials/assembled-model.qmd
+          - text: Overview
+            href: approaches/index.qmd
+          - text: Composed distributions
+            href: approaches/composed-distributions.qmd
+          - text: Composable Turing models
+            href: approaches/composable-turing-models.qmd
+      - text: Tutorials
+        href: tutorials/index.qmd
       - text: Docs
         href: packages/index.qmd
-      - text: Tutorials
-        href: tutorials.qmd
       - text: News
         href: news/index.qmd
       - text: Gallery
@@ -52,8 +54,9 @@ website:
           - text: epinowcast & the forum
             href: community.qmd
     right:
-      - text: Forum
+      - icon: discourse
         href: https://community.epinowcast.org/
+        aria-label: epinowcast community forum
       - icon: github
         href: https://github.com/EpiAware
         aria-label: EpiAware on GitHub
@@ -68,9 +71,10 @@ website:
         href: get-involved.qmd
       - text: Funding
         href: funding.qmd
-      - text: epinowcast forum
-        href: https://community.epinowcast.org/
     right:
+      - icon: discourse
+        href: https://community.epinowcast.org/
+        aria-label: epinowcast community forum
       - icon: github
         href: https://github.com/EpiAware
         aria-label: GitHub

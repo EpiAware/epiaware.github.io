@@ -1,41 +1,26 @@
 ---
 title: "Approaches"
-description: "Two ways to work with EpiAware — composing distributions into event trees, or assembling a full infection model from interchangeable parts."
+description: "Ways to build composable infectious disease models with EpiAware. Pick one, or combine them in a single analysis."
 toc: false
 ---
 
-The EpiAware ecosystem supports two complementary ways of thinking about
-infectious disease data. Both work with the same underlying packages, and they
-can be combined in a single analysis.
+We are trying more than one way to compose infectious disease models, and keeping them interoperable.
+Each approach is described here at a high level, and the [Tutorials](/tutorials/index.qmd) gallery collects the runnable walkthroughs that go with it.
+More approaches may join these as the ecosystem grows.
 
-::: {.approach-cards style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;"}
-
-::: {.approach-card style="border: 1px solid var(--border-color, #e6ebf0); border-radius: 12px; padding: 2rem; background: var(--bs-card-bg, #fbfcfd);"}
-
-### Composing distributions
-
-Model a case's progression as a tree of delays — incubation, admission,
-competing outcomes — using `Sequential`, `Parallel`, `Resolve`, and `Compete`
-from ComposedDistributions.jl. One object simulates and scores a record.
-
-```{=html}
-<a href="../tutorials/composing-distributions.qmd" class="button btn-lg button--fill" style="display: inline-block; margin-top: 1rem;">Explore &rarr;</a>
-```
-
+::: {.feature-grid}
+::: {.feature-card}
+### Composed distributions
+Model a case's progression as a tree of delays — onset, admission, competing outcomes — with `Sequential`, `Parallel`, `Resolve`, and `Compete`.
+One object simulates a case and fits to observed ones, so the same model serves line lists and the delay distributions inside larger models.
+[Read the approach &rarr;](composed-distributions.qmd)
 :::
-
-::: {.approach-card style="border: 1px solid var(--border-color, #e6ebf0); border-radius: 12px; padding: 2rem; background: var(--bs-card-bg, #fbfcfd);"}
-
+::: {.feature-card}
 ### Composable Turing models
-
-Build a joint model from a latent process, an infection mechanism, and
-observation layers — all interchangeable parts that plug together through the
-single `as_turing_model` interface provided by ComposableTuringIDModels.jl.
-
-```{=html}
-<a href="../tutorials/assembled-model.qmd" class="button btn-lg button--fill" style="display: inline-block; margin-top: 1rem;">Explore &rarr;</a>
-```
-
+Assemble a joint model from a latent process, an infection mechanism, and observation layers, all through one `as_turing_model` interface.
+Swap any part to change an assumption, keeping a single rigorous model instead of chaining separate ones.
+[Read the approach &rarr;](composable-turing-models.qmd)
+:::
 :::
 
-:::
+Both work with the same underlying packages, and they can be combined in one analysis.
