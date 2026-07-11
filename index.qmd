@@ -25,7 +25,7 @@ listing:
 
 <!-- Thesis lead -->
 ::: {.lead .text-center .section-start-space}
-Modelling to inform outbreak decisions has to be timely, rigorous, and collaborative, yet the usual choices force a trade-off.
+Modelling to inform infectious disease policy, in both routine surveillance and outbreak response, has to be timely, rigorous, and collaborative, yet the usual choices force a trade-off.
 Chaining separate models is flexible but loses information and introduces bias; a single joint model is rigorous but hard to reuse or adapt.
 EpiAware builds models from interchangeable, reusable parts so they can be all three at once, and so domain experts can contribute a component without owning the whole model.
 :::
