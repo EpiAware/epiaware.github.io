@@ -1,0 +1,190 @@
+---
+title: "Compose distributions into event trees"
+description: "Wire delays into a tree structure with Sequential, Parallel, Resolve, and Compete — one object that simulates and scores a record."
+aliases: [/approaches/composed-distributions.qmd]
+toc: true
+toc-location: left
+---
+
+:::::: {.side-space}
+
+::: {.what-is-turing-grid .section-start-space .section-end-space}
+
+::: {.feature-text-column}
+
+::: {.feature-item}
+::: {.feature-item-header}
+
+```{=html}
+<span class="feature-icon icon-composable"></span>
+```
+
+##### Composing trees of events
+
+:::
+
+A case's progression — onset, admission, death or discharge — is a tree of
+delays. Compose them into one distribution that both simulates and scores
+records, with no separate model for each direction.
+
+:::
+
+::: {.feature-item}
+::: {.feature-item-header}
+
+```{=html}
+<span class="feature-icon icon-uncertainty"></span>
+```
+
+##### Efficient individual-level models
+
+:::
+
+Each record is scored independently through marginalisation over its observed
+windows — no data aggregation, no per-row likelihood wrangling. The same
+object handles censored, partially observed, and complete records.
+
+:::
+
+::: {.feature-item}
+::: {.feature-item-header}
+
+```{=html}
+<span class="feature-icon icon-response"></span>
+```
+
+##### Same representation, multiple uses
+
+:::
+
+The same tree representation works for delay distributions in renewal
+processes, for observation models in Turing fits, and for dropping into
+composable differentiable-equation models — no translation step.
+
+:::
+
+::: {.feature-cta-button}
+
+```{=html}
+<a href="https://composeddistributions.epiaware.org/dev/" class="button btn-lg button--fill">Documentation &rarr;</a>
+```
+
+:::
+
+:::
+
+::: {.code-example-column}
+::: {.code-window .box}
+::: {.code-window-header}
+::: {.code-window-dots}
+
+```{=html}
+<span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+```
+
+:::
+
+::: {.code-window-title}
+
+```{=html}
+<span>composed_delays.jl</span>
+```
+
+:::
+
+:::
+
+```{.julia .code-overflow-scroll}
+using ComposedDistributions, Distributions
+
+# BDBV-inspired delay tree: parallel pathways
+# with Sequential, Resolve, and Compete nested together
+tree = compose((
+    clinical = sequential(
+        :onset_admit => Gamma(1.2, 3.0),
+        :admit_resolve => resolve(
+            :death => (Gamma(2.0, 3.5), 0.3),
+            :discharge => (Gamma(1.0, 8.0), 0.7))),
+    surveillance = sequential(
+        :onset_notif => Gamma(0.7, 20.0),
+        :notif_compete => compete(
+            :confirmed => Gamma(2.0, 1.0),
+            :lost => Gamma(5.0, 0.5))),
+))
+
+# Inspect tree, params, and default priors
+event_tree(tree)
+params_table(tree)
+priors = build_priors(params_table(tree))
+
+# Simulate a record and score it
+rand(tree)
+logpdf(tree, ans)
+```
+
+:::
+:::
+
+:::
+
+## The approach
+
+The central idea is that a case's event history is a tree — a root event
+(onset), branches for each subsequent event (admission, notification), and
+disjunctions where the path splits (death vs discharge). Every node is a
+probability distribution over a delay, and the whole tree is itself a
+distribution.
+
+This is not a simulation framework that happens to support scoring, or a
+scoring framework that happens to support simulation. The same object is the
+model in both directions: `rand` draws a full event path from the tree,
+`logpdf` scores an observed record against it. The two operations share the
+same internal representation, so a model built for simulation is immediately
+the model used for inference.
+
+### Marginalisation at the record level
+
+Line-list data is sparse — some delays are observed, some are censored, some
+are missing entirely. Each record supplies only the columns it has, and the
+composed distribution marginalises over the unobserved branches internally.
+This per-record marginalisation is what makes the approach scale to
+individual-level models without per-row likelihood wrangling: the composed
+object carries the censoring structure and applies it per record.
+
+The same machinery handles complete records (all delays observed), censored
+records (some delays interval-censored), and partially observed records (some
+delays missing). The model does not change — only the columns each row
+supplies.
+
+### A single representation for the workflow
+
+The tree representation is not tied to one package or one use. The same object
+that defines a delay distribution for a renewal model also drops into a
+Turing fit unchanged, and the same compositional structure works for
+differentiable-equation models. There is no translation between the
+delay model, the infection model, and the observation model — the composed
+object is the shared vocabulary.
+
+### Posterior readback through the same tree
+
+After fitting, the posterior is read back by applying the parameter draws to
+the same tree. `update(template, chain)` walks each draw through the tree and
+returns a distribution per draw, so every delay mean, convolution, or
+contrast comes from the fitted object itself — no separate post-processing
+that could drift from the model.
+
+## Where next
+
+- The [ComposedDistributions.jl documentation](https://composeddistributions.epiaware.org/dev/)
+  covers the full API and worked examples.
+- [ConvolvedDistributions.jl](https://convolveddistributions.epiaware.org/) handles
+  the convolutions (sums) of delays that arise naturally in event trees.
+- [ModifiedDistributions.jl](https://modifieddistributions.epiaware.org/) lets you
+  rescale, weight, or otherwise transform individual leaves without changing the
+  tree structure.
+- [CensoredDistributions.jl](https://censoreddistributions.epiaware.org/) adds
+  the censoring layer for real line-list data.
+- Ready to fit a full model with infection dynamics? See the
+  [assembled model approach](assembled-model.qmd).
+
+::::::

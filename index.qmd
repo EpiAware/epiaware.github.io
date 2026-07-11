@@ -54,7 +54,7 @@ Small, interchangeable parts — delays, latent processes, infection and observa
 
 :::
 
-Uncertainty propagated correctly from the latent process through infection dynamics and observation. Full Bayesian inference via Turing.jl's NUTS sampler.
+Uncertainty propagated correctly from the latent process through infection dynamics and observation.
 
 :::
 
@@ -88,11 +88,20 @@ Fast, autodiff-ready, and tightly integrated with Turing.jl, SciML, and the Juli
 
 :::
 
-::: {.feature-cta-button}
+::: {.feature-item}
+::: {.feature-item-header}
 
 ```{=html}
-<a href="quickstart.qmd" class="button btn-lg button--fill">Get Started</a>
+<span class="feature-icon icon-approaches"></span>
 ```
+
+##### Multiple approaches
+
+:::
+
+Aims to support multiple approaches to composing infectious disease models —
+[composing distributions](tutorials/composing-distributions.qmd) into event trees
+or [building from parts with ComposableTuringIDModels](tutorials/assembled-model.qmd).
 
 :::
 
@@ -120,19 +129,24 @@ Fast, autodiff-ready, and tightly integrated with Turing.jl, SciML, and the Juli
 :::
 
 ```{.julia .code-overflow-scroll}
-using ComposedDistributions, ModifiedDistributions, Distributions
+using ComposedDistributions, Distributions
 
-# A delay tree: incubation → competing outcomes
-tree = Sequential([
-    Gamma(2.0, 1.5),                 # incubation period
+# BDBV-inspired delay tree: parallel pathways
+# with Sequential, Resolve, and Compete nested together
+tree = compose((
+    clinical = sequential(
+        :onset_admit => Gamma(1.2, 3.0),
+        :admit_resolve => resolve(
+            :death => (Gamma(2.0, 3.5), 0.3),
+            :discharge => (Gamma(1.0, 8.0), 0.7))),
+    surveillance = sequential(
+        :onset_notif => Gamma(0.7, 20.0),
+        :notif_compete => compete(
+            :confirmed => Gamma(2.0, 1.0),
+            :lost => Gamma(5.0, 0.5))),
+))
 
-    # compete/recover branches
-    resolve(:death   => (Gamma(2.0, 3.0), 0.3),   # 30% fatal
-            :recover => (LogNormal(2.0, 0.8), 0.5), # 50% recover
-            :hosp    => LogNormal(1.5, 0.6)),       # 20% hospitalised
-])
-
-# Inspect the tree, parameter inventory, and default priors
+# Inspect tree, params, and default priors
 event_tree(tree)
 params_table(tree)
 priors = build_priors(params_table(tree))

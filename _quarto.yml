@@ -17,8 +17,12 @@ website:
     title: "EpiAware"
     search: true
     left:
-      - text: Quick start
-        href: quickstart.qmd
+      - text: Tutorials
+        menu:
+          - text: Compose distributions into event trees
+            href: tutorials/composing-distributions.qmd
+          - text: Assemble a Turing model
+            href: tutorials/assembled-model.qmd
       - text: Docs
         href: packages/index.qmd
       - text: Tutorials

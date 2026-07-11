@@ -1,22 +1,8 @@
 ---
 title: "Tutorials"
 description: "Worked examples using the EpiAware packages together."
+aliases: [/tutorials]
+redirect: tutorials/index.qmd
 ---
 
-Tutorials that use the packages together — building a small joint model from
-composable parts — are on the way. They are not ready yet; we would rather
-publish a few good end-to-end examples than a long list of stubs.
-
-In the meantime:
-
-- Each package's own documentation includes worked examples — see the
-  [Packages](packages/index.qmd) page.
-  [CensoredDistributions.jl](https://censoreddistributions.epiaware.org/)
-  has the most complete set, including fitting delay distributions with
-  [Turing.jl](https://turinglang.org).
-- The [Bayesian Workflow](https://avehtari.github.io/Bayesian-Workflow/) book and
-  [a workflow for infectious disease modelling](https://github.com/seabbs/a-workflow-for-infectious-disease-modelling)
-  give the modelling approach these tools are designed to support.
-
-Have a tutorial you'd like to see, or one you'd like to write? Suggest it on the
-[forum](https://community.epinowcast.org/) or see [Contributing](contributing.qmd).
+This page has moved. See the [tutorials index](tutorials/index.qmd).
