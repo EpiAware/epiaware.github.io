@@ -1,7 +1,6 @@
 ---
-title: "Assemble an infectious disease model"
+title: "Composable Turing models"
 description: "Build a joint model from a latent process, infection mechanism, and observation layers — all through a single `as_turing_model` interface."
-aliases: [/approaches/assembled-model.html]
 toc: true
 toc-location: left
 ---
@@ -157,6 +156,6 @@ There is no separate inference engine to learn.
 - See the [overview](https://composableturingidmodels.epiaware.org/dev/overview/)
   for the full design rationale and the nested architecture diagram.
 - Interested in the delay side of the model? See the
-  [composing distributions tutorial](composing-distributions.qmd).
+  [composed distributions approach](composed-distributions.qmd).
 
 ::::::

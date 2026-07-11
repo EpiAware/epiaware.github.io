@@ -1,7 +1,6 @@
 ---
-title: "Compose distributions into event trees"
+title: "Composed distributions"
 description: "Wire delays into a tree structure with Sequential, Parallel, Resolve, and Compete — one object that simulates a case and fits to observed ones."
-aliases: [/approaches/composed-distributions.html]
 toc: true
 toc-location: left
 ---
@@ -166,6 +165,6 @@ Nothing is recomputed in separate post-processing that could drift from the mode
 - [CensoredDistributions.jl](https://censoreddistributions.epiaware.org/) adds
   the censoring layer for real line-list data.
 - Ready to fit a full model with infection dynamics? See the
-  [assembled model approach](assembled-model.qmd).
+  [composable Turing models approach](composable-turing-models.qmd).
 
 ::::::

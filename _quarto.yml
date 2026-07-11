@@ -17,6 +17,14 @@ website:
     title: "EpiAware"
     search: true
     left:
+      - text: Approaches
+        menu:
+          - text: Overview
+            href: approaches/index.qmd
+          - text: Composed distributions
+            href: approaches/composed-distributions.qmd
+          - text: Composable Turing models
+            href: approaches/composable-turing-models.qmd
       - text: Tutorials
         href: tutorials/index.qmd
       - text: Docs

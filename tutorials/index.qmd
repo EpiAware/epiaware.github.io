@@ -1,32 +1,29 @@
 ---
 title: "Tutorials"
-description: "Worked examples using the EpiAware packages together."
+description: "Runnable, worked examples using the EpiAware packages together."
+toc: false
 ---
 
-## Get started
-
-Two tutorials, one for each approach.
-Start with whichever fits your question — they can be combined in a single analysis.
+Worked examples that run the packages together on a real modelling task, one per [approach](/approaches/index.qmd).
+We are adding these as executed pages on this site.
+Until each lands here, its approach links to a runnable walkthrough in the package's own documentation.
 
 ::: {.feature-grid}
 ::: {.feature-card}
-### Compose distributions into event trees
-Wire delays into a tree with `Sequential`, `Parallel`, `Resolve`, and `Compete`.
-One object simulates a case and fits to observed ones.
-[Start tutorial &rarr;](composing-distributions.qmd)
+### Composed distributions
+Compose, censor, and modify delay distributions together on line-list data — ComposedDistributions, CensoredDistributions, and ModifiedDistributions in one workflow.
+[Read the approach &rarr;](/approaches/composed-distributions.qmd)
+
+[Runnable walkthrough ↗](https://composeddistributions.epiaware.org/dev/getting-started/)
 :::
 ::: {.feature-card}
-### Assemble an infectious disease model
-Build a joint model from a latent process, an infection mechanism, and observation layers.
-Every part is swappable through the one `as_turing_model` interface.
-[Start tutorial &rarr;](assembled-model.qmd)
+### Composable Turing models
+Assemble and fit a joint infection model from interchangeable latent, infection, and observation parts.
+[Read the approach &rarr;](/approaches/composable-turing-models.qmd)
+
+[Runnable walkthrough ↗](https://composableturingidmodels.epiaware.org/dev/overview/)
 :::
 :::
 
-## Further reading
-
-- Each package's own documentation has worked examples — see the [Packages](/packages/index.qmd) page.
-- [CensoredDistributions.jl](https://censoreddistributions.epiaware.org/) has the most complete set, including a full BDBV line-list analysis.
-- The [Bayesian Workflow](https://avehtari.github.io/Bayesian-Workflow/) book gives the modelling approach these tools support.
-
-Have a tutorial you'd like to see? Suggest it on the [forum](https://community.epinowcast.org/) or see [Contributing](/contributing.qmd).
+Have a tutorial you'd like to see?
+Suggest it on the [forum](https://community.epinowcast.org/) or see [Contributing](/contributing.qmd).

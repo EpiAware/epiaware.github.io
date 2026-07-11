@@ -1,0 +1,26 @@
+---
+title: "Approaches"
+description: "Ways to build composable infectious disease models with EpiAware. Pick one, or combine them in a single analysis."
+toc: false
+---
+
+We are trying more than one way to compose infectious disease models, and keeping them interoperable.
+Each approach is described here at a high level, with a runnable tutorial that puts the packages to work together.
+More may join these as the ecosystem grows.
+
+::: {.feature-grid}
+::: {.feature-card}
+### Composed distributions
+Model a case's progression as a tree of delays — onset, admission, competing outcomes — with `Sequential`, `Parallel`, `Resolve`, and `Compete`.
+One object simulates a case and fits to observed ones, so the same model serves line lists and the delay distributions inside larger models.
+[Read the approach &rarr;](composed-distributions.qmd)
+:::
+::: {.feature-card}
+### Composable Turing models
+Assemble a joint model from a latent process, an infection mechanism, and observation layers, all through one `as_turing_model` interface.
+Swap any part to change an assumption, keeping a single rigorous model instead of chaining separate ones.
+[Read the approach &rarr;](composable-turing-models.qmd)
+:::
+:::
+
+Both work with the same underlying packages, and they can be combined in one analysis.
