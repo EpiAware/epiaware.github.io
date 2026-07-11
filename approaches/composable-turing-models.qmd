@@ -121,9 +121,17 @@ chain = sample(as_turing_model(model, cases, length(cases)),
 
 ## The approach
 
-ComposableTuringIDModels provides the wiring that lets a latent process, an infection model, and an observation model nest inside one another through a single `as_turing_model` interface.
-An epidemiological model couples three processes: what drives transmission over time (the latent process), how that driver generates infections (the infection process), and how those infections become the observed data (the observation process).
-Each of these is an interchangeable part, and every part speaks the same `as_turing_model` interface, so any latent process nests inside any infection model, and any observation model wraps the result.
+A model is assembled from small parts rather than written as one bespoke model.
+Each part fills one of three roles: a **latent** process describes an unobserved series over time, such as a log reproduction number or a growth rate; an **infection** process turns that series into unobserved infections, directly or through exponential growth or the renewal equation; and an **observation** process turns infections into the observed data.
+
+### One interface, no type hierarchy
+
+Every part is a plain struct with a single method of `as_turing_model`, which returns a `DynamicPPL.Model`.
+There is no deep type hierarchy — a part is identified by the method it implements, not by its place in a tree.
+That is what makes the parts interchangeable: anything implementing the interface can stand in anywhere the interface is expected.
+
+A part that contains another part builds the inner model and draws it as a **submodel**, so parts nest through the very interface they expose.
+The latent process is not a separate stage bolted on the front; it is folded into the infection model, which takes it as a slot and draws it while building the infections.
 
 ### No model rewrites, only part swaps
 

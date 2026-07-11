@@ -132,14 +132,48 @@ The same object works in both directions.
 `rand` draws a full event path from the tree; `logpdf` gives the likelihood of an observed case.
 Both share one internal representation, so the model you build to simulate is the model you use to fit.
 
+### Four layers
+
+The approach is built in four layers, each resting on the one before.
+
+- **Leaves** are any Distributions.jl `UnivariateDistribution`, used directly as the per-event delays.
+- **Composers** wire named leaves into an event tree.
+- **Combination and lowering** join or collapse whole delays with `convolved`, `difference`, and `observed_distribution`.
+- **Parameters and edits** read and reshape an assembled tree with `params_table`, `build_priors`, `update`, `prune`, and `splice`.
+
+### Five composers
+
+Five composers cover the ways an event history can branch.
+
+- `Sequential` chains steps in series.
+- `Parallel` fans branches off one shared origin.
+- `Resolve` gives a one-of outcome as a fixed-probability mixture.
+- `Compete` gives a one-of outcome as racing hazards.
+- `Choose` picks a branch from a field in the data.
+
+The `compose` front-end lowers a NamedTuple, a Tables.jl table, or a nested matrix onto the same stack, so a tree can be written by hand or built straight from a line list.
+
 ### Handles partial line-list data
 
 Line-list data is sparse: some delays are observed, some are censored, some are missing entirely.
 Each case supplies only the delays it has, and the tree accounts for the rest by integrating over the branches it did not see.
-Because each case is handled on its own, the approach works directly on individual-level data — the composed object carries the censoring structure and applies it case by case.
+Because each case is handled on its own, the approach works directly on individual-level data.
 
 The same object handles complete cases, censored cases, and partially observed cases.
 The model does not change, only the delays each case supplies.
+
+### Censoring and modifiers compose as leaves
+
+Real line-list delays are rarely clean, and the corrections are part of the model rather than a preprocessing step.
+[CensoredDistributions.jl](https://censoreddistributions.epiaware.org/) supplies censoring leaves for primary-event censoring, interval censoring, and truncation.
+[ModifiedDistributions.jl](https://modifieddistributions.epiaware.org/) supplies modifier leaves that rescale, weight, or transform a delay.
+Both are leaves like any other, so they slot into the tree and the composers peel through them to reach the free delay underneath.
+
+### Uncertainty in the parameters themselves
+
+A delay taken from the literature rarely comes with exact parameters.
+`uncertain` wraps a leaf whose parameters are themselves distributions, nested to any depth.
+The result is still a univariate distribution, so it composes as a leaf everywhere, and `has_uncertain` guards against forgetting to pin it down before fitting.
 
 ### One representation across the workflow
 
