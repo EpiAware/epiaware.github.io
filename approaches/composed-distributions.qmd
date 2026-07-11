@@ -189,6 +189,9 @@ Nothing is recomputed in separate post-processing that could drift from the mode
 
 ## Where next
 
+- Run it: the [Tutorials](/tutorials/index.qmd) gallery collects the runnable
+  walkthroughs for this approach, starting with
+  [composing distributions](https://composeddistributions.epiaware.org/dev/getting-started/tutorials/composing-distributions).
 - The [ComposedDistributions.jl documentation](https://composeddistributions.epiaware.org/dev/)
   covers the full API and worked examples.
 - [ConvolvedDistributions.jl](https://convolveddistributions.epiaware.org/) handles

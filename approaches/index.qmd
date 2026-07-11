@@ -5,8 +5,8 @@ toc: false
 ---
 
 We are trying more than one way to compose infectious disease models, and keeping them interoperable.
-Each approach is described here at a high level, with a runnable tutorial that puts the packages to work together.
-More may join these as the ecosystem grows.
+Each approach is described here at a high level, and the [Tutorials](/tutorials/index.qmd) gallery collects the runnable walkthroughs that go with it.
+More approaches may join these as the ecosystem grows.
 
 ::: {.feature-grid}
 ::: {.feature-card}

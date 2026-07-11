@@ -159,6 +159,9 @@ There is no separate inference engine to learn.
 
 ## Where next
 
+- Run it: the [Tutorials](/tutorials/index.qmd) gallery collects the runnable
+  case studies for this approach, starting with the
+  [overview](https://composableturingidmodels.epiaware.org/dev/overview).
 - The [ComposableTuringIDModels.jl documentation](https://composableturingidmodels.epiaware.org/dev/)
   covers the part catalogue, design, and worked examples.
 - See the [overview](https://composableturingidmodels.epiaware.org/dev/overview/)
