@@ -1,6 +1,21 @@
 /* Structural rules shared across the light and dark themes.
    Colour tokens live in theme-light.scss / theme-dark.scss. */
 
+/* Discourse icon --------------------------------------------------------- */
+/* Bootstrap Icons (as bundled with this Quarto version) has no discourse
+   glyph, so draw the mark from an SVG mask that inherits the text colour and
+   therefore works in both light and dark themes. */
+.bi-discourse::before {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  background-color: currentColor;
+  -webkit-mask: url("/assets/img/discourse.svg") center / contain no-repeat;
+  mask: url("/assets/img/discourse.svg") center / contain no-repeat;
+}
+
 /* Button fill style (Turing-like) ---------------------------------------- */
 .button--fill {
   background: var(--epi-primary, #0f7c8f);

@@ -23,9 +23,8 @@ toc-location: left
 
 :::
 
-A case's progression — onset, admission, death or discharge — is a tree of
-delays. Compose them into one distribution that both simulates cases and fits
-to observed ones, with no separate model for each direction.
+A case's progression — onset, admission, death or discharge — is a tree of delays.
+Compose them into one distribution that both simulates cases and fits to observed ones, with no separate model for each direction.
 
 :::
 
@@ -40,10 +39,8 @@ to observed ones, with no separate model for each direction.
 
 :::
 
-Each line-list record contributes its own likelihood, and the tree fills in
-whichever delays weren't observed for that case.
-The same object handles complete, censored, and partially observed records,
-with no aggregation step.
+Each line-list record contributes its own likelihood, and the tree fills in whichever delays weren't observed for that case.
+The same object handles complete, censored, and partially observed records, with no aggregation step.
 
 :::
 
@@ -58,9 +55,7 @@ with no aggregation step.
 
 :::
 
-The same tree representation works for delay distributions in renewal
-processes, for observation models in Turing fits, and for dropping into
-composable differentiable-equation models — no translation step.
+The same tree works for delay distributions in renewal processes, for observation models in Turing fits, and for dropping into differential-equation models, with no translation step.
 
 :::
 

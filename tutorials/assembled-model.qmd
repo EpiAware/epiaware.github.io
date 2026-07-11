@@ -23,9 +23,8 @@ toc-location: left
 
 :::
 
-A model has three roles — latent process, infection mechanism, observation
-model. Each is an interchangeable part; all speak the same
-`as_turing_model` interface, so they nest freely and swap without rewrites.
+A model has three roles: latent process, infection mechanism, and observation model.
+Each is an interchangeable part, and all speak the same `as_turing_model` interface, so they nest freely and swap without rewrites.
 
 :::
 
@@ -36,13 +35,12 @@ model. Each is an interchangeable part; all speak the same
 <span class="feature-icon icon-uncertainty"></span>
 ```
 
-##### Uncertainty through the full pipeline
+##### Uncertainty through the whole model
 
 :::
 
-Uncertainty propagates from the latent process through infection dynamics,
-reporting delays, ascertainment, and observation noise — all captured in one
-posterior via the same inference engine.
+Uncertainty propagates from the latent process through infection dynamics, reporting delays, ascertainment, and observation noise.
+It is all captured in one posterior from a single fit, not passed between separate models.
 
 :::
 
@@ -57,9 +55,7 @@ posterior via the same inference engine.
 
 :::
 
-The same assembly simulates from the prior, conditions on data, nowcasts
-unobserved infections, and forecasts forward — no separate model for each
-step in the analysis workflow.
+The same assembly simulates from the prior, conditions on data, nowcasts unobserved infections, and forecasts forward, with no separate model for each step in the analysis workflow.
 
 :::
 

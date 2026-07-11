@@ -39,7 +39,7 @@ listing:
 
 :::
 
-Small, interchangeable parts — delays, latent processes, infection and observation models — that combine into a full joint model. Swap a part to test a different assumption.
+Small, interchangeable parts — delays, latent processes, infection and observation models — combine into one joint model. Swap a part to test an assumption, keeping a single rigorous model instead of chaining separate ones.
 
 :::
 
