@@ -58,14 +58,6 @@ The same assembly simulates from the prior, conditions on data, nowcasts unobser
 
 :::
 
-::: {.feature-cta-button}
-
-```{=html}
-<a href="https://composableturingidmodels.epiaware.org/dev/" class="button btn-lg button--fill">Documentation &rarr;</a>
-```
-
-:::
-
 :::
 
 ::: {.code-example-column}

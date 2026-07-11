@@ -1,0 +1,43 @@
+---
+title: "Resources"
+description: "Background reading, workflows, and the wider toolset around EpiAware."
+toc: true
+---
+
+Material worth reading alongside the packages.
+None of this is built with EpiAware; it is the thinking and the tooling the work grows out of.
+
+## The case for composable models
+
+The argument behind EpiAware, set out in full.
+It covers why modelling evidence has to be timely, rigorous, and collaborative, why chaining models or building one monolithic model each give something up, and what a composable alternative looks like.
+
+- [Composable probabilistic models can lower barriers to rigorous infectious disease modelling](https://epiaware.org/ComposableProbabilisticIDModels/paper.html) — the paper.
+- [Case studies](https://epiaware.org/ComposableProbabilisticIDModels/case-studies.html) — published analyses replicated with composed components.
+
+## Modelling workflow
+
+- [A workflow for infectious disease modelling](https://github.com/seabbs/a-workflow-for-infectious-disease-modelling) — an end-to-end workflow for real-time analysis.
+  It is the approach the composable components are designed to support.
+- [Bayesian Workflow](https://avehtari.github.io/Bayesian-Workflow/) — the general modelling workflow these tools sit inside.
+
+## The R ecosystem
+
+EpiAware brings this work to Julia.
+The R packages remain the more mature route for most real-time analysis today.
+
+- [EpiNow2](https://github.com/epiforecasts/EpiNow2) — reproduction numbers, growth rates, and nowcasts from delayed, right-truncated data.
+- [epinowcast](https://www.epinowcast.org) — nowcasting incident cases, and the partner community behind much of this work.
+- [primarycensored](https://github.com/epinowcast/primarycensored) — delay distributions with primary event censoring.
+- [scoringutils](https://github.com/epiforecasts/scoringutils) — scoring and comparing probabilistic forecasts.
+
+See [epinowcast & the forum](community.qmd) for more on the partner community.
+
+## Other Julia tools
+
+Other efforts working towards composable infectious disease modelling, built outside EpiAware.
+They are listed with the packages, on the [Packages](packages/index.qmd#related-tools) page.
+
+## Learning Julia
+
+New to the language? Start with the [Using Julia](using-julia.qmd) guide.

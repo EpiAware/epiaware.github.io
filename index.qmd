@@ -177,16 +177,12 @@ logpdf(tree, ans)
 
 
 <!-- Why composable Section -->
-:::: {.section-header .section-start-space}
-
-::: {#why-composable}
+::: {#why-composable .section-start-space}
 
 ### Why composable?
-<p>Modelling to inform infectious disease policy has to be timely, rigorous, and collaborative. The usual approaches force a trade-off; composability is a way out.</p>
+<p>Modelling to inform infectious disease policy has to be timely, rigorous, and collaborative. The usual approaches force a trade-off, and composability is a way out.</p>
 
 :::
-
-::::
 
 ::: {.section-end-space}
 - **Chaining separate models** is flexible, but passing estimates between stages loses information and can introduce bias.
@@ -253,71 +249,6 @@ logpdf(tree, ans)
 <!-- Core Packages Section Ends Here -->
 
 
-<!-- A model built from parts Section -->
-:::: {.section-header .section-start-space}
-
-::: {#model}
-
-### A model built from parts
-<p>Assemble a latent process, an infection model, and observation layers into one Turing model. The structure is clear — every part is named and stays inline.</p>
-
-:::
-
-```{=html}
-<a href="approaches/composable-turing-models.qmd" class="button desktop-only-button">Read the approach &rarr;</a>
-```
-
-::::
-
-::: {.code-example-column .section-end-space}
-::: {.code-window .box}
-::: {.code-window-header}
-::: {.code-window-dots}
-
-```{=html}
-<span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-```
-
-:::
-
-::: {.code-window-title}
-
-```{=html}
-<span>renewal_model.jl</span>
-```
-
-:::
-
-:::
-
-```{.julia .code-overflow-scroll}
-using ComposableTuringIDModels, Distributions, Turing
-
-# Renewal infections with inline latent process
-data = IDData(gen_distribution = Gamma(1.4, 1 / 0.38))
-
-model = IDModel(
-    Renewal(data;
-        rt = AR(; ϵ_t = HierarchicalNormal(
-            std_prior = HalfNormal(0.1))),
-        initialisation_prior = Normal(log(1.0), 1.0)),
-
-    # Multiple observation layers:
-    #   delay → ascertainment → negative-binomial noise
-    LatentDelay(
-        Ascertainment(
-            NegativeBinomialError(),
-            ascertainment_prior = Beta(10, 2)),
-        truncated(Normal(5.0, 2.0), 0.0, Inf)))
-
-# Fit to case data with Turing's NUTS
-chain = sample(as_turing_model(model, cases, length(cases)),
-               NUTS(), MCMCThreads(), 1_000, 2)
-```
-
-:::
-:::
-<!-- A model built from parts Section Ends Here -->
 
 
 <!-- News & Updates Section -->

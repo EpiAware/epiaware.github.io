@@ -58,14 +58,6 @@ The same tree works for delay distributions in renewal processes, for observatio
 
 :::
 
-::: {.feature-cta-button}
-
-```{=html}
-<a href="https://composeddistributions.epiaware.org/dev/" class="button btn-lg button--fill">Documentation &rarr;</a>
-```
-
-:::
-
 :::
 
 ::: {.code-example-column}
