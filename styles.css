@@ -94,6 +94,22 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   gap: 3rem;
   align-items: center;
 }
+/* On the approach pages the left column is headings only, so it needs less
+   room than on the home page. Give the code window the space instead, and
+   trim the outer padding, which is otherwise squeezed by the sidebar. */
+.approach-hero {
+  grid-template-columns: 0.75fr 1.6fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+.approach-hero .feature-text-column {
+  gap: 1.25rem;
+}
+.approach-hero .side-space,
+.side-space:has(.approach-hero) {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
 .feature-text-column {
   display: flex;
   flex-direction: column;

@@ -3,11 +3,12 @@ title: "Composable Turing models"
 description: "Build a joint model from interchangeable pieces for what drives transmission, how infections arise, and how they become the data you see."
 toc: true
 toc-location: left
+page-layout: full
 ---
 
 :::::: {.side-space}
 
-::: {.what-is-turing-grid .section-start-space .section-end-space}
+::: {.what-is-turing-grid .approach-hero .section-start-space .section-end-space}
 
 ::: {.feature-text-column}
 

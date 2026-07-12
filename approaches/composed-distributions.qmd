@@ -3,11 +3,12 @@ title: "Composed distributions"
 description: "Join the delays in a case's history into one distribution that can simulate a case or be fitted to observed ones."
 toc: true
 toc-location: left
+page-layout: full
 ---
 
 :::::: {.side-space}
 
-::: {.what-is-turing-grid .section-start-space .section-end-space}
+::: {.what-is-turing-grid .approach-hero .section-start-space .section-end-space}
 
 ::: {.feature-text-column}
 
