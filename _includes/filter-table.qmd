@@ -1,0 +1,37 @@
+```{=html}
+<script>
+// Shared behaviour for the filterable tables (packages, tutorials).
+// Wrap controls and table in .filter-table-wrap, give each row a
+// data-category, and this handles search and category filtering.
+document.querySelectorAll('.filter-table-wrap').forEach(function (wrap) {
+  const search = wrap.querySelector('.filter-search');
+  const buttons = Array.from(wrap.querySelectorAll('.filter-btn'));
+  const rows = Array.from(wrap.querySelectorAll('tbody tr'));
+  const empty = wrap.querySelector('.filter-empty');
+  let category = 'all';
+
+  function apply() {
+    const query = search ? search.value.trim().toLowerCase() : '';
+    let shown = 0;
+    rows.forEach(function (row) {
+      const inCategory = category === 'all' || row.dataset.category === category;
+      const matches = query === '' || row.textContent.toLowerCase().includes(query);
+      const show = inCategory && matches;
+      row.hidden = !show;
+      if (show) shown++;
+    });
+    if (empty) empty.hidden = shown !== 0;
+  }
+
+  if (search) search.addEventListener('input', apply);
+  buttons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      buttons.forEach(b => b.classList.remove('is-active'));
+      button.classList.add('is-active');
+      category = button.dataset.category;
+      apply();
+    });
+  });
+});
+</script>
+```

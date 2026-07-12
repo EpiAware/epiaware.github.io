@@ -1,19 +1,50 @@
 ---
 title: "Approaches"
-description: "Ways to build composable infectious disease models with EpiAware, and what we want from all of them."
+description: "Why we think composition is worth the effort, what we want from it, and the routes we are exploring."
 toc: false
 page-layout: full
 ---
 
-Building a model to inform a decision is rarely one step.
-You simulate from the prior, fit to data, check the fit, change an assumption, and fit again.
-That workflow is far easier when the model is a single object that can be taken apart and put back together, rather than a chain of separate fits whose outputs are handed along and whose uncertainty is lost on the way.
+We are trying more than one way to compose infectious disease models, and keeping them interoperable.
+This page sets out why we think composition is worth the effort, what we want from any approach to it, and the routes we are exploring so far.
 
-Fitting everything together keeps the statistics honest, but it usually produces a model built for one problem that nobody can reuse.
-Composition is our attempt to keep the joint fit and still be able to swap a part out.
-We are not sure yet which way of doing this will work best, so we are trying more than one and keeping them interoperable.
+## Why we need this
+
+Building a model to inform a decision is rarely one step.
+You write down what you think is going on, simulate from it, fit it to data, criticise the result, change your mind, and go round again.
+That is far easier when a model is a single object that can be taken apart and put back together than when it is a chain of separate fits handing summaries along.
+
+Passing results from one model to the next loses information.
+Each model hands on a summary rather than the underlying evidence, and inherits the assumptions made before it, so by the time an answer reaches a decision nobody can check what that cost.
+
+Fitting everything together at once avoids that and keeps the statistics honest.
+The trouble is that a model built that way is usually built for one problem, by one team, and cannot be taken apart afterwards, so the next outbreak means starting again.
+
+Composition is our attempt to keep the single joint fit while still being able to swap a part out.
+We set out the [full argument](/news/posts/hello-epiaware.qmd) in our announcement post.
+
+## What we want from any approach
+
+Whatever shape composition takes, we want the same things from it.
+This is our first cut, and we would like to be told where it is wrong.
+
+- **Carry uncertainty the whole way through.** From the processes you cannot see to the data you can, fitting everything together rather than in stages.
+- **Combine in a principled way.** Where things genuinely must be fitted in stages, combine them properly rather than by passing point estimates along.
+- **Keep the parts separate.** Transmission, the priors that drive it, and observation should be separate things, so different people can own them.
+- **Let models nest inside models.** Adding a data source or a process should not mean rewriting the model.
+- **Support more than one kind of model.** These come as renewal processes, compartmental models, agent-based models, and more.
+- **Make stratification close to free.** Age, place, or risk group should not mean a rewrite and a lot of bookkeeping.
+- **Let a component carry its own priors.** Domain knowledge should travel with the component that encodes it.
+- **Allow incremental adoption.** Nobody should have to abandon a working model to try this.
+- **Stay useful on its own.** A component should earn its keep even outside the wider system.
+- **Use standard interfaces.** Parts written independently should still fit together and still propagate uncertainty correctly.
+- **Specify once, then simulate and fit.** The generative story and the fit should not be able to drift apart.
+- **Be quick to change and easy to inspect.** A decision is usually waiting.
 
 ## The approaches
+
+We are not sure yet which of these will work best, so we are trying more than one and keeping them interoperable.
+Both work with the same underlying packages, and they can be combined in a single analysis.
 
 ::: {.feature-grid}
 ::: {.feature-card}
@@ -33,18 +64,3 @@ Any piece can be swapped for another without rewriting the rest.
 :::
 
 More approaches may join these as the ecosystem grows.
-Both work with the same underlying packages, and they can be combined in one analysis.
-
-## What we want from any approach
-
-Whatever shape composition takes, we want the same things from it.
-
-- Carry uncertainty the whole way through, from the processes you cannot see to the data you can, and fit everything together rather than in stages.
-- Keep the parts of a model separate, and let them nest inside one another, so a part can be reasoned about on its own.
-- Support more than one kind of model, whether that is a renewal process, a compartmental model, or something else again.
-- Handle populations that differ by age, place, or risk group, without the bookkeeping taking over.
-- Let a component carry its own structure and its own priors, so that domain knowledge travels with it.
-- Stay useful on its own, so a component earns its keep even outside the wider system.
-- Use standard interfaces, so components written independently still fit together and still propagate uncertainty correctly.
-- Use one specification for both simulation and inference, so the generative story and the fit cannot drift apart.
-- Be quick to change, because assumptions and requirements move fast when a decision is waiting.

@@ -346,6 +346,93 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .quarto-grid-item .card-title { font-weight: 600; }
 
 /* Package maturity status pills ------------------------------------------- */
+/* Filterable tables (packages, tutorials) --------------------------------- */
+.filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin: 1.5rem 0 1rem;
+}
+.filter-search {
+  flex: 1 1 260px;
+  min-width: 220px;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--bs-border-color, #d9e0e6);
+  border-radius: 8px;
+  background: var(--bs-body-bg, #fff);
+  color: inherit;
+  font-size: 0.95rem;
+}
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.filter-btn {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--bs-border-color, #d9e0e6);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.filter-btn:hover {
+  border-color: var(--epi-primary, #0f7c8f);
+}
+.filter-btn.is-active {
+  background: var(--epi-primary, #0f7c8f);
+  border-color: var(--epi-primary, #0f7c8f);
+  color: #fff;
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.data-table th,
+.data-table td {
+  text-align: left;
+  padding: 0.75rem 0.6rem;
+  border-bottom: 1px solid var(--bs-border-color, #e6ebf0);
+  vertical-align: top;
+}
+.data-table th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+.data-table td:first-child {
+  white-space: nowrap;
+  width: 1%;
+}
+.data-name a {
+  font-weight: 600;
+}
+.data-gh {
+  margin-left: 0.35rem;
+  opacity: 0.65;
+}
+.data-gh:hover {
+  opacity: 1;
+}
+.data-name .status-pill {
+  margin-left: 0.45rem;
+  vertical-align: middle;
+}
+.filter-empty {
+  margin-top: 1rem;
+  opacity: 0.7;
+}
+@media (max-width: 600px) {
+  .data-table td:first-child {
+    white-space: normal;
+    width: auto;
+  }
+}
+
 .status-pill {
   display: inline-block;
   padding: 0.1rem 0.55rem;
