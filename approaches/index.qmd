@@ -1,29 +1,50 @@
 ---
 title: "Approaches"
-description: "Ways to build composable infectious disease models with EpiAware. Pick one, or combine them in a single analysis."
+description: "Ways to build composable infectious disease models with EpiAware, and what we want from all of them."
 toc: false
 page-layout: full
 ---
 
-We are trying more than one way to compose infectious disease models, and keeping them interoperable.
-Each approach is described here at a high level, and the [Tutorials](/tutorials/index.qmd) gallery collects the runnable walkthroughs that go with it.
-More approaches may join these as the ecosystem grows.
+Building a model to inform a decision is rarely one step.
+You simulate from the prior, fit to data, check the fit, change an assumption, and fit again.
+That workflow is far easier when the model is a single object that can be taken apart and put back together, rather than a chain of separate fits whose outputs are handed along and whose uncertainty is lost on the way.
+
+Fitting everything together keeps the statistics honest, but it usually produces a model built for one problem that nobody can reuse.
+Composition is our attempt to keep the joint fit and still be able to swap a part out.
+We are not sure yet which way of doing this will work best, so we are trying more than one and keeping them interoperable.
+
+## The approaches
 
 ::: {.feature-grid}
 ::: {.feature-card}
 ### Composed distributions
-A case's event history as a tree of delays, built from `Sequential`, `Parallel`, `Resolve`, `Compete`, and `Choose`.
-One object simulates a case and fits to observed ones.
+Describe what happens to a case over time, from onset through to an outcome, by joining the delays between events into a single distribution.
+That one object can simulate a case or be fitted to observed ones, and it can stand in wherever a delay is needed inside a larger model.
 
 [Read the approach &rarr;](composed-distributions.qmd)
 :::
 ::: {.feature-card}
 ### Composable Turing models
-A joint model assembled from a latent process, an infection mechanism, and observation layers, all through one `as_turing_model` interface.
-Swap any part to change an assumption.
+Build a whole model from three interchangeable pieces, one for what drives transmission over time, one for how that produces infections, and one for how infections become the data you actually see.
+Any piece can be swapped for another without rewriting the rest.
 
 [Read the approach &rarr;](composable-turing-models.qmd)
 :::
 :::
 
+More approaches may join these as the ecosystem grows.
 Both work with the same underlying packages, and they can be combined in one analysis.
+
+## What we want from any approach
+
+Whatever shape composition takes, we want the same things from it.
+
+- Carry uncertainty the whole way through, from the processes you cannot see to the data you can, and fit everything together rather than in stages.
+- Keep the parts of a model separate, and let them nest inside one another, so a part can be reasoned about on its own.
+- Support more than one kind of model, whether that is a renewal process, a compartmental model, or something else again.
+- Handle populations that differ by age, place, or risk group, without the bookkeeping taking over.
+- Let a component carry its own structure and its own priors, so that domain knowledge travels with it.
+- Stay useful on its own, so a component earns its keep even outside the wider system.
+- Use standard interfaces, so components written independently still fit together and still propagate uncertainty correctly.
+- Use one specification for both simulation and inference, so the generative story and the fit cannot drift apart.
+- Be quick to change, because assumptions and requirements move fast when a decision is waiting.

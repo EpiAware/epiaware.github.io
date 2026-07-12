@@ -68,8 +68,11 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   max-width: 800px;
   margin: 0 auto 3rem auto;
 }
+/* The SVG is authored at 64px, which is its intrinsic size. Set an explicit
+   width so the hero mark is around three times that, capped on narrow screens. */
 .hero-logo {
-  max-width: 45%;
+  width: 192px;
+  max-width: 60%;
   height: auto;
   margin-bottom: 1.5rem;
   margin-left: auto;
