@@ -1,5 +1,5 @@
 ---
-pagetitle: "EpiAware — composable tools for infectious disease modelling"
+pagetitle: "EpiAware, composable tools for infectious disease modelling"
 description: "A composable Julia ecosystem for infectious disease modelling."
 toc: false
 page-layout: custom
@@ -39,7 +39,7 @@ listing:
 
 :::
 
-Small, interchangeable parts — delays, latent processes, infection and observation models — combine into one joint model. Swap a part to test an assumption, keeping a single rigorous model instead of chaining separate ones.
+Small, interchangeable parts combine into one joint model. Swap a part to test an assumption, keeping a single rigorous model rather than chaining separate ones.
 
 :::
 
@@ -69,7 +69,7 @@ Uncertainty propagated correctly from the latent process through infection dynam
 
 :::
 
-Designed for real-time outbreak analysis: nowcasting, forecasting, and scenario modelling from the same model definition, with reporting delays and ascertainment built in.
+Nowcasting, forecasting, and scenario modelling from one model definition, with reporting delays and ascertainment built in.
 
 :::
 
@@ -84,7 +84,7 @@ Designed for real-time outbreak analysis: nowcasting, forecasting, and scenario 
 
 :::
 
-Fast, autodiff-ready, and tightly integrated with Turing.jl, SciML, and the Julia scientific ecosystem.
+Built on the work of people who specialise in each piece, rather than as a walled garden. Inference comes from Turing.jl, dynamics from SciML, and automatic differentiation from Mooncake and Enzyme.
 
 :::
 
@@ -99,7 +99,7 @@ Fast, autodiff-ready, and tightly integrated with Turing.jl, SciML, and the Juli
 
 :::
 
-Aims to support multiple approaches to composing infectious disease models — [composed distributions](approaches/composed-distributions.qmd) as event trees, or [composable Turing models](approaches/composable-turing-models.qmd) built from parts.
+Aims to support more than one way of composing infectious disease models, kept interoperable. See the [approaches](approaches/index.qmd) we are exploring.
 
 :::
 
@@ -180,7 +180,7 @@ logpdf(tree, ans)
 ::: {#why-composable .section-start-space}
 
 ### Why composable?
-<p>Modelling to inform infectious disease policy has to be timely, rigorous, and collaborative. The usual approaches force a trade-off, and composability is a way out.</p>
+<p>Modelling to inform infectious disease policy has to be timely, rigorous, and collaborative. Current approaches force a trade-off between these, and composability may mean we can avoid it.</p>
 
 :::
 
@@ -314,7 +314,7 @@ New to Julia? Start with the [Using Julia](using-julia.qmd) guide.
 ::: {#background}
 
 ### Background
-<p>From R to Julia — the story behind EpiAware.</p>
+<p>From R to Julia, the story behind EpiAware.</p>
 
 :::
 
@@ -324,7 +324,7 @@ New to Julia? Start with the [Using Julia](using-julia.qmd) guide.
 In R we built the [epinowcast](community.qmd) ecosystem and packages such as [EpiNow2](https://github.com/epiforecasts/EpiNow2) and [scoringutils](https://github.com/epiforecasts/scoringutils), now used by academics and public health teams internationally.
 EpiAware is the Julia equivalent, a domain-focused ecosystem in the mould of SciML or Turing.jl, with community infrastructure like [rOpenSci](https://ropensci.org) and the domain focus of [SpeedyWeather.jl](https://github.com/SpeedyWeather/SpeedyWeather.jl).
 
-We are at an early stage and looking for collaborators — [here is how to get involved](get-involved.qmd).
+We are at an early stage and looking for collaborators, and [here is how to get involved](get-involved.qmd).
 :::
 
 ::::::

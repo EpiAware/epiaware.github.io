@@ -9,9 +9,9 @@ another technical computing language (R, Python, MATLAB) but new to Julia.
 
 It is not a guide to learning Julia. To learn the language, start with:
 
-- [Julia documentation — getting started](https://docs.julialang.org/en/v1/manual/getting-started/)
+- [Julia documentation, getting started](https://docs.julialang.org/en/v1/manual/getting-started/)
 - [Julia learning resources](https://julialang.org/learning/)
-- [Modern Julia Workflows](https://modernjuliaworkflows.org/) — practical setup and best practice
+- [Modern Julia Workflows](https://modernjuliaworkflows.org/), practical setup and best practice
 - [Noteworthy differences from other languages](https://docs.julialang.org/en/v1/manual/noteworthy-differences/)
 
 ## Install Julia
@@ -46,12 +46,18 @@ An `activate --temp` environment is handy for throwaway experiments.
 
 ## A productive REPL
 
-A few global packages make interactive work smoother:
+A few packages make interactive work smoother.
+Install them in your global environment (the one named for your Julia version, such as `@v1.11`) so they are available in every project.
 
 ```julia
 using Pkg
 Pkg.add(["Revise", "OhMyREPL", "BenchmarkTools", "TestEnv"])
 ```
+
+- **Revise** reloads your code as you change it, without restarting Julia.
+- **OhMyREPL** adds syntax highlighting to the REPL.
+- **BenchmarkTools** measures performance.
+- **TestEnv** drops you into a package's test environment.
 
 Load them automatically by adding a `~/.julia/config/startup.jl`:
 
@@ -66,12 +72,41 @@ atreplinit() do repl
 end
 ```
 
-[Revise.jl](https://github.com/timholy/Revise.jl) reflects your code changes
-without restarting Julia — essential for development.
+[Revise.jl](https://github.com/timholy/Revise.jl) reflects your code changes without restarting Julia, which is essential when developing.
+
+## Common issues
+
+**Package not found.**
+Usually the wrong environment is active.
+
+```julia
+] activate .        # use the environment in this directory
+] instantiate       # install what the manifest says
+```
+
+**Your changes are not taking effect.**
+Check that Revise is loaded, through `startup.jl` or `using Revise` before you load the package.
+Failing that, restart Julia and load the package again.
+
+**Version conflicts when resolving an environment.**
+
+```julia
+] resolve           # work out a consistent set of versions
+] update            # move to newer compatible versions
+```
+
+**Precompilation errors.**
+
+```julia
+] resolve
+using Pkg; Pkg.precompile()
+```
+
+If it persists, delete `Manifest.toml` and run `] instantiate` to rebuild the environment from scratch.
 
 ## Getting help
 
-- [Julia Discourse](https://discourse.julialang.org/) — community forum
+- [Julia Discourse](https://discourse.julialang.org/), the community forum
 - [Julia Slack](https://julialang.org/slack/) and [Zulip](https://julialang.zulipchat.com/)
 - For EpiAware questions, the [epinowcast forum](https://community.epinowcast.org/) and each package's GitHub Discussions
 

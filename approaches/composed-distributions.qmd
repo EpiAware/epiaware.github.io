@@ -1,6 +1,6 @@
 ---
 title: "Composed distributions"
-description: "Wire delays into a tree structure with Sequential, Parallel, Resolve, and Compete — one object that simulates a case and fits to observed ones."
+description: "Join the delays in a case's history into one distribution that can simulate a case or be fitted to observed ones."
 toc: true
 toc-location: left
 ---
@@ -18,12 +18,9 @@ toc-location: left
 <span class="feature-icon icon-composable"></span>
 ```
 
-##### Composing trees of events
+##### One object for the whole case history
 
 :::
-
-A case's progression — onset, admission, death or discharge — is a tree of delays.
-Compose them into one distribution that both simulates cases and fits to observed ones, with no separate model for each direction.
 
 :::
 
@@ -38,9 +35,6 @@ Compose them into one distribution that both simulates cases and fits to observe
 
 :::
 
-Each line-list record contributes its own likelihood, and the tree fills in whichever delays weren't observed for that case.
-The same object handles complete, censored, and partially observed records, with no aggregation step.
-
 :::
 
 ::: {.feature-item}
@@ -53,8 +47,6 @@ The same object handles complete, censored, and partially observed records, with
 ##### Same representation, multiple uses
 
 :::
-
-The same tree works for delay distributions in renewal processes, for observation models in Turing fits, and for dropping into differential-equation models, with no translation step.
 
 :::
 
@@ -171,7 +163,7 @@ The result is still a univariate distribution, so it composes as a leaf everywhe
 
 The tree is not tied to one package or one use.
 The same object that defines a delay distribution for a renewal model drops into a Turing fit unchanged, and the same structure works for differential-equation models.
-There is no translation step between the delay model, the infection model, and the observation model — the composed object is the shared vocabulary.
+There is no translation step between the delay model, the infection model, and the observation model, because the composed object is the shared vocabulary.
 
 ### Read the posterior back through the same tree
 

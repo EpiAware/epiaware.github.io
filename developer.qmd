@@ -19,16 +19,47 @@ julia --project=test test/runtests.jl skip_quality
 Use [Revise.jl](https://github.com/timholy/Revise.jl) so code changes take
 effect without restarting Julia.
 
+## Running only the tests you care about
+
+Tests are written as `@testitem`s, so they can be run by path or by tag with
+[TestItemRunner](https://github.com/julia-vscode/TestItemRunner.jl).
+
+```julia
+using TestItemRunner
+
+run_tests("test/censoring/")                  # one directory
+run_tests(filter = ti -> (:unit in ti.tags))  # one tag
+```
+
+The VS Code Julia extension exposes the same test items in its test explorer.
+
 ## Code quality
 
 Packages run a consistent set of quality tools:
 
-- [Aqua.jl](https://github.com/JuliaTesting/Aqua.jl) — common package problems
-- [JET.jl](https://github.com/aviatesk/JET.jl) — static analysis (`@report_opt`, `@report_package`)
+- [Aqua.jl](https://github.com/JuliaTesting/Aqua.jl) for common package problems
+- [JET.jl](https://github.com/aviatesk/JET.jl) for static analysis (`@report_opt`, `@report_package`)
 - Doctests and formatting checks
 
 [EpiAwarePackageTools.jl](packages/epiawarepackagetools.qmd) provides the shared
 harnesses, including automatic-differentiation tests across backends.
+
+## Checking performance
+
+Each package has a benchmark suite, and most publish a benchmark page in their
+docs showing which automatic-differentiation backends work, how fast they are,
+and where they fail.
+
+```bash
+julia --project=benchmark benchmark/runbenchmarks.jl
+```
+
+For a single function, `BenchmarkTools` is usually enough.
+
+```julia
+using BenchmarkTools
+@benchmark cdf(d, 5.0)
+```
 
 ## Building documentation locally
 
@@ -36,6 +67,14 @@ Each package builds its own docs from `docs/`:
 
 ```bash
 julia --project=docs docs/make.jl
+```
+
+Literate tutorials are the slow part of a docs build. Skip them for a quick
+check:
+
+```bash
+julia --project=docs docs/make.jl --skip-notebooks
+SKIP_NOTEBOOKS=true julia --project=docs docs/make.jl   # same thing
 ```
 
 ## This website
@@ -53,8 +92,24 @@ before merge. Pushes to `main` also deploy it to GitHub Pages. The workflow is
 in `.github/workflows/publish.yml`.
 
 To add a package to the [Packages](packages/index.qmd) list, copy
-`packages/_template.qmd` and fill it in — the card and its documentation entry
+`packages/_template.qmd` and fill it in. The card and its documentation entry
 are generated on build.
+
+## When something breaks
+
+**Your changes are not taking effect.**
+Load Revise before the package, or restart Julia.
+
+**"Package not found" while developing.**
+Activate the right environment and instantiate it. If you are working on more
+than one EpiAware package at once, `Pkg.develop` the ones you are changing so
+the local copies are used rather than released versions.
+
+**Precompilation errors.**
+Run `] resolve`, then `Pkg.precompile()`. If it persists, delete
+`Manifest.toml` and `] instantiate` to rebuild the environment.
+
+More detail lives in each package's own developer FAQ.
 
 ## Releases
 

@@ -5,9 +5,9 @@ description: "Common questions about the EpiAware ecosystem."
 
 ## What is EpiAware?
 
-A set of composable Julia packages for infectious disease modelling. Each
-package does one thing — handling censored delays, convolving distributions,
-composing them — and they combine into joint models that propagate uncertainty.
+A set of composable Julia packages for infectious disease modelling.
+Each package does one thing, such as handling censored delays, convolving distributions, or composing them.
+Together they combine into joint models that propagate uncertainty.
 
 ## Is it ready to use?
 
@@ -18,9 +18,8 @@ settled it is.
 
 ## How does this relate to epinowcast and EpiNow2?
 
-EpiAware is the Julia successor to the R-based [epinowcast](community.qmd)
-ecosystem and packages like EpiNow2. The aim is the same — good tools for
-real-time infectious disease analysis — built as composable components in Julia.
+EpiAware is the Julia successor to the R-based [epinowcast](community.qmd) ecosystem and packages like EpiNow2.
+The aim is the same, good tools for real-time infectious disease analysis, now built as composable components in Julia.
 See [epinowcast & the forum](community.qmd).
 
 ## I'm new to Julia. Where do I start?
@@ -28,13 +27,25 @@ See [epinowcast & the forum](community.qmd).
 The [Using Julia](using-julia.qmd) guide covers installation, editor setup, and
 environments, and points to good resources for learning the language.
 
-## Which packages have analytical solutions or AD support?
+## Which packages support automatic differentiation?
 
-That varies by package and is documented in each package's own docs — browse
-each package's own docs — see the [Packages](packages/index.qmd) page.
-CensoredDistributions.jl, for
-example, provides analytical solutions for common delay distributions and works
-with ForwardDiff, ReverseDiff, Mooncake, and Enzyme.
+All of them.
+Every package is tested against ForwardDiff, ReverseDiff, Mooncake, and Enzyme on every change, with FiniteDiff and Zygote used as reference points.
+Modern samplers such as NUTS rely on gradients, so a component that cannot be differentiated is of little use inside a fitted model.
+We treat working AD as a requirement rather than a bonus.
+
+We do not write our own automatic differentiation.
+We build on Turing.jl for inference and on the AD packages themselves, so improvements made by the people who specialise in that work carry straight through to our models.
+
+Support is not uniform across backends, and we would rather show that than claim otherwise.
+Each package publishes a benchmark page setting out which backends work, how fast they are, and where they fail.
+
+- [ComposedDistributions.jl](https://composeddistributions.epiaware.org/dev/benchmarks)
+- [ConvolvedDistributions.jl](https://convolveddistributions.epiaware.org/dev/benchmarks)
+- [ModifiedDistributions.jl](https://modifieddistributions.epiaware.org/dev/benchmarks)
+- [ComposableTuringIDModels.jl](https://composableturingidmodels.epiaware.org/dev/benchmarks)
+
+CensoredDistributions.jl runs the same AD tests but does not publish a benchmark page yet.
 
 ## How do I cite EpiAware?
 
