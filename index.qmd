@@ -54,7 +54,7 @@ Small, interchangeable parts combine into one joint model. Swap a part to test a
 
 :::
 
-Uncertainty propagated correctly from the latent process through infection dynamics and observation.
+Uncertainty propagated correctly from the priors through infection dynamics and observation.
 
 :::
 
@@ -180,15 +180,17 @@ logpdf(tree, ans)
 ::: {#why-composable .section-start-space}
 
 ### Why composable?
-<p>Modelling to inform infectious disease policy has to be timely, rigorous, and collaborative. Current approaches force a trade-off between these, and composability may mean we can avoid it.</p>
+<p>Evidence for infectious disease policy has to be timely, rigorous, and collaborative. Today's approaches force a choice between them, and composability may let us avoid it.</p>
 
 :::
 
 ::: {.section-end-space}
-- **Chaining separate models** is flexible, but passing estimates between stages loses information and can introduce bias.
-- **One joint model** is rigorous, but tends to be monolithic, built for a single problem, and hard to adapt or share.
-- **Composable models** keep the rigour of a joint model and regain the flexibility of separate ones, by building from interchangeable, reusable parts.
-- A domain expert can **contribute one component** without understanding the whole system, and shared parts let teams trace differences to assumptions, not implementation.
+- **Passing results from one model to the next loses information.** Each model hands on a summary rather than the underlying evidence, and quietly carries over the assumptions made before it. By the time an answer reaches the person making a decision, nobody can check what that cost.
+- **Building one model that does everything is more reliable, but it does not survive the next outbreak.** The models built for COVID-19 could not be adapted for mpox, so new ones were written from scratch, and had to make do with a single source of data because answers were needed quickly.
+- **We keep rebuilding the same things.** At least seven separate software packages estimate how fast a disease is spreading, and none of them share any parts, even where the same people wrote them. What gets reused is the whole model, never the ideas inside it.
+- **Composable models could give us both.** Build a model from interchangeable parts and it can be as reliable as an all-in-one model while still being quick to adapt. A specialist can contribute the one part they know well without understanding the rest, and when two teams disagree they can see whether it is a real scientific difference or just a difference in the code.
+
+[Read the full argument](news/posts/hello-epiaware.qmd)
 :::
 <!-- Why composable Section Ends Here -->
 

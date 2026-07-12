@@ -1,262 +1,169 @@
 ---
 title: "Tutorials"
-description: "Runnable tutorials across the EpiAware packages, grouped by approach."
-toc: true
-toc-location: left
+description: "Runnable tutorials across the EpiAware packages."
+toc: false
+page-layout: full
 ---
 
 Every tutorial below is a runnable walkthrough that lives in its package's own documentation, where it is executed and kept in step with the code.
-They are grouped by the [approach](/approaches/index.qmd) they belong to.
-Start with the first card in a group if you are new to it.
+Filter by the [approach](/approaches/index.qmd) it belongs to, or search across all of them.
+If you are new to an approach, start with the tutorial marked *start here*.
 
-## Composed distributions
+```{=html}
+<div class="filter-table-wrap">
+<div class="filter-controls">
+  <input type="search" class="filter-search"
+         placeholder="Search tutorials" aria-label="Search tutorials">
+  <div class="filter-buttons" role="group" aria-label="Filter tutorials by approach">
+    <button class="filter-btn is-active" data-category="all">All</button>
+    <button class="filter-btn" data-category="composed">Composed distributions</button>
+    <button class="filter-btn" data-category="turing">Composable Turing models</button>
+    <button class="filter-btn" data-category="delays">Delays, censoring, modifiers</button>
+  </div>
+</div>
 
-The event-tree approach: compose per-event delays into one object that simulates a case and fits to observed ones.
-See the [approach](/approaches/composed-distributions.qmd) for the design.
+<table class="data-table">
+  <thead>
+    <tr><th scope="col">Tutorial</th><th scope="col">What it covers</th></tr>
+  </thead>
+  <tbody>
+    <tr data-category="composed">
+      <td class="data-name">
+        <a href="https://composeddistributions.epiaware.org/dev/getting-started/tutorials/composing-distributions">Composing distributions</a>
+        <span class="status-pill status-maturing">start here</span>
+      </td>
+      <td>The core walkthrough. Build an event tree from named delays, then simulate and fit with the same object. <em>ComposedDistributions</em></td>
+    </tr>
+    <tr data-category="composed">
+      <td class="data-name">
+        <a href="https://composeddistributions.epiaware.org/dev/getting-started/tutorials/linear-chain">Linear chain</a>
+      </td>
+      <td>The simplest tree, with delays chained in series from onset through to outcome. <em>ComposedDistributions</em></td>
+    </tr>
+    <tr data-category="composed">
+      <td class="data-name">
+        <a href="https://composeddistributions.epiaware.org/dev/getting-started/tutorials/competing-outcomes">Competing outcomes</a>
+      </td>
+      <td>Where a case's path forks, death or discharge, as a fixed-probability mixture or as racing hazards. <em>ComposedDistributions</em></td>
+    </tr>
+    <tr data-category="composed">
+      <td class="data-name">
+        <a href="https://composeddistributions.epiaware.org/dev/getting-started/tutorials/strata-uncertainty">Strata and uncertainty</a>
+      </td>
+      <td>Delays that vary across groups, and delays whose parameters are themselves uncertain. <em>ComposedDistributions</em></td>
+    </tr>
+    <tr data-category="composed">
+      <td class="data-name">
+        <a href="https://composeddistributions.epiaware.org/dev/getting-started/concepts">Concepts</a>
+      </td>
+      <td>Maps each modelling idea to the verb that builds it. <em>ComposedDistributions</em></td>
+    </tr>
+    <tr data-category="turing">
+      <td class="data-name">
+        <a href="https://composableturingidmodels.epiaware.org/dev/overview">Overview</a>
+        <span class="status-pill status-maturing">start here</span>
+      </td>
+      <td>How the three roles, prior, infection, and observation, nest through one interface. <em>ComposableTuringIDModels</em></td>
+    </tr>
+    <tr data-category="turing">
+      <td class="data-name">
+        <a href="https://composableturingidmodels.epiaware.org/dev/case-studies/renewal-negbin">Renewal with negative-binomial observations</a>
+      </td>
+      <td>A renewal infection process fitted to case counts with overdispersed noise. <em>ComposableTuringIDModels</em></td>
+    </tr>
+    <tr data-category="turing">
+      <td class="data-name">
+        <a href="https://composableturingidmodels.epiaware.org/dev/case-studies/realtime-nowcast">Real-time nowcast</a>
+      </td>
+      <td>Estimating what has happened but not yet been reported, from right-truncated data. <em>ComposableTuringIDModels</em></td>
+    </tr>
+    <tr data-category="turing">
+      <td class="data-name">
+        <a href="https://composableturingidmodels.epiaware.org/dev/case-studies/delays-dayofweek">Delays and day-of-week effects</a>
+      </td>
+      <td>Layering reporting delays and weekday reporting patterns onto the observation model. <em>ComposableTuringIDModels</em></td>
+    </tr>
+    <tr data-category="turing">
+      <td class="data-name">
+        <a href="https://composableturingidmodels.epiaware.org/dev/case-studies/split-observations">Split observations</a>
+      </td>
+      <td>Fitting one infection process to more than one observed data stream at once. <em>ComposableTuringIDModels</em></td>
+    </tr>
+    <tr data-category="turing">
+      <td class="data-name">
+        <a href="https://composableturingidmodels.epiaware.org/dev/case-studies/sir-ode">SIR ODE model</a>
+      </td>
+      <td>Compartmental dynamics as the infection process, written directly. <em>ComposableTuringIDModels</em></td>
+    </tr>
+    <tr data-category="turing">
+      <td class="data-name">
+        <a href="https://composableturingidmodels.epiaware.org/dev/case-studies/catalyst-ode">Catalyst ODE model</a>
+      </td>
+      <td>The same compartmental dynamics, built through Catalyst. <em>ComposableTuringIDModels</em></td>
+    </tr>
+    <tr data-category="turing">
+      <td class="data-name">
+        <a href="https://composableturingidmodels.epiaware.org/dev/design">Design</a>
+      </td>
+      <td>The composable design set out in full. <em>ComposableTuringIDModels</em></td>
+    </tr>
+    <tr data-category="delays">
+      <td class="data-name">
+        <a href="https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/fitting-with-turing">Fitting with Turing</a>
+      </td>
+      <td>Estimating a delay distribution from censored, truncated line-list data. <em>CensoredDistributions</em></td>
+    </tr>
+    <tr data-category="delays">
+      <td class="data-name">
+        <a href="https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/analytical-primarycensored-cdfs">Analytical primary-censored CDFs</a>
+      </td>
+      <td>Closed-form primary-event censoring, and when it beats numerical integration. <em>CensoredDistributions</em></td>
+    </tr>
+    <tr data-category="delays">
+      <td class="data-name">
+        <a href="https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/exponentially-tilted-primary-events">Exponentially tilted primary events</a>
+      </td>
+      <td>Primary events that are not uniform within their window, as in a growing epidemic. <em>CensoredDistributions</em></td>
+    </tr>
+    <tr data-category="delays">
+      <td class="data-name">
+        <a href="https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/ad-backends">Automatic differentiation backends</a>
+      </td>
+      <td>Which AD backend to use for censored delay likelihoods, and what it costs. <em>CensoredDistributions</em></td>
+    </tr>
+    <tr data-category="delays">
+      <td class="data-name">
+        <a href="https://modifieddistributions.epiaware.org/dev/getting-started/tutorials/composed-chains">Composed chains</a>
+      </td>
+      <td>Modifier leaves used inside a composed event tree, the packages working together. <em>ModifiedDistributions</em></td>
+    </tr>
+    <tr data-category="delays">
+      <td class="data-name">
+        <a href="https://modifieddistributions.epiaware.org/dev/getting-started/tutorials/modifier-pipeline">Modifier pipeline</a>
+      </td>
+      <td>Rescaling, shifting, and transforming a delay while keeping the distribution interface. <em>ModifiedDistributions</em></td>
+    </tr>
+    <tr data-category="delays">
+      <td class="data-name">
+        <a href="https://modifieddistributions.epiaware.org/dev/getting-started/tutorials/weighted-likelihoods">Weighted likelihoods</a>
+      </td>
+      <td>Weighting an observation's likelihood, the standard trick for aggregated or count data. <em>ModifiedDistributions</em></td>
+    </tr>
+    <tr data-category="delays">
+      <td class="data-name">
+        <a href="https://convolveddistributions.epiaware.org/dev/getting-started/tutorials/visualising-convolutions">Visualising convolutions</a>
+      </td>
+      <td>Adding delays together, and what the resulting distribution looks like. <em>ConvolvedDistributions</em></td>
+    </tr>
+  </tbody>
+</table>
 
-::: {.gallery-grid}
+<p class="filter-empty" hidden>No tutorials match that search.</p>
+</div>
+```
 
-::: {.gallery-card}
-::: {.gallery-banner .g-teal}
-ComposedDistributions
-:::
-::: {.gallery-body}
-### Composing distributions
-The core walkthrough. Build an event tree from named delays, then simulate and fit with the same object.
-
-[Start here ↗](https://composeddistributions.epiaware.org/dev/getting-started/tutorials/composing-distributions)
-:::
-:::
-
-::: {.gallery-card}
-::: {.gallery-banner .g-teal}
-ComposedDistributions
-:::
-::: {.gallery-body}
-### Linear chain
-The simplest tree: delays chained in series, onset through to outcome.
-
-[View tutorial ↗](https://composeddistributions.epiaware.org/dev/getting-started/tutorials/linear-chain)
-:::
-:::
-
-::: {.gallery-card}
-::: {.gallery-banner .g-teal}
-ComposedDistributions
-:::
-::: {.gallery-body}
-### Competing outcomes
-Where a case's path forks — death or discharge — as a fixed-probability mixture or as racing hazards.
-
-[View tutorial ↗](https://composeddistributions.epiaware.org/dev/getting-started/tutorials/competing-outcomes)
-:::
-:::
-
-::: {.gallery-card}
-::: {.gallery-banner .g-teal}
-ComposedDistributions
-:::
-::: {.gallery-body}
-### Strata and uncertainty
-Delays that vary across groups, and delays whose parameters are themselves uncertain.
-
-[View tutorial ↗](https://composeddistributions.epiaware.org/dev/getting-started/tutorials/strata-uncertainty)
-:::
-:::
-
-:::
-
-## Composable Turing models
-
-The joint-model approach: assemble a latent process, an infection mechanism, and observation layers into one Turing model.
-See the [approach](/approaches/composable-turing-models.qmd) for the design.
-
-::: {.gallery-grid}
-
-::: {.gallery-card}
-::: {.gallery-banner .g-deep}
-ComposableTuringIDModels
-:::
-::: {.gallery-body}
-### Overview
-How the three roles — latent, infection, observation — nest through one interface.
-
-[Start here ↗](https://composableturingidmodels.epiaware.org/dev/overview)
-:::
-:::
-
-::: {.gallery-card}
-::: {.gallery-banner .g-deep}
-ComposableTuringIDModels
-:::
-::: {.gallery-body}
-### Renewal with negative-binomial observations
-A renewal infection process fitted to case counts with overdispersed noise.
-
-[View case study ↗](https://composableturingidmodels.epiaware.org/dev/case-studies/renewal-negbin)
-:::
-:::
-
-::: {.gallery-card}
-::: {.gallery-banner .g-deep}
-ComposableTuringIDModels
-:::
-::: {.gallery-body}
-### Real-time nowcast
-Estimating what has happened but not yet been reported, from right-truncated data.
-
-[View case study ↗](https://composableturingidmodels.epiaware.org/dev/case-studies/realtime-nowcast)
-:::
-:::
-
-::: {.gallery-card}
-::: {.gallery-banner .g-deep}
-ComposableTuringIDModels
-:::
-::: {.gallery-body}
-### Delays and day-of-week effects
-Layering reporting delays and weekday reporting patterns onto the observation model.
-
-[View case study ↗](https://composableturingidmodels.epiaware.org/dev/case-studies/delays-dayofweek)
-:::
-:::
-
-::: {.gallery-card}
-::: {.gallery-banner .g-deep}
-ComposableTuringIDModels
-:::
-::: {.gallery-body}
-### Split observations
-Fitting one infection process to more than one observed data stream at once.
-
-[View case study ↗](https://composableturingidmodels.epiaware.org/dev/case-studies/split-observations)
-:::
-:::
-
-::: {.gallery-card}
-::: {.gallery-banner .g-deep}
-ComposableTuringIDModels
-:::
-::: {.gallery-body}
-### SIR and Catalyst ODE models
-Compartmental dynamics as the infection process, written directly or through Catalyst.
-
-[SIR ↗](https://composableturingidmodels.epiaware.org/dev/case-studies/sir-ode) ·
-[Catalyst ↗](https://composableturingidmodels.epiaware.org/dev/case-studies/catalyst-ode)
-:::
-:::
-
-:::
-
-## Delays, censoring, and modifiers
-
-The packages the approaches build on, used on their own or together.
-
-::: {.gallery-grid}
-
-::: {.gallery-card}
-::: {.gallery-banner .g-amber}
-CensoredDistributions
-:::
-::: {.gallery-body}
-### Fitting with Turing
-Estimating a delay distribution from censored, truncated line-list data.
-
-[View tutorial ↗](https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/fitting-with-turing)
-:::
-:::
-
-::: {.gallery-card}
-::: {.gallery-banner .g-amber}
-CensoredDistributions
-:::
-::: {.gallery-body}
-### Analytical primary-censored CDFs
-Closed-form primary-event censoring, and when it beats numerical integration.
-
-[View tutorial ↗](https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/analytical-primarycensored-cdfs)
-:::
-:::
-
-::: {.gallery-card}
-::: {.gallery-banner .g-amber}
-CensoredDistributions
-:::
-::: {.gallery-body}
-### Exponentially tilted primary events
-Primary events that are not uniform within their window, as in a growing epidemic.
-
-[View tutorial ↗](https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/exponentially-tilted-primary-events)
-:::
-:::
-
-::: {.gallery-card}
-::: {.gallery-banner .g-amber}
-CensoredDistributions
-:::
-::: {.gallery-body}
-### Automatic differentiation backends
-Which AD backend to use for censored delay likelihoods, and what it costs.
-
-[View tutorial ↗](https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/ad-backends)
-:::
-:::
-
-::: {.gallery-card}
-::: {.gallery-banner .g-slate}
-ModifiedDistributions
-:::
-::: {.gallery-body}
-### Composed chains
-Modifier leaves used inside a composed event tree — the packages working together.
-
-[View tutorial ↗](https://modifieddistributions.epiaware.org/dev/getting-started/tutorials/composed-chains)
-:::
-:::
-
-::: {.gallery-card}
-::: {.gallery-banner .g-slate}
-ModifiedDistributions
-:::
-::: {.gallery-body}
-### Modifier pipeline
-Rescaling, shifting, and transforming a delay while keeping the distribution interface.
-
-[View tutorial ↗](https://modifieddistributions.epiaware.org/dev/getting-started/tutorials/modifier-pipeline)
-:::
-:::
-
-::: {.gallery-card}
-::: {.gallery-banner .g-slate}
-ModifiedDistributions
-:::
-::: {.gallery-body}
-### Weighted likelihoods
-Weighting an observation's likelihood, the standard trick for aggregated or count data.
-
-[View tutorial ↗](https://modifieddistributions.epiaware.org/dev/getting-started/tutorials/weighted-likelihoods)
-:::
-:::
-
-::: {.gallery-card}
-::: {.gallery-banner .g-teal}
-ConvolvedDistributions
-:::
-::: {.gallery-body}
-### Visualising convolutions
-Adding delays together, and what the resulting distribution looks like.
-
-[View tutorial ↗](https://convolveddistributions.epiaware.org/dev/getting-started/tutorials/visualising-convolutions)
-:::
-:::
-
-:::
-
-## Further reading
-
-- [Concepts](https://composeddistributions.epiaware.org/dev/getting-started/concepts) maps each modelling idea to the verb that builds it.
-- [Design](https://composableturingidmodels.epiaware.org/dev/design) sets out the composable design in full.
-- The [Gallery](/gallery.qmd) shows analyses and outbreak responses built with these tools.
+{{< include ../_includes/filter-table.qmd >}}
 
 Have a tutorial you would like to see?
 Suggest it on the [forum](https://community.epinowcast.org/) or see [Contributing](/contributing.qmd).
+Analyses built with these tools are in the [Gallery](/gallery.qmd).

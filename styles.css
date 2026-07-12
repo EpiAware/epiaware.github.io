@@ -346,15 +346,15 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .quarto-grid-item .card-title { font-weight: 600; }
 
 /* Package maturity status pills ------------------------------------------- */
-/* Packages table ---------------------------------------------------------- */
-.pkg-controls {
+/* Filterable tables (packages, tutorials) --------------------------------- */
+.filter-controls {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
   align-items: center;
   margin: 1.5rem 0 1rem;
 }
-.pkg-search {
+.filter-search {
   flex: 1 1 260px;
   min-width: 220px;
   padding: 0.45rem 0.75rem;
@@ -364,12 +364,12 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   color: inherit;
   font-size: 0.95rem;
 }
-.pkg-filters {
+.filter-buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
 }
-.pkg-filter {
+.filter-btn {
   padding: 0.4rem 0.85rem;
   border: 1px solid var(--bs-border-color, #d9e0e6);
   border-radius: 999px;
@@ -379,55 +379,55 @@ h1, h2, h3 { letter-spacing: -0.02em; }
   font-weight: 600;
   cursor: pointer;
 }
-.pkg-filter:hover {
+.filter-btn:hover {
   border-color: var(--epi-primary, #0f7c8f);
 }
-.pkg-filter.is-active {
+.filter-btn.is-active {
   background: var(--epi-primary, #0f7c8f);
   border-color: var(--epi-primary, #0f7c8f);
   color: #fff;
 }
-.pkg-table {
+.data-table {
   width: 100%;
   border-collapse: collapse;
 }
-.pkg-table th,
-.pkg-table td {
+.data-table th,
+.data-table td {
   text-align: left;
   padding: 0.75rem 0.6rem;
   border-bottom: 1px solid var(--bs-border-color, #e6ebf0);
   vertical-align: top;
 }
-.pkg-table th {
+.data-table th {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   opacity: 0.7;
 }
-.pkg-table td:first-child {
+.data-table td:first-child {
   white-space: nowrap;
   width: 1%;
 }
-.pkg-name a {
+.data-name a {
   font-weight: 600;
 }
-.pkg-gh {
+.data-gh {
   margin-left: 0.35rem;
   opacity: 0.65;
 }
-.pkg-gh:hover {
+.data-gh:hover {
   opacity: 1;
 }
-.pkg-name .status-pill {
+.data-name .status-pill {
   margin-left: 0.45rem;
   vertical-align: middle;
 }
-.pkg-empty {
+.filter-empty {
   margin-top: 1rem;
   opacity: 0.7;
 }
 @media (max-width: 600px) {
-  .pkg-table td:first-child {
+  .data-table td:first-child {
     white-space: normal;
     width: auto;
   }

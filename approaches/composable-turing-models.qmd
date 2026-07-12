@@ -76,7 +76,7 @@ toc-location: left
 ```{.julia .code-overflow-scroll}
 using ComposableTuringIDModels, Distributions, Turing
 
-# Renewal infections with inline latent process
+# Renewal infections with an inline prior model
 data = IDData(gen_distribution = Gamma(1.4, 1 / 0.38))
 
 model = IDModel(
@@ -106,7 +106,10 @@ chain = sample(as_turing_model(model, cases, length(cases)),
 ## The approach
 
 A model is assembled from small parts rather than written as one bespoke model.
-Each part fills one of three roles: a **latent** process describes an unobserved series over time, such as a log reproduction number or a growth rate; an **infection** process turns that series into unobserved infections, directly or through exponential growth or the renewal equation; and an **observation** process turns infections into the observed data.
+Each part fills one of three roles.
+A **prior model** says what we believe about a parameter before seeing data, and it may vary over time, such as a reproduction number that drifts, or stay fixed, such as a single ascertainment rate.
+An **infection model** turns that parameter into unobserved infections, directly or through exponential growth or the renewal equation.
+An **observation model** turns those infections into the data you actually see.
 
 ### One interface, no type hierarchy
 
@@ -115,7 +118,7 @@ There is no deep type hierarchy, and a part is identified by the method it imple
 That is what makes the parts interchangeable: anything implementing the interface can stand in anywhere the interface is expected.
 
 A part that contains another part builds the inner model and draws it as a **submodel**, so parts nest through the very interface they expose.
-The latent process is not a separate stage bolted on the front; it is folded into the infection model, which takes it as a slot and draws it while building the infections.
+The prior model is not a separate stage bolted on the front. It is folded into the infection model, which takes it as a slot and draws it while building the infections.
 
 ### No model rewrites, only part swaps
 

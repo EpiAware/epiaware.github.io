@@ -15,82 +15,83 @@ Status reflects where a package sits in its release cycle rather than a judgemen
 [stable]{.status-pill .status-stable} is a `1.0`+ release with a committed, semantically versioned API, and nothing is there yet.
 
 ```{=html}
-<div class="pkg-controls">
-  <input type="search" id="pkg-search" class="pkg-search"
+<div class="filter-table-wrap">
+<div class="filter-controls">
+  <input type="search" class="filter-search"
          placeholder="Search packages" aria-label="Search packages">
-  <div class="pkg-filters" role="group" aria-label="Filter packages by category">
-    <button class="pkg-filter is-active" data-category="all">All</button>
-    <button class="pkg-filter" data-category="modelling">Modelling</button>
-    <button class="pkg-filter" data-category="distributions">Distributions</button>
-    <button class="pkg-filter" data-category="infrastructure">Infrastructure</button>
+  <div class="filter-buttons" role="group" aria-label="Filter packages by category">
+    <button class="filter-btn is-active" data-category="all">All</button>
+    <button class="filter-btn" data-category="modelling">Modelling</button>
+    <button class="filter-btn" data-category="distributions">Distributions</button>
+    <button class="filter-btn" data-category="infrastructure">Infrastructure</button>
   </div>
 </div>
 
-<table class="pkg-table" id="pkg-table">
+<table class="data-table">
   <thead>
     <tr><th scope="col">Package</th><th scope="col">What it does</th></tr>
   </thead>
   <tbody>
     <tr data-category="modelling">
-      <td class="pkg-name">
+      <td class="data-name">
         <a href="https://composableturingidmodels.epiaware.org/dev/">ComposableTuringIDModels.jl</a>
-        <a class="pkg-gh" href="https://github.com/EpiAware/ComposableTuringIDModels.jl" aria-label="ComposableTuringIDModels.jl on GitHub"><i class="bi bi-github"></i></a>
+        <a class="data-gh" href="https://github.com/EpiAware/ComposableTuringIDModels.jl" aria-label="ComposableTuringIDModels.jl on GitHub"><i class="bi bi-github"></i></a>
         <span class="status-pill status-experimental">experimental</span>
       </td>
       <td>Assemble infectious disease models from interchangeable infection and observation parts as a single Turing model. The package that ties the ecosystem together.</td>
     </tr>
     <tr data-category="distributions">
-      <td class="pkg-name">
+      <td class="data-name">
         <a href="https://censoreddistributions.epiaware.org/">CensoredDistributions.jl</a>
-        <a class="pkg-gh" href="https://github.com/EpiAware/CensoredDistributions.jl" aria-label="CensoredDistributions.jl on GitHub"><i class="bi bi-github"></i></a>
+        <a class="data-gh" href="https://github.com/EpiAware/CensoredDistributions.jl" aria-label="CensoredDistributions.jl on GitHub"><i class="bi bi-github"></i></a>
         <span class="status-pill status-maturing">maturing</span>
       </td>
       <td>Handle the interval censoring and truncation biases common in epidemiological delay data, wrapping any Distributions.jl distribution.</td>
     </tr>
     <tr data-category="distributions">
-      <td class="pkg-name">
+      <td class="data-name">
         <a href="https://composeddistributions.epiaware.org/dev/">ComposedDistributions.jl</a>
-        <a class="pkg-gh" href="https://github.com/EpiAware/ComposedDistributions.jl" aria-label="ComposedDistributions.jl on GitHub"><i class="bi bi-github"></i></a>
+        <a class="data-gh" href="https://github.com/EpiAware/ComposedDistributions.jl" aria-label="ComposedDistributions.jl on GitHub"><i class="bi bi-github"></i></a>
         <span class="status-pill status-experimental">experimental</span>
       </td>
       <td>Join the delays in a case's history into a single distribution that can simulate a case or be fitted to observed ones.</td>
     </tr>
     <tr data-category="distributions">
-      <td class="pkg-name">
+      <td class="data-name">
         <a href="https://convolveddistributions.epiaware.org/dev/">ConvolvedDistributions.jl</a>
-        <a class="pkg-gh" href="https://github.com/EpiAware/ConvolvedDistributions.jl" aria-label="ConvolvedDistributions.jl on GitHub"><i class="bi bi-github"></i></a>
+        <a class="data-gh" href="https://github.com/EpiAware/ConvolvedDistributions.jl" aria-label="ConvolvedDistributions.jl on GitHub"><i class="bi bi-github"></i></a>
         <span class="status-pill status-experimental">experimental</span>
       </td>
       <td>Convolve probability distributions, with shared numerical quadrature.</td>
     </tr>
     <tr data-category="distributions">
-      <td class="pkg-name">
+      <td class="data-name">
         <a href="https://modifieddistributions.epiaware.org/dev/">ModifiedDistributions.jl</a>
-        <a class="pkg-gh" href="https://github.com/EpiAware/ModifiedDistributions.jl" aria-label="ModifiedDistributions.jl on GitHub"><i class="bi bi-github"></i></a>
+        <a class="data-gh" href="https://github.com/EpiAware/ModifiedDistributions.jl" aria-label="ModifiedDistributions.jl on GitHub"><i class="bi bi-github"></i></a>
         <span class="status-pill status-experimental">experimental</span>
       </td>
       <td>Rescale, weight, modify hazards, or transform a distribution, while keeping the full Distributions.jl interface.</td>
     </tr>
     <tr data-category="distributions">
-      <td class="pkg-name">
+      <td class="data-name">
         <a href="https://github.com/EpiAware/LoweredDistributions.jl">LoweredDistributions.jl</a>
-        <a class="pkg-gh" href="https://github.com/EpiAware/LoweredDistributions.jl" aria-label="LoweredDistributions.jl on GitHub"><i class="bi bi-github"></i></a>
+        <a class="data-gh" href="https://github.com/EpiAware/LoweredDistributions.jl" aria-label="LoweredDistributions.jl on GitHub"><i class="bi bi-github"></i></a>
         <span class="status-pill status-experimental">in development</span>
       </td>
       <td>Common components for differential equation infectious disease models. In development, so there is nothing to install yet.</td>
     </tr>
     <tr data-category="infrastructure">
-      <td class="pkg-name">
+      <td class="data-name">
         <a href="https://epiawarepackagetools.epiaware.org/">EpiAwarePackageTools.jl</a>
-        <a class="pkg-gh" href="https://github.com/EpiAware/EpiAwarePackageTools.jl" aria-label="EpiAwarePackageTools.jl on GitHub"><i class="bi bi-github"></i></a>
+        <a class="data-gh" href="https://github.com/EpiAware/EpiAwarePackageTools.jl" aria-label="EpiAwarePackageTools.jl on GitHub"><i class="bi bi-github"></i></a>
         <span class="status-pill status-experimental">experimental</span>
       </td>
       <td>Shared scaffolding, quality checks, and test utilities used across the ecosystem.</td>
     </tr>
     <tr data-category="infrastructure">
-      <td class="pkg-name">
+      <td class="data-name">
         <a href="https://github.com/EpiAware/EpiAwareADTools.jl">EpiAwareADTools.jl</a>
-        <a class="pkg-gh" href="https://github.com/EpiAware/EpiAwareADTools.jl" aria-label="EpiAwareADTools.jl on GitHub"><i class="bi bi-github"></i></a>
+        <a class="data-gh" href="https://github.com/EpiAware/EpiAwareADTools.jl" aria-label="EpiAwareADTools.jl on GitHub"><i class="bi bi-github"></i></a>
         <span class="status-pill status-experimental">experimental</span>
       </td>
       <td>Automatic differentiation safety machinery for the stack, tested across ForwardDiff, ReverseDiff, Mooncake, and Enzyme. Deliberately framed as fixes we host while we try to fix things upstream.</td>
@@ -98,41 +99,11 @@ Status reflects where a package sits in its release cycle rather than a judgemen
   </tbody>
 </table>
 
-<p class="pkg-empty" id="pkg-empty" hidden>No packages match that search.</p>
-
-<script>
-(function () {
-  const search = document.getElementById('pkg-search');
-  const rows = Array.from(document.querySelectorAll('#pkg-table tbody tr'));
-  const buttons = Array.from(document.querySelectorAll('.pkg-filter'));
-  const empty = document.getElementById('pkg-empty');
-  let category = 'all';
-
-  function apply() {
-    const q = search.value.trim().toLowerCase();
-    let shown = 0;
-    rows.forEach(row => {
-      const inCategory = category === 'all' || row.dataset.category === category;
-      const matches = q === '' || row.textContent.toLowerCase().includes(q);
-      const show = inCategory && matches;
-      row.hidden = !show;
-      if (show) shown++;
-    });
-    empty.hidden = shown !== 0;
-  }
-
-  search.addEventListener('input', apply);
-  buttons.forEach(button => {
-    button.addEventListener('click', () => {
-      buttons.forEach(b => b.classList.remove('is-active'));
-      button.classList.add('is-active');
-      category = button.dataset.category;
-      apply();
-    });
-  });
-})();
-</script>
+<p class="filter-empty" hidden>No packages match that search.</p>
+</div>
 ```
+
+{{< include ../_includes/filter-table.qmd >}}
 
 ## Related tools {#related-tools}
 
@@ -143,6 +114,7 @@ them and aim to work well alongside them.
 
 | Tool | What it does |
 |---|---|
+| [gemlib](https://gem-epidemics.gitlab.io/gemlib/) | Building blocks for assembling epidemic models and fitting them, in Python. It puts particular weight on composable inference, through JAX, TensorFlow Probability, and specialised samplers. That matters to us too, though our first concern is composing the model itself and supporting the workflow around it. |
 | [EpiBranch.jl](https://epiforecasts.io/EpiBranch.jl/dev/) ([source](https://github.com/epiforecasts/EpiBranch.jl)) | Branching process models for infectious disease epidemiology. |
 | [DDSALineLists.jl](https://github.com/epirecipes/DDSALineLists.jl) | Synthetic epidemic line lists from a discrete-time dynamic survival analysis generative model. |
 | [CategoricalOutbreaks.jl](https://github.com/epirecipes/CategoricalOutbreaks.jl) | Categorical outbreak line-list representations and aggregation, built with Catlab. |
