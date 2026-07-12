@@ -11,7 +11,7 @@ Together they combine into joint models that propagate uncertainty.
 
 ## Is it ready to use?
 
-The ecosystem is at an early stage. [CensoredDistributions.jl](packages/censoreddistributions.qmd)
+The ecosystem is at an early stage. [CensoredDistributions.jl](https://censoreddistributions.epiaware.org/)
 is the most developed and usable today. Other packages are in active development,
 and some interfaces will change. We will say clearly on each package's page how
 settled it is.

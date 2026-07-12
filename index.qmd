@@ -213,28 +213,28 @@ logpdf(tree, ans)
 
 ::: {.package-card .box #core-card}
 
-##### [ComposableTuringIDModels.jl <i class="bi bi-box-arrow-up-right" style="font-size: 0.4em;"></i>](packages/composableturingidmodels.qmd){.panel-title}
+##### [ComposableTuringIDModels.jl <i class="bi bi-box-arrow-up-right" style="font-size: 0.4em;"></i>](https://composableturingidmodels.epiaware.org/dev/){.panel-title}
 <p>Assemble infectious disease models from interchangeable parts as a single Turing model.</p>
 
 :::
 
 ::: {.package-card .box #core-card}
 
-##### [CensoredDistributions.jl <i class="bi bi-box-arrow-up-right" style="font-size: 0.4em;"></i>](packages/censoreddistributions.qmd){.panel-title}
+##### [CensoredDistributions.jl <i class="bi bi-box-arrow-up-right" style="font-size: 0.4em;"></i>](https://censoreddistributions.epiaware.org/){.panel-title}
 <p>Handle the censoring and truncation biases common in epidemiological delay data.</p>
 
 :::
 
 ::: {.package-card .box #core-card}
 
-##### [ComposedDistributions.jl <i class="bi bi-box-arrow-up-right" style="font-size: 0.4em;"></i>](packages/composeddistributions.qmd){.panel-title}
+##### [ComposedDistributions.jl <i class="bi bi-box-arrow-up-right" style="font-size: 0.4em;"></i>](https://composeddistributions.epiaware.org/dev/){.panel-title}
 <p>A grammar for composing distributions into event trees.</p>
 
 :::
 
 ::: {.package-card .box #core-card}
 
-##### [ModifiedDistributions.jl <i class="bi bi-box-arrow-up-right" style="font-size: 0.4em;"></i>](packages/modifieddistributions.qmd){.panel-title}
+##### [ModifiedDistributions.jl <i class="bi bi-box-arrow-up-right" style="font-size: 0.4em;"></i>](https://modifieddistributions.epiaware.org/dev/){.panel-title}
 <p>Rescale, weight, or modify distributions, keeping the full distribution interface.</p>
 
 :::

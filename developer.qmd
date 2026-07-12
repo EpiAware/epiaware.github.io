@@ -41,7 +41,7 @@ Packages run a consistent set of quality tools:
 - [JET.jl](https://github.com/aviatesk/JET.jl) for static analysis (`@report_opt`, `@report_package`)
 - Doctests and formatting checks
 
-[EpiAwarePackageTools.jl](packages/epiawarepackagetools.qmd) provides the shared
+[EpiAwarePackageTools.jl](https://epiawarepackagetools.epiaware.org/) provides the shared
 harnesses, including automatic-differentiation tests across backends.
 
 ## Checking performance
@@ -91,9 +91,10 @@ Every push and pull request builds the site in CI, so a broken build is caught
 before merge. Pushes to `main` also deploy it to GitHub Pages. The workflow is
 in `.github/workflows/publish.yml`.
 
-To add a package to the [Packages](packages/index.qmd) list, copy
-`packages/_template.qmd` and fill it in. The card and its documentation entry
-are generated on build.
+To add a package to the [Packages](packages/index.qmd) list, add a row to the
+table in `packages/index.qmd`. Give the row a `data-category` so it picks up the
+category filter, link the package name to its documentation, and link the icon
+to its source.
 
 ## When something breaks
 

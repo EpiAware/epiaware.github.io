@@ -1,6 +1,6 @@
 ---
 title: "A composable ecosystem for infectious disease modelling"
-description: "Why we are building EpiAware, and where it is today."
+description: "Why we are building EpiAware, where it is today, and what we need."
 author: "Sam Abbott"
 date: "2026-07-10"
 categories: [announcement]
@@ -19,27 +19,41 @@ So when a new outbreak needs different expertise, teams tend to rebuild from scr
 
 Composable models are a way to keep the rigour of a joint model while regaining the flexibility of separate ones.
 If a model is assembled from interchangeable, reusable parts, a domain expert can contribute one component without having to understand the whole system.
-Shared components also let different groups trace their differences to assumptions rather than implementation details.
-This is the argument set out in the epiforecasts modelling workflow and the composable modelling grant, and EpiAware is where we are putting it into practice in Julia.
+Shared components also let different groups trace their differences to assumptions rather than to implementation details.
+
+EpiAware is where we are trying to put that idea into practice in Julia.
+The [approaches](/approaches/index.qmd) page sets out what we want from any approach, and the routes we are exploring so far.
 
 ## What EpiAware is
 
-EpiAware is a set of small, interoperable Julia packages, not a single framework.
+EpiAware is a set of small, interoperable Julia packages rather than a single framework.
 We are not yet sure which way of composing models will work best, so we are trying more than one and keeping them interoperable.
-Some parts build on [Turing.jl](https://turinglang.org) for full Bayesian inference; others extend [Distributions.jl](https://github.com/JuliaStats/Distributions.jl) and are useful on their own.
-The [approaches](/approaches/index.qmd) page describes the routes we are exploring so far.
+Some parts build on [Turing.jl](https://turinglang.org) for full Bayesian inference, and others extend [Distributions.jl](https://github.com/JuliaStats/Distributions.jl) and are useful on their own.
 
 - **Aim**: interchangeable components that combine into joint models, propagate uncertainty properly, and make surveillance and outbreak workflows quicker to build and adapt.
-- **Approaches**: more than one route to composition, kept interoperable, growing as we learn what works.
-- **Alongside**: other efforts with the same goal — [DDSALineLists.jl](https://github.com/epirecipes/DDSALineLists.jl), [CategoricalOutbreaks.jl](https://github.com/epirecipes/CategoricalOutbreaks.jl), and [EpiBranch.jl](https://epiforecasts.io/EpiBranch.jl/dev/).
+- **Approaches**: more than one route to composition, kept interoperable, and growing as we learn what works.
+- **Alongside**: other efforts with the same goal, including [DDSALineLists.jl](https://github.com/epirecipes/DDSALineLists.jl), [CategoricalOutbreaks.jl](https://github.com/epirecipes/CategoricalOutbreaks.jl), and [EpiBranch.jl](https://epiforecasts.io/EpiBranch.jl/dev/).
 
 ## Where it is today
 
-[CensoredDistributions.jl](/packages/censoreddistributions.qmd) is the most developed.
+[CensoredDistributions.jl](https://censoreddistributions.epiaware.org/) is the most developed.
 The joint-modelling and composition packages are in active development.
 Each package's page says how settled it is.
 
+## Funding, and the lack of it
+
+We think this is worth doing properly, and we have been applying for funding to do it.
+So far without success.
+
+Rather than wait, we have started the organisation and begun building in the open, at whatever pace we can manage alongside other work.
+We are still looking for the support that would let us take it further.
+
 ## Get involved
 
-Collaborators welcome, whether that is code, docs, examples, or a modelling problem to test the approach on.
-See [Get involved](/get-involved.qmd), or start a conversation on the [epinowcast forum](https://community.epinowcast.org/).
+If any of this interests you, please get in touch.
+
+- Collaborators are welcome, whether that is code, docs, examples, or a modelling problem to test the approach on.
+- If you fund work of this kind, we would like to talk.
+- If you know of an opportunity that might fit, please point us at it, or introduce us.
+
+Start a conversation on the [epinowcast forum](https://community.epinowcast.org/), or see [Get involved](/get-involved.qmd).
