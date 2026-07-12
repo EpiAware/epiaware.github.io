@@ -35,6 +35,8 @@ website:
         href: gallery.qmd
       - text: Guides
         menu:
+          - text: Resources
+            href: resources.qmd
           - text: Using Julia
             href: using-julia.qmd
           - text: FAQ
