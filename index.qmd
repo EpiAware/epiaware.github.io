@@ -145,7 +145,7 @@ Named, composable parts give large language models a clear vocabulary to assembl
 using ComposedDistributions, Distributions
 
 # BDBV-inspired delay tree: parallel pathways
-# with Sequential, Resolve, and Compete nested together
+# with sequential, resolve, and compete nested together
 tree = compose((
     clinical = sequential(
         :onset_admit => Gamma(1.2, 3.0),
@@ -162,11 +162,11 @@ tree = compose((
 # Inspect tree, params, and default priors
 event_tree(tree)
 params_table(tree)
-priors = build_priors(params_table(tree))
+priors = param_priors(tree)
 
 # Draw a synthetic case, or evaluate a real one's likelihood
-rand(tree)
-logpdf(tree, ans)
+case = rand(tree)
+logpdf(tree, case)
 ```
 
 :::
