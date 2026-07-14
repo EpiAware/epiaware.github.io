@@ -91,7 +91,7 @@ model = IDModel(
     LatentDelay(
         Ascertainment(
             NegativeBinomialError(),
-            ascertainment_prior = Beta(10, 2)),
+            Intercept(Normal(log(0.4), 0.1))),
         truncated(Normal(5.0, 2.0), 0.0, Inf)))
 
 # Fit to case data with Turing's NUTS

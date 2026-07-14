@@ -78,7 +78,7 @@ page-layout: full
 using ComposedDistributions, Distributions
 
 # BDBV-inspired delay tree: parallel pathways
-# with Sequential, Resolve, and Compete nested together
+# with sequential, resolve, and compete nested together
 tree = compose((
     clinical = sequential(
         :onset_admit => Gamma(1.2, 3.0),
@@ -95,11 +95,11 @@ tree = compose((
 # Inspect tree, params, and default priors
 event_tree(tree)
 params_table(tree)
-priors = build_priors(params_table(tree))
+priors = param_priors(tree)
 
 # Draw a synthetic case, or evaluate a real one's likelihood
-rand(tree)
-logpdf(tree, ans)
+case = rand(tree)
+logpdf(tree, case)
 ```
 
 :::
@@ -124,17 +124,17 @@ The approach is built in four layers, each resting on the one before.
 - **Leaves** are any Distributions.jl `UnivariateDistribution`, used directly as the per-event delays.
 - **Composers** wire named leaves into an event tree.
 - **Combination and lowering** join or collapse whole delays with `convolved`, `difference`, and `observed_distribution`.
-- **Parameters and edits** read and reshape an assembled tree with `params_table`, `build_priors`, `update`, `prune`, and `splice`.
+- **Parameters and edits** read and reshape an assembled tree with `params_table`, `param_priors`, `update`, `prune`, and `splice`.
 
 ### Five composers
 
 Five composers cover the ways an event history can branch.
 
-- `Sequential` chains steps in series.
-- `Parallel` fans branches off one shared origin.
-- `Resolve` gives a one-of outcome as a fixed-probability mixture.
-- `Compete` gives a one-of outcome as racing hazards.
-- `Choose` picks a branch from a field in the data.
+- `sequential` chains steps in series.
+- `parallel` fans branches off one shared origin.
+- `resolve` gives a one-of outcome as a fixed-probability mixture.
+- `compete` gives a one-of outcome as racing hazards.
+- `choose` picks a branch from a field in the data.
 
 The `compose` front-end lowers a NamedTuple, a Tables.jl table, or a nested matrix onto the same stack, so a tree can be written by hand or built straight from a line list.
 
