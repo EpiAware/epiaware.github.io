@@ -195,7 +195,10 @@ Nothing is recomputed in separate post-processing that could drift from the mode
 - Fitting outside Turing, or fitting a plain struct alongside a tree?
   [DistributionsInference.jl](https://github.com/EpiAware/DistributionsInference.jl)
   hosts the PPL-neutral log-density and readback that `as_logdensity` and
-  `as_turing` build on.
+  `as_turing` build on: `distribution_priors` assembles priors the same way
+  `param_priors` does for a tree, and `distribution_params` reads a fitted
+  chain back to the estimated values by name, whatever fittable object it
+  came from.
 - Ready to fit a full model with infection dynamics? See the
   [composable Turing models approach](composable-turing-models.qmd).
 
