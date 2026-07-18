@@ -108,6 +108,6 @@ If it persists, delete `Manifest.toml` and run `] instantiate` to rebuild the en
 
 - [Julia Discourse](https://discourse.julialang.org/), the community forum
 - [Julia Slack](https://julialang.org/slack/) and [Zulip](https://julialang.zulipchat.com/)
-- For EpiAware questions, the [epinowcast forum](https://community.epinowcast.org/) and each package's GitHub Discussions
+- For EpiAware questions, the [epinowcast forum](https://community.epinowcast.org/); each package's GitHub issue tracker is for bugs and feature requests
 
 Next: the [FAQ](faq.qmd), or dive into the [packages](packages/index.qmd).
