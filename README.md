@@ -3,9 +3,10 @@
 Source for the [EpiAware](https://github.com/EpiAware) organisation website — the
 meta-site for a composable Julia ecosystem for infectious disease modelling.
 
-The site links out to the ecosystem's packages, wraps their documentation in a
-single browser, and hosts org-level material (using Julia, FAQ, contributing,
-developer, funding, getting involved) alongside a gallery and team page.
+The site is the ecosystem's shared front door: an inventory of every package
+linking out to its own documentation, the approaches that tie them together,
+and org-level material (using Julia, FAQ, contributing, developer, funding,
+getting involved) alongside a gallery and team page.
 
 ## Build
 
@@ -22,19 +23,23 @@ Pushes to `main` deploy it to GitHub Pages.
 
 ## Adding a package
 
-Copy `packages/_template.qmd` to `packages/<yourpackage>.qmd`, fill in the front
-matter and body, and open a pull request. The card on the
-[Packages](https://epiaware.github.io/packages/) page is generated from the file,
-and adding the package to the docs browser is a one-line entry in the
-`EPIAWARE_DOCS` list in `docs.qmd`.
+Add a row to the table in `packages/index.qmd`: package name linking to its
+documentation, a GitHub icon linking to its source, a status pill, a
+`data-category` (`modelling`, `distributions`, or `infrastructure`) so it
+picks up the category filter, and a one-sentence description. Open a pull
+request.
 
 ## Structure
 
 - `index.qmd` — home
-- `packages/` — one page per package, plus the generated listing and a template
-- `docs.qmd` — unified documentation browser
-- `tutorials.qmd`, `gallery.qmd`, `team.qmd`, `funding.qmd`, `get-involved.qmd`, `community.qmd`
+- `packages/index.qmd` — the ecosystem inventory (one filterable table)
+- `approaches/` — the modelling approaches (composed distributions, composable
+  Turing models) and their shared overview
+- `tutorials/index.qmd` — a filterable listing of runnable tutorials, each
+  living in its own package's documentation
+- `gallery.qmd`, `team.qmd`, `funding.qmd`, `get-involved.qmd`, `community.qmd`
 - `using-julia.qmd`, `faq.qmd`, `contributing.qmd`, `developer.qmd` — org-level guides
+- `news/` — blog posts
 - `theme-light.scss`, `theme-dark.scss`, `styles.css` — theme
 - `assets/img/logo.svg` — org logo
 
