@@ -41,7 +41,7 @@ Packages run a consistent set of quality tools:
 - [JET.jl](https://github.com/aviatesk/JET.jl) for static analysis (`@report_opt`, `@report_package`)
 - Doctests and formatting checks
 
-[EpiAwarePackageTools.jl](https://epiawarepackagetools.epiaware.org/) provides the shared
+[EpiAwarePackageTools.jl](https://epiawarepackagetools.epiaware.org/dev/) provides the shared
 harnesses, including automatic-differentiation tests across backends.
 
 ## Checking performance
