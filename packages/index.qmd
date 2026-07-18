@@ -60,7 +60,7 @@ Status reflects where a package sits in its release cycle rather than a judgemen
       <td class="data-name">
         <a href="https://convolveddistributions.epiaware.org/dev/">ConvolvedDistributions.jl</a>
         <a class="data-gh" href="https://github.com/EpiAware/ConvolvedDistributions.jl" aria-label="ConvolvedDistributions.jl on GitHub"><i class="bi bi-github"></i></a>
-        <span class="status-pill status-experimental">experimental</span>
+        <span class="status-pill status-maturing">maturing</span>
       </td>
       <td>Convolve probability distributions, with shared numerical quadrature.</td>
     </tr>
@@ -74,15 +74,23 @@ Status reflects where a package sits in its release cycle rather than a judgemen
     </tr>
     <tr data-category="distributions">
       <td class="data-name">
-        <a href="https://github.com/EpiAware/LoweredDistributions.jl">LoweredDistributions.jl</a>
+        <a href="https://lowereddistributions.epiaware.org/dev/">LoweredDistributions.jl</a>
         <a class="data-gh" href="https://github.com/EpiAware/LoweredDistributions.jl" aria-label="LoweredDistributions.jl on GitHub"><i class="bi bi-github"></i></a>
-        <span class="status-pill status-experimental">in development</span>
+        <span class="status-pill status-experimental">experimental</span>
       </td>
-      <td>Common components for differential equation infectious disease models. In development, so there is nothing to install yet.</td>
+      <td>Lower a distribution, or a whole composed event tree, onto a backend-agnostic dynamical-systems representation (a phase-type chain or a CTMC), then hand it to Catalyst, SciML, AlgebraicPetri, or JumpProcesses.</td>
+    </tr>
+    <tr data-category="distributions">
+      <td class="data-name">
+        <a href="https://github.com/EpiAware/DistributionsInference.jl">DistributionsInference.jl</a>
+        <a class="data-gh" href="https://github.com/EpiAware/DistributionsInference.jl" aria-label="DistributionsInference.jl on GitHub"><i class="bi bi-github"></i></a>
+        <span class="status-pill status-experimental">experimental</span>
+      </td>
+      <td>A PPL-neutral fit protocol and log-density engine: any object that names its own parameters becomes fittable, with Turing.jl, Bijectors, and FlexiChains readback layered on as extensions rather than requirements.</td>
     </tr>
     <tr data-category="infrastructure">
       <td class="data-name">
-        <a href="https://epiawarepackagetools.epiaware.org/">EpiAwarePackageTools.jl</a>
+        <a href="https://epiawarepackagetools.epiaware.org/dev/">EpiAwarePackageTools.jl</a>
         <a class="data-gh" href="https://github.com/EpiAware/EpiAwarePackageTools.jl" aria-label="EpiAwarePackageTools.jl on GitHub"><i class="bi bi-github"></i></a>
         <span class="status-pill status-experimental">experimental</span>
       </td>
@@ -90,9 +98,9 @@ Status reflects where a package sits in its release cycle rather than a judgemen
     </tr>
     <tr data-category="infrastructure">
       <td class="data-name">
-        <a href="https://github.com/EpiAware/EpiAwareADTools.jl">EpiAwareADTools.jl</a>
+        <a href="https://epiawareadtools.epiaware.org/dev/">EpiAwareADTools.jl</a>
         <a class="data-gh" href="https://github.com/EpiAware/EpiAwareADTools.jl" aria-label="EpiAwareADTools.jl on GitHub"><i class="bi bi-github"></i></a>
-        <span class="status-pill status-experimental">experimental</span>
+        <span class="status-pill status-maturing">maturing</span>
       </td>
       <td>Automatic differentiation safety machinery for the stack, tested across ForwardDiff, ReverseDiff, Mooncake, and Enzyme. Deliberately framed as fixes we host while we try to fix things upstream.</td>
     </tr>
