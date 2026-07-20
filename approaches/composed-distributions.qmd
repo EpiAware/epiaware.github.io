@@ -171,8 +171,8 @@ There is no translation step between the delay model, the infection model, and t
 ### Read the posterior back through the same tree
 
 After fitting, the posterior is read back by applying the parameter draws to the same tree.
-`update(template, chain)` reduces the chain to a point summary and returns one fitted tree; `update(template, table)` does the same from a Tables.jl table of values or priors, for a bulk edit outside a sampling loop.
-Reading every draw rather than a point summary maps `update` over `param_draws(template, chain)`, so every delay mean, convolution, or contrast still comes from the fitted object itself, one draw at a time.
+[DistributionsInference.jl](https://github.com/EpiAware/DistributionsInference.jl)'s `readback(template, chain)` reduces a fitted chain to a point summary and returns one fitted tree; `update(template, table)` does the equivalent from a Tables.jl table of values or priors, for a bulk edit outside a sampling loop.
+Reading every draw rather than a point summary uses `readback_draws(template, chain)`, so every delay mean, convolution, or contrast still comes from the fitted object itself, one draw at a time; `distribution_params` reads the same chain back to named values for any fittable object, tree or otherwise.
 Nothing is recomputed in separate post-processing that could drift from the model.
 
 ## Where next
@@ -194,11 +194,12 @@ Nothing is recomputed in separate post-processing that could drift from the mode
   models.
 - Fitting outside Turing, or fitting a plain struct alongside a tree?
   [DistributionsInference.jl](https://github.com/EpiAware/DistributionsInference.jl)
-  hosts the PPL-neutral log-density and readback that `as_logdensity` and
-  `as_turing` build on: `distribution_priors` assembles priors the same way
-  `param_priors` does for a tree, and `distribution_params` reads a fitted
-  chain back to the estimated values by name, whatever fittable object it
-  came from.
+  hosts a PPL-neutral log-density, `as_turing`, and chain readback
+  (`readback`/`readback_draws`) that work generically over the fit-protocol
+  core a composed tree and a plain struct both satisfy: `distribution_priors`
+  assembles priors the same way `param_priors` does for a tree, and
+  `distribution_params` reads a fitted chain back to the estimated values
+  by name, whatever fittable object it came from.
 - Ready to fit a full model with infection dynamics? See the
   [composable Turing models approach](composable-turing-models.qmd).
 
