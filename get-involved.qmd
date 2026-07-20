@@ -12,7 +12,8 @@ ecosystem, there is a place for you here.
 - **Discuss.** Join the [epinowcast forum](https://community.epinowcast.org/) to
   ask questions and talk through ideas — the best first step.
 - **Try the packages.** Use them on a real problem and tell us what worked and
-  what didn't, via a package's GitHub Discussions or issues.
+  what didn't, via the [forum](https://community.epinowcast.org/) or a
+  package's GitHub issues.
 - **Contribute.** Fix a bug, improve documentation, or add a feature. See the
   [Contributing](contributing.qmd) guide.
 - **Bring a use case.** If you have a modelling problem that composable tools

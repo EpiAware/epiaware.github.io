@@ -79,9 +79,9 @@ using ComposedDistributions, Distributions
 
 # BDBV-inspired delay tree: parallel pathways
 # with sequential, resolve, and compete nested together
-tree = compose((
+tree = @uncertain compose((
     clinical = sequential(
-        :onset_admit => Gamma(1.2, 3.0),
+        :onset_admit => Gamma(Normal(1.2, 0.2), 3.0),
         :admit_resolve => resolve(
             :death => (Gamma(2.0, 3.5), 0.3),
             :discharge => (Gamma(1.0, 8.0), 0.7))),
@@ -121,10 +121,10 @@ Both share one internal representation, so the model you build to simulate is th
 
 The approach is built in four layers, each resting on the one before.
 
-- **Leaves** are any Distributions.jl `UnivariateDistribution`, used directly as the per-event delays.
+- **Leaves** are any Distributions.jl `UnivariateDistribution`, used directly as the per-event delays, including Distributions.jl's own `truncated(...)` and `censored(...)` wrappers — a leaf can be truncated or censored, but wrapping a whole tree the same way errors by design, since the composers read a wrapper's structure to peel through to the free delay underneath.
 - **Composers** wire named leaves into an event tree.
 - **Combination and lowering** join or collapse whole delays with `convolved`, `difference`, and `observed_distribution`.
-- **Parameters and edits** read and reshape an assembled tree with `params_table`, `param_priors`, `update`, `prune`, and `splice`.
+- **Parameters and edits** read and reshape an assembled tree with `params_table`, `param_priors`, `uncertain`, `update`, `prune`, and `splice`.
 
 ### Five composers
 
@@ -151,14 +151,16 @@ The model does not change, only the delays each case supplies.
 
 Real line-list delays are rarely clean, and the corrections are part of the model rather than a preprocessing step.
 [CensoredDistributions.jl](https://censoreddistributions.epiaware.org/) supplies censoring leaves for primary-event censoring, interval censoring, and truncation.
-[ModifiedDistributions.jl](https://modifieddistributions.epiaware.org/) supplies modifier leaves that rescale, weight, or transform a delay.
+[ModifiedDistributions.jl](https://modifieddistributions.epiaware.org/dev/) supplies modifier leaves that rescale, weight, or transform a delay.
 Both are leaves like any other, so they slot into the tree and the composers peel through them to reach the free delay underneath.
 
 ### Uncertainty in the parameters themselves
 
 A delay taken from the literature rarely comes with exact parameters.
-`uncertain` wraps a leaf whose parameters are themselves distributions, nested to any depth.
+`uncertain` wraps a leaf whose parameters are themselves distributions, nested to any depth, and the `@uncertain` macro reads a distribution passed as a constructor argument as that parameter's prior, so `@uncertain Gamma(Normal(2.0, 0.3), 1.0)` reads the same as writing it out by hand.
 The result is still a univariate distribution, so it composes as a leaf everywhere, and `has_uncertain` guards against forgetting to pin it down before fitting.
+
+`uncertain` is also the verb for promoting parameters on a tree already built: `uncertain(tree; onset_admit = (shape = prior,))` targets one parameter, and bare `uncertain(tree)` promotes every free parameter with a default prior in one call.
 
 ### One representation across the workflow
 
@@ -169,7 +171,8 @@ There is no translation step between the delay model, the infection model, and t
 ### Read the posterior back through the same tree
 
 After fitting, the posterior is read back by applying the parameter draws to the same tree.
-`update(template, chain)` walks each draw through the tree and returns a distribution per draw, so every delay mean, convolution, or contrast comes from the fitted object itself.
+`update(template, chain)` reduces the chain to a point summary and returns one fitted tree; `update(template, table)` does the same from a Tables.jl table of values or priors, for a bulk edit outside a sampling loop.
+Reading every draw rather than a point summary maps `update` over `param_draws(template, chain)`, so every delay mean, convolution, or contrast still comes from the fitted object itself, one draw at a time.
 Nothing is recomputed in separate post-processing that could drift from the model.
 
 ## Where next
@@ -179,13 +182,23 @@ Nothing is recomputed in separate post-processing that could drift from the mode
   [composing distributions](https://composeddistributions.epiaware.org/dev/getting-started/tutorials/composing-distributions).
 - The [ComposedDistributions.jl documentation](https://composeddistributions.epiaware.org/dev/)
   covers the full API and worked examples.
-- [ConvolvedDistributions.jl](https://convolveddistributions.epiaware.org/) handles
+- [ConvolvedDistributions.jl](https://convolveddistributions.epiaware.org/dev/) handles
   the convolutions (sums) of delays that arise naturally in event trees.
-- [ModifiedDistributions.jl](https://modifieddistributions.epiaware.org/) lets you
+- [ModifiedDistributions.jl](https://modifieddistributions.epiaware.org/dev/) lets you
   rescale, weight, or otherwise transform individual leaves without changing the
   tree structure.
 - [CensoredDistributions.jl](https://censoreddistributions.epiaware.org/) adds
   the censoring layer for real line-list data.
+- [LoweredDistributions.jl](https://lowereddistributions.epiaware.org/dev/) lowers
+  the same tree onto a phase-type chain or a CTMC, the bridge to compartmental
+  models.
+- Fitting outside Turing, or fitting a plain struct alongside a tree?
+  [DistributionsInference.jl](https://github.com/EpiAware/DistributionsInference.jl)
+  hosts the PPL-neutral log-density and readback that `as_logdensity` and
+  `as_turing` build on: `distribution_priors` assembles priors the same way
+  `param_priors` does for a tree, and `distribution_params` reads a fitted
+  chain back to the estimated values by name, whatever fittable object it
+  came from.
 - Ready to fit a full model with infection dynamics? See the
   [composable Turing models approach](composable-turing-models.qmd).
 

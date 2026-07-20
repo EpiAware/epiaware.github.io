@@ -109,25 +109,25 @@ If you are new to an approach, start with the tutorial marked *start here*.
     </tr>
     <tr data-category="delays">
       <td class="data-name">
-        <a href="https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/fitting-with-turing">Fitting with Turing</a>
+        <a href="https://censoreddistributions.epiaware.org/stable/getting-started/tutorials/fitting-with-turing">Fitting with Turing</a>
       </td>
       <td>Estimating a delay distribution from censored, truncated line-list data. <em>CensoredDistributions</em></td>
     </tr>
     <tr data-category="delays">
       <td class="data-name">
-        <a href="https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/analytical-primarycensored-cdfs">Analytical primary-censored CDFs</a>
+        <a href="https://censoreddistributions.epiaware.org/stable/getting-started/tutorials/analytical-primarycensored-cdfs">Analytical primary-censored CDFs</a>
       </td>
       <td>Closed-form primary-event censoring, and when it beats numerical integration. <em>CensoredDistributions</em></td>
     </tr>
     <tr data-category="delays">
       <td class="data-name">
-        <a href="https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/exponentially-tilted-primary-events">Exponentially tilted primary events</a>
+        <a href="https://censoreddistributions.epiaware.org/stable/getting-started/tutorials/exponentially-tilted-primary-events">Exponentially tilted primary events</a>
       </td>
       <td>Primary events that are not uniform within their window, as in a growing epidemic. <em>CensoredDistributions</em></td>
     </tr>
     <tr data-category="delays">
       <td class="data-name">
-        <a href="https://censoreddistributions.epiaware.org/dev/getting-started/tutorials/ad-backends">Automatic differentiation backends</a>
+        <a href="https://censoreddistributions.epiaware.org/stable/getting-started/tutorials/ad-backends">Automatic differentiation backends</a>
       </td>
       <td>Which AD backend to use for censored delay likelihoods, and what it costs. <em>CensoredDistributions</em></td>
     </tr>

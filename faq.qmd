@@ -54,7 +54,7 @@ version. Package-specific citation details live in each package's documentation.
 
 ## Where do I get help or report a bug?
 
-- Questions: the [epinowcast forum](https://community.epinowcast.org/) or a package's GitHub Discussions
+- Questions: the [epinowcast forum](https://community.epinowcast.org/)
 - Bugs and feature requests: open an issue on the relevant GitHub repository
 - General Julia help: [Julia Discourse](https://discourse.julialang.org/) and [Slack](https://julialang.org/slack/)
 
