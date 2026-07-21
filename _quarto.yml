@@ -26,7 +26,8 @@ website:
           - text: Composable Turing models
             href: approaches/composable-turing-models.qmd
       - text: Tutorials
-        href: tutorials/index.qmd
+        href: https://tutorials.epiaware.org
+        target: _blank
       - text: Docs
         href: packages/index.qmd
       - text: News
