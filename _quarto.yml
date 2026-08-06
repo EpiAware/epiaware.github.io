@@ -25,10 +25,10 @@ website:
             href: approaches/composed-distributions.qmd
           - text: Composable Turing models
             href: approaches/composable-turing-models.qmd
+      - text: Packages
+        href: packages/index.qmd
       - text: Tutorials
         href: tutorials/index.qmd
-      - text: Docs
-        href: packages/index.qmd
       - text: News
         href: news/index.qmd
       - text: Gallery
