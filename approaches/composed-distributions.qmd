@@ -150,7 +150,7 @@ The model does not change, only the delays each case supplies.
 ### Censoring and modifiers compose as leaves
 
 Real line-list delays are rarely clean, and the corrections are part of the model rather than a preprocessing step.
-[CensoredDistributions.jl](https://censoreddistributions.epiaware.org/) supplies censoring leaves for primary-event censoring, interval censoring, and truncation.
+[CensoredDistributions.jl](https://censoreddistributions.epiaware.org/dev/) supplies censoring leaves for primary-event censoring, interval censoring, and truncation.
 [ModifiedDistributions.jl](https://modifieddistributions.epiaware.org/dev/) supplies modifier leaves that rescale, weight, or transform a delay.
 Both are leaves like any other, so they slot into the tree and the composers peel through them to reach the free delay underneath.
 
@@ -187,18 +187,14 @@ Nothing is recomputed in separate post-processing that could drift from the mode
 - [ModifiedDistributions.jl](https://modifieddistributions.epiaware.org/dev/) lets you
   rescale, weight, or otherwise transform individual leaves without changing the
   tree structure.
-- [CensoredDistributions.jl](https://censoreddistributions.epiaware.org/) adds
+- [CensoredDistributions.jl](https://censoreddistributions.epiaware.org/dev/) adds
   the censoring layer for real line-list data.
 - [LoweredDistributions.jl](https://lowereddistributions.epiaware.org/dev/) lowers
   the same tree onto a phase-type chain or a CTMC, the bridge to compartmental
   models.
-- Fitting outside Turing, or fitting a plain struct alongside a tree?
-  [DistributionsInference.jl](https://github.com/EpiAware/DistributionsInference.jl)
-  hosts the PPL-neutral log-density and readback that `as_logdensity` and
-  `as_turing` build on: `distribution_priors` assembles priors the same way
-  `param_priors` does for a tree, and `distribution_params` reads a fitted
-  chain back to the estimated values by name, whatever fittable object it
-  came from.
+- [DistributionsInference.jl](https://github.com/EpiAware/DistributionsInference.jl)
+  assembles PPL-neutral priors and reads a fitted chain back by name, for
+  fitting the tree (or any fittable struct) outside Turing.
 - Ready to fit a full model with infection dynamics? See the
   [composable Turing models approach](composable-turing-models.qmd).
 

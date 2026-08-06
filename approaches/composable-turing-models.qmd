@@ -75,28 +75,28 @@ page-layout: full
 :::
 
 ```{.julia .code-overflow-scroll}
-using ComposableTuringIDModels, Distributions, Turing
+using ComposableTuringIDModels, Distributions, Turing, Mooncake
+using ADTypes: AutoMooncake
 
-# Renewal infections with an inline prior model
-data = IDData(gen_distribution = Gamma(1.4, 1 / 0.38))
+# Renewal infections with an autoregressive log-R_t prior
+renewal = Renewal(;
+    generation_time = Gamma(1.4, 1 / 0.38),
+    rt = AR(; ϵ_t = HierarchicalNormal(std = HalfNormal(0.1))),
+    initialisation = Normal(log(1.0), 1.0))
 
-model = IDModel(
-    Renewal(data;
-        rt = AR(; ϵ_t = HierarchicalNormal(
-            std_prior = HalfNormal(0.1))),
-        initialisation_prior = Normal(log(1.0), 1.0)),
+# Observation layers: delay → ascertainment → negative-binomial noise
+obs = LatentDelay(
+    Ascertainment(
+        NegativeBinomialError(),
+        Intercept(Normal(log(0.4), 0.1))),
+    truncated(Normal(5.0, 2.0), 0.0, Inf))
 
-    # Multiple observation layers:
-    #   delay → ascertainment → negative-binomial noise
-    LatentDelay(
-        Ascertainment(
-            NegativeBinomialError(),
-            Intercept(Normal(log(0.4), 0.1))),
-        truncated(Normal(5.0, 2.0), 0.0, Inf)))
+model = IDModel(renewal, obs)
 
-# Fit to case data with Turing's NUTS
+# Fit to case data with Turing's NUTS (Mooncake AD)
 chain = sample(as_turing_model(model, cases, length(cases)),
-               NUTS(), MCMCThreads(), 1_000, 2)
+    NUTS(0.95; adtype = AutoMooncake(; config = nothing)),
+    MCMCThreads(), 100, 2)
 ```
 
 :::
