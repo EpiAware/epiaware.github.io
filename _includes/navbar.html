@@ -1,0 +1,89 @@
+<!-- Shared EpiAware navbar. Single source of truth for the ecosystem site
+     chrome; the separate tutorials site renders this same partial via a
+     submodule so the bar is never duplicated. -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0; z-index: 1030;">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="https://epiaware.org">
+      <img src="/assets/img/logo.svg" alt="EpiAware" width="28" height="28" class="me-2">
+      EpiAware
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#epi-nav" aria-controls="epi-nav"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="epi-nav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">Approaches</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="https://epiaware.org/approaches/index.html">Overview</a></li>
+            <li><a class="dropdown-item" href="https://epiaware.org/approaches/composed-distributions.html">Composed distributions</a></li>
+            <li><a class="dropdown-item" href="https://epiaware.org/approaches/composable-turing-models.html">Composable Turing models</a></li>
+          </ul>
+        </li>
+        <li class="nav-item" data-epi-active="tutorials">
+          <a class="nav-link" href="https://tutorials.epiaware.org">Tutorials</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://epiaware.org/packages/index.html">Docs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://epiaware.org/news/index.html">News</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://epiaware.org/gallery.html">Gallery</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">Guides</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="https://epiaware.org/resources.html">Resources</a></li>
+            <li><a class="dropdown-item" href="https://epiaware.org/using-julia.html">Using Julia</a></li>
+            <li><a class="dropdown-item" href="https://epiaware.org/faq.html">FAQ</a></li>
+            <li><a class="dropdown-item" href="https://epiaware.org/contributing.html">Contributing</a></li>
+            <li><a class="dropdown-item" href="https://epiaware.org/developer.html">Developer docs</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">Community</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="https://epiaware.org/get-involved.html">Get involved</a></li>
+            <li><a class="dropdown-item" href="https://epiaware.org/team.html">Team</a></li>
+            <li><a class="dropdown-item" href="https://epiaware.org/funding.html">Funding</a></li>
+            <li><a class="dropdown-item" href="https://epiaware.org/community.html">epinowcast &amp; the forum</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="navbar-nav d-flex flex-row">
+        <li class="nav-item me-2">
+          <a class="nav-link" href="https://community.epinowcast.org/"
+             aria-label="epinowcast community forum">
+            <i class="bi bi-discord"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/EpiAware"
+             aria-label="EpiAware on GitHub">
+            <i class="bi bi-github"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<script>
+// Mark the active section. The shared bar is rendered on both the ecosystem
+// site and the tutorials site; default the "Tutorials" link active there.
+(function () {
+  var host = location.host;
+  var mark = function (sel) {
+    document.querySelectorAll(sel).forEach(function (a) { a.classList.add("active"); });
+  };
+  if (/tutorials\./.test(host)) {
+    mark('#epi-nav [data-epi-active="tutorials"] .nav-link');
+  }
+})();
+</script>
