@@ -36,7 +36,7 @@ Status reflects where a package sits in its release cycle rather than a judgemen
       <td class="data-name">
         <a href="https://composableturingidmodels.epiaware.org/dev/">ComposableTuringIDModels.jl</a>
         <a class="data-gh" href="https://github.com/EpiAware/ComposableTuringIDModels.jl" aria-label="ComposableTuringIDModels.jl on GitHub"><i class="bi bi-github"></i></a>
-        <span class="status-pill status-experimental">experimental</span>
+        <span class="status-pill status-maturing">maturing</span>
       </td>
       <td>Assemble infectious disease models from interchangeable infection and observation parts as a single Turing model. The package that ties the ecosystem together.</td>
     </tr>
@@ -46,13 +46,13 @@ Status reflects where a package sits in its release cycle rather than a judgemen
         <a class="data-gh" href="https://github.com/EpiAware/CensoredDistributions.jl" aria-label="CensoredDistributions.jl on GitHub"><i class="bi bi-github"></i></a>
         <span class="status-pill status-maturing">maturing</span>
       </td>
-      <td>Handle the interval censoring and truncation biases common in epidemiological delay data, wrapping any Distributions.jl distribution.</td>
+      <td>Handle the interval censoring and truncation biases common in epidemiological delay data, wrapping any Distributions.jl distribution, and convolve series of censored delays with <code>convolve_series</code>.</td>
     </tr>
     <tr data-category="distributions">
       <td class="data-name">
         <a href="https://composeddistributions.epiaware.org/dev/">ComposedDistributions.jl</a>
         <a class="data-gh" href="https://github.com/EpiAware/ComposedDistributions.jl" aria-label="ComposedDistributions.jl on GitHub"><i class="bi bi-github"></i></a>
-        <span class="status-pill status-experimental">experimental</span>
+        <span class="status-pill status-maturing">maturing</span>
       </td>
       <td>Join the delays in a case's history into a single distribution that can simulate a case or be fitted to observed ones.</td>
     </tr>
@@ -71,6 +71,14 @@ Status reflects where a package sits in its release cycle rather than a judgemen
         <span class="status-pill status-experimental">experimental</span>
       </td>
       <td>Rescale, weight, modify hazards, or transform a distribution, while keeping the full Distributions.jl interface.</td>
+    </tr>
+    <tr data-category="distributions">
+      <td class="data-name">
+        <a href="https://reparameteriseddistributions.epiaware.org/dev/">ReparameterisedDistributions.jl</a>
+        <a class="data-gh" href="https://github.com/EpiAware/ReparameterisedDistributions.jl" aria-label="ReparameterisedDistributions.jl on GitHub"><i class="bi bi-github"></i></a>
+        <span class="status-pill status-maturing">maturing</span>
+      </td>
+      <td>Express the same distribution under a different, equivalent parameterisation, so a model can be fitted in whatever form is most convenient and read back in your own.</td>
     </tr>
     <tr data-category="distributions">
       <td class="data-name">
