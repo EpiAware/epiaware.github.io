@@ -80,7 +80,7 @@ using ADTypes: AutoMooncake
 
 # Renewal infections with an autoregressive log-R_t prior
 renewal = Renewal(;
-    generation_time = Gamma(1.4, 1 / 0.38),   # serial interval, discretised
+    generation_time = Gamma(1.4, 1 / 0.38),
     rt = AR(; ϵ_t = HierarchicalNormal(std = HalfNormal(0.1))),
     initialisation = Normal(log(1.0), 1.0))
 
