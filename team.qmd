@@ -27,7 +27,7 @@ Maintainer · [LSHTM](https://www.lshtm.ac.uk/aboutus/people/abbott.sam)
 [Sebastian Funk](https://github.com/sbfnk)
 :::
 ::: {.role}
-Maintainer · LSHTM
+Maintainer · [LSHTM](https://www.lshtm.ac.uk/aboutus/people/funk.sebastian)
 :::
 :::
 :::
