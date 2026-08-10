@@ -163,7 +163,8 @@ The result is still a univariate distribution, so it composes as a leaf everywhe
 `uncertain` is also the verb for promoting parameters on a tree already built: `uncertain(tree; onset_admit = (shape = prior,))` targets one parameter, and bare `uncertain(tree)` promotes every free parameter with a default prior in one call.
 
 The specs passed to `uncertain` also set how far a parameter is pooled across a group.
-`pool(:group, population)` used as a spec makes each member of a group draw its parameter from one shared `population`, so `uncertain(Gamma(2.0, 1.0); shape = pool(:grp, Normal(0.7, 0.3)))` estimates the population's own parameters as hyperparameters and lets a data-poor stratum shrink towards the population while a data-rich one moves freely.
+`pool(:group, population)` used as a spec makes each member of a group draw its parameter from one shared `population`, as in `uncertain(Gamma(2.0, 1.0); shape = pool(:group, Normal(0.7, 0.3)))`.
+The population's own parameters become the estimated hyperparameters, so a data-poor stratum shrinks towards the population while a data-rich one moves freely.
 This is the middle of a pooling spectrum.
 `shared` and `tie` give complete pooling, one value everywhere; independent `uncertain` specs give no pooling, one value per branch; `pool` sits between them.
 A location-scale population such as `Normal` or `LogNormal` is reparameterised non-centred, and a general population is scored centred.
