@@ -1,0 +1,129 @@
+<!-- Shared EpiAware navbar. Single source of truth for the ecosystem site
+     chrome; the separate tutorials site renders this same partial via a
+     submodule so the bar is never duplicated. -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0; z-index: 1030;">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="https://epiaware.org">
+      <img src="/assets/img/logo.svg" alt="EpiAware" width="28" height="28" class="me-2">
+      EpiAware
+    </a>
+    <!-- Quarto's search JS (site_libs/quarto-search/quarto-search.js)
+         hydrates any element with id="quarto-search" by id lookup, so this
+         hand-placed div works the same as Quarto's own navbar-generated
+         markup. Each site emits its own site_libs/quarto-search assets and
+         search.json (from website.search: true in its own _quarto.yml), so
+         this is deliberately per-site: the box searches whichever site it
+         is rendered on. -->
+    <div id="quarto-search" class="" title="Search"></div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#epi-nav" aria-controls="epi-nav"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="epi-nav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">Approaches</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="https://epiaware.org/approaches/index.html">Overview</a></li>
+            <li><a class="dropdown-item" href="https://epiaware.org/approaches/composed-distributions.html">Composed distributions</a></li>
+            <li><a class="dropdown-item" href="https://epiaware.org/approaches/composable-turing-models.html">Composable Turing models</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://epiaware.org/packages/index.html">Packages</a>
+        </li>
+        <li class="nav-item" data-epi-active="tutorials">
+          <a class="nav-link" href="https://tutorials.epiaware.org">Tutorials</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://epiaware.org/news/index.html">News</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://epiaware.org/gallery.html">Gallery</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">Guides</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="https://epiaware.org/resources.html">Resources</a></li>
+            <li><a class="dropdown-item" href="https://epiaware.org/using-julia.html">Using Julia</a></li>
+            <li><a class="dropdown-item" href="https://epiaware.org/faq.html">FAQ</a></li>
+            <li><a class="dropdown-item" href="https://epiaware.org/contributing.html">Contributing</a></li>
+            <li><a class="dropdown-item" href="https://epiaware.org/developer.html">Developer docs</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">Community</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="https://epiaware.org/get-involved.html">Get involved</a></li>
+            <li><a class="dropdown-item" href="https://epiaware.org/team.html">Team</a></li>
+            <li><a class="dropdown-item" href="https://epiaware.org/funding.html">Funding</a></li>
+            <li><a class="dropdown-item" href="https://epiaware.org/community.html">epinowcast &amp; the forum</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="navbar-nav d-flex flex-row">
+        <li class="nav-item me-2">
+          <a class="nav-link" href="https://community.epinowcast.org/"
+             aria-label="epinowcast community forum">
+            <i class="bi bi-discord"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/EpiAware"
+             aria-label="EpiAware on GitHub">
+            <i class="bi bi-github"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<script>
+// Mark the active section. The shared bar is rendered on both the ecosystem
+// site and the tutorials site.
+(function () {
+  var host = location.host;
+  var mark = function (sel) {
+    document.querySelectorAll(sel).forEach(function (a) { a.classList.add("active"); });
+  };
+
+  if (/tutorials\./.test(host)) {
+    // On the tutorials host every page is "Tutorials", so just light up
+    // that top-level link rather than trying to path-match into a
+    // different site's URL structure.
+    mark('#epi-nav [data-epi-active="tutorials"] .nav-link');
+    return;
+  }
+
+  // On the main site, match the current page against each nav link's own
+  // href (all absolute epiaware.org URLs, so this works at any render
+  // depth) and mark it — and its dropdown parent, if any — active.
+  var normalize = function (path) {
+    return path.replace(/index\.html$/, "").replace(/\/$/, "") || "/";
+  };
+  var here = normalize(location.pathname);
+  document.querySelectorAll("#epi-nav .nav-link[href]").forEach(function (a) {
+    var url;
+    try {
+      url = new URL(a.getAttribute("href"), location.href);
+    } catch (e) {
+      return;
+    }
+    if (url.host !== "epiaware.org" || normalize(url.pathname) !== here) {
+      return;
+    }
+    a.classList.add("active");
+    var dropdown = a.closest(".dropdown-menu");
+    if (dropdown) {
+      var toggle = dropdown.previousElementSibling;
+      if (toggle && toggle.classList.contains("dropdown-toggle")) {
+        toggle.classList.add("active");
+      }
+    }
+  });
+})();
+</script>

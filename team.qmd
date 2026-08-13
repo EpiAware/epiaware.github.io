@@ -19,6 +19,17 @@ is credited in that package's repository.
 Maintainer · [LSHTM](https://www.lshtm.ac.uk/aboutus/people/abbott.sam)
 :::
 :::
+
+::: {.team-card}
+[![](https://github.com/sbfnk.png?size=200){fig-alt="Sebastian Funk"}](https://github.com/sbfnk)
+
+::: {.name}
+[Sebastian Funk](https://github.com/sbfnk)
+:::
+::: {.role}
+Maintainer · [LSHTM](https://www.lshtm.ac.uk/aboutus/people/funk.sebastian)
+:::
+:::
 :::
 
 ## Contributors
