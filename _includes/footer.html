@@ -1,26 +1,36 @@
 <!-- Shared EpiAware footer. Single source of truth; rendered on the ecosystem
-     site and the separate tutorials site (via submodule). -->
-<footer class="footer mt-auto py-4" style="border-top: 1px solid var(--bs-border-color); margin-top: 3rem; background: var(--bs-body-bg);">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-md-6 text-center text-md-start">
-        <span class="text-muted">EpiAware — a composable Julia ecosystem for infectious disease modelling.</span>
-      </div>
-      <div class="col-md-6">
-        <ul class="nav justify-content-center justify-content-md-end">
-          <li class="nav-item"><a class="nav-link" href="https://epiaware.org/packages/index.html">Packages</a></li>
-          <li class="nav-item"><a class="nav-link" href="https://epiaware.org/get-involved.html">Get involved</a></li>
-          <li class="nav-item"><a class="nav-link" href="https://epiaware.org/funding.html">Funding</a></li>
-          <li class="nav-item">
-            <a class="nav-link px-2" href="https://community.epinowcast.org/"
-               aria-label="epinowcast community forum"><i class="bi bi-discord"></i></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link px-2" href="https://github.com/EpiAware"
-               aria-label="EpiAware on GitHub"><i class="bi bi-github"></i></a>
-          </li>
-        </ul>
-      </div>
+     site and the separate tutorials site (via submodule).
+
+     Uses Quarto's own .nav-footer/.nav-footer-left/-center/-right classes
+     (not a generic Bootstrap .row/.col grid) so the built-in styling —
+     muted link colour, hairline top border, spacing — applies, and so
+     Quarto's per-page repo-actions injection (Edit this page/Report an
+     issue, from repo-actions in _quarto.yml) lands inside
+     .nav-footer-center next to the other links instead of appending a
+     second, differently-styled footer row. -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      EpiAware — a composable Julia ecosystem for infectious disease modelling.
+    </div>
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+        <li class="nav-item"><a class="nav-link" href="https://epiaware.org/packages/index.html">Packages</a></li>
+        <li class="nav-item"><a class="nav-link" href="https://epiaware.org/get-involved.html">Get involved</a></li>
+        <li class="nav-item"><a class="nav-link" href="https://epiaware.org/funding.html">Funding</a></li>
+      </ul>
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+        <li class="nav-item compact">
+          <a class="nav-link" href="https://community.epinowcast.org/"
+             aria-label="epinowcast community forum"><i class="bi bi-discourse"></i></a>
+        </li>
+        <li class="nav-item compact">
+          <a class="nav-link" href="https://github.com/EpiAware"
+             aria-label="EpiAware on GitHub"><i class="bi bi-github"></i></a>
+        </li>
+      </ul>
     </div>
   </div>
 </footer>

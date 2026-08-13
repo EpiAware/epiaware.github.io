@@ -1,19 +1,40 @@
 <!-- Shared EpiAware navbar. Single source of truth for the ecosystem site
      chrome; the separate tutorials site renders this same partial via a
-     submodule so the bar is never duplicated. -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: sticky; top: 0; z-index: 1030;">
-  <div class="container-fluid">
-    <a class="navbar-brand d-flex align-items-center" href="https://epiaware.org">
-      <img src="/assets/img/logo.svg" alt="EpiAware" width="28" height="28" class="me-2">
-      EpiAware
-    </a>
+     submodule so the bar is never duplicated.
+
+     format.html.include-before-body injects into Quarto's Pandoc template
+     slot, which sits *inside* <main>, not as a sibling of it — so this
+     can't be Quarto's usual header#quarto-header.fixed-top: an ancestor
+     (<main>) has its own CSS transform, and a transformed ancestor becomes
+     the containing block for position:fixed descendants, which pinned the
+     "fixed" bar partway down the page instead of the viewport top and let
+     it overlap the title. position:sticky avoids that: it needs no
+     special containing block and still stays in normal document flow, so
+     no header/body offset bookkeeping is needed either.
+
+     navbar-dark with no bg-dark: the theme (theme-light.scss/
+     theme-dark.scss $navbar-bg/$navbar-fg) supplies the actual colours
+     per light/dark mode; a hardcoded bg-dark forced a dark bar even in
+     light mode. -->
+<nav class="navbar navbar-expand-lg navbar-dark"
+     style="position: sticky; top: 0; z-index: 1030;">
+  <div class="navbar-container container-fluid">
+    <div class="navbar-brand-container">
+      <a class="navbar-brand" href="https://epiaware.org">
+        <img src="/assets/img/logo.svg" alt="EpiAware" class="navbar-logo">
+        <span class="navbar-title">EpiAware</span>
+      </a>
+    </div>
     <!-- Quarto's search JS (site_libs/quarto-search/quarto-search.js)
          hydrates any element with id="quarto-search" by id lookup, so this
          hand-placed div works the same as Quarto's own navbar-generated
          markup. Each site emits its own site_libs/quarto-search assets and
          search.json (from website.search: true in its own _quarto.yml), so
          this is deliberately per-site: the box searches whichever site it
-         is rendered on. -->
+         is rendered on. It renders as the compact search icon rather than
+         an inline text box because website.search.location is set to
+         navbar (see _quarto.yml) — without that, Quarto's default is a
+         sidebar textbox, which looks broken jammed into a navbar. -->
     <div id="quarto-search" class="" title="Search"></div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#epi-nav" aria-controls="epi-nav"
@@ -69,7 +90,7 @@
         <li class="nav-item me-2">
           <a class="nav-link" href="https://community.epinowcast.org/"
              aria-label="epinowcast community forum">
-            <i class="bi bi-discord"></i>
+            <i class="bi bi-discourse"></i>
           </a>
         </li>
         <li class="nav-item">
@@ -79,6 +100,11 @@
           </a>
         </li>
       </ul>
+      <div class="quarto-navbar-tools">
+        <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool px-1"
+           onclick="window.quartoToggleColorScheme(); return false;"
+           title="Toggle dark mode"><i class="bi"></i></a>
+      </div>
     </div>
   </div>
 </nav>

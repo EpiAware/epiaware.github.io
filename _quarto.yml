@@ -18,15 +18,22 @@ website:
   # site renders the same partials via a git submodule, so both sites
   # share one navbar and footer definition.
   #
-  # `search: true` here is still required even with no navbar/sidebar
-  # config: it is what makes Quarto emit search.json and the
-  # site_libs/quarto-search/* assets and JS. The shared navbar partial
-  # then supplies its own `<div id="quarto-search">` markup, which
-  # quarto-search.js hydrates by id regardless of where it lives in the
-  # DOM. Each site sets this independently, so search stays per-site:
-  # this site searches epiaware.org content, the tutorials site (once it
-  # sets the same flag) searches its own content.
-  search: true
+  # `search` here is still required even with no navbar/sidebar config: it
+  # is what makes Quarto emit search.json and the site_libs/quarto-search/*
+  # assets and JS. The shared navbar partial then supplies its own
+  # `<div id="quarto-search">` markup, which quarto-search.js hydrates by
+  # id regardless of where it lives in the DOM. Each site sets this
+  # independently, so search stays per-site: this site searches
+  # epiaware.org content, the tutorials site (once it sets the same flag)
+  # searches its own content.
+  #
+  # location/type must be set explicitly: with no website.navbar config to
+  # infer them from, Quarto's defaults are a sidebar search (location:
+  # sidebar, type: textbox), which renders as a permanently-open text
+  # field — broken when jammed into a navbar rather than a sidebar.
+  search:
+    location: navbar
+    type: overlay
 
 format:
   html:
