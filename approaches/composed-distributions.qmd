@@ -124,7 +124,7 @@ The approach is built in four layers, each resting on the one before.
 - **Leaves** are any Distributions.jl `UnivariateDistribution`, used directly as the per-event delays, including Distributions.jl's own `truncated(...)` and `censored(...)` wrappers — a leaf can be truncated or censored, but wrapping a whole tree the same way errors by design, since the composers read a wrapper's structure to peel through to the free delay underneath.
 - **Composers** wire named leaves into an event tree.
 - **Combination and lowering** join or collapse whole delays with `convolved`, `difference`, and `observed_distribution`.
-- **Parameters and edits** read and reshape an assembled tree with `params_table`, `param_priors`, `uncertain`, `update`, `prune`, and `splice`.
+- **Parameters and edits** read and reshape an assembled tree with `params_table`, `param_priors`, `uncertain`, `update`, `prune`, `splice`, and `tie`.
 
 ### Five composers
 
@@ -161,6 +161,31 @@ A delay taken from the literature rarely comes with exact parameters.
 The result is still a univariate distribution, so it composes as a leaf everywhere, and `has_uncertain` guards against forgetting to pin it down before fitting.
 
 `uncertain` is also the verb for promoting parameters on a tree already built: `uncertain(tree; onset_admit = (shape = prior,))` targets one parameter, and bare `uncertain(tree)` promotes every free parameter with a default prior in one call.
+
+The specs passed to `uncertain` also set how far a parameter is pooled across a group.
+`pool(:group, population)` used as a spec makes each member of a group draw its parameter from one shared `population`, as in `uncertain(Gamma(2.0, 1.0); shape = pool(:group, Normal(0.7, 0.3)))`.
+The population's own parameters become the estimated hyperparameters, so a data-poor stratum shrinks towards the population while a data-rich one moves freely.
+This is the middle of a pooling spectrum.
+`shared` and `tie` give complete pooling, one value everywhere; independent `uncertain` specs give no pooling, one value per branch; `pool` sits between them.
+A location-scale population such as `Normal` or `LogNormal` is reparameterised non-centred, and a general population is scored centred.
+
+### Tie a parameter across branches
+
+Sometimes one parameter should take a single value everywhere it appears, such as a reporting delay shared by every pathway.
+`shared(:name, leaf)` tags a leaf so that every occurrence of that name in a tree counts as one free parameter.
+It is inventoried, sampled, and updated once, and the shared value is placed in every occurrence.
+The tag is transparent to scoring and sampling, since every Distributions method delegates to the wrapped leaf, so it changes only how parameters are inventoried and rebuilt.
+
+`tie` is the same tie written for a tree already built.
+`tie(tree, paths...; name = :name)` walks the tree to the named leaves and wraps each in `shared`, where a path is a tuple naming a leaf, as in `tie(tree, (:a, :x), (:b, :z); name = :report)`.
+Either spelling gives complete pooling, one value across the branches it names.
+
+### Non-stationary leaves
+
+A delay can change with calendar time, a stratum, or a region.
+This is handled by generalising the leaf rather than adding a composer, so the tree structure stays the same.
+`varying(f; covariate = :time)` maps a covariate to a distribution, and `has_varying` reports whether a tree still holds one that needs a context before fitting.
+`instantiate(tree, Context(time = 4.0))` resolves a tree against a context and returns a concrete stationary tree that composes, scores, and samples like any other.
 
 ### One representation across the workflow
 
