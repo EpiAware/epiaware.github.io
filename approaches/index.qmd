@@ -44,7 +44,7 @@ This is our first cut, and we would like to be told where it is wrong.
 ## The approaches
 
 We are not sure yet which of these will work best, so we are trying more than one and keeping them interoperable.
-Both work with the same underlying packages, and they can be combined in a single analysis.
+They share the same underlying packages, and they are designed to combine in a single analysis.
 
 ::: {.feature-grid}
 ::: {.feature-card}
@@ -60,6 +60,13 @@ Build a whole model from three interchangeable pieces, one for what drives trans
 Any piece can be swapped for another without rewriting the rest.
 
 [Read the approach &rarr;](composable-turing-models.qmd)
+:::
+::: {.feature-card}
+### Composable recurrences
+Build renewal processes, autoregressions and reporting delays from two fast, differentiable operators, one that feeds back on its own history and one that does not.
+They carry no epidemiology of their own, and composable Turing models are planned to run on them.
+
+[Read the approach &rarr;](composable-recurrences.qmd)
 :::
 :::
 

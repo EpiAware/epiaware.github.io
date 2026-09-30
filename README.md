@@ -34,7 +34,7 @@ request.
 - `index.qmd` — home
 - `packages/index.qmd` — the ecosystem inventory (one filterable table)
 - `approaches/` — the modelling approaches (composed distributions, composable
-  Turing models) and their shared overview
+  Turing models, composable recurrences) and their shared overview
 - `tutorials/index.qmd` — a filterable listing of runnable tutorials, each
   living in its own package's documentation
 - `gallery.qmd`, `team.qmd`, `funding.qmd`, `get-involved.qmd`, `community.qmd`
