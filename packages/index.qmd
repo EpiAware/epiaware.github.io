@@ -40,6 +40,14 @@ Status reflects where a package sits in its release cycle rather than a judgemen
       </td>
       <td>Assemble infectious disease models from interchangeable infection and observation parts as a single Turing model. The package that ties the ecosystem together.</td>
     </tr>
+    <tr data-category="modelling">
+      <td class="data-name">
+        <a href="https://github.com/EpiAware/ComposableRecurrences.jl">ComposableRecurrences.jl</a>
+        <a class="data-gh" href="https://github.com/EpiAware/ComposableRecurrences.jl" aria-label="ComposableRecurrences.jl on GitHub"><i class="bi bi-github"></i></a>
+        <span class="status-pill status-experimental">experimental</span>
+      </td>
+      <td>Fast, differentiable recurrences and causal convolutions, the renewal, autoregressive and delay steps inside a model. The core operators are on the main branch but not yet registered, and native adjoints are in progress.</td>
+    </tr>
     <tr data-category="distributions">
       <td class="data-name">
         <a href="https://censoreddistributions.epiaware.org/">CensoredDistributions.jl</a>
