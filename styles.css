@@ -330,17 +330,13 @@ h1, h2, h3 { letter-spacing: -0.02em; }
 .cr-map .cr-band-t {
   fill-opacity: 0.6; font-size: 10.5px; letter-spacing: 0.08em;
 }
-.cr-map .cr-node.cr-opt {
-  stroke: var(--epi-accent); stroke-dasharray: 5 4;
-}
 .cr-map .cr-e { stroke: var(--epi-primary); stroke-width: 1.5; fill: none; }
 .cr-map .cr-e.cr-dash {
   stroke: currentColor; stroke-opacity: 0.5; stroke-dasharray: 5 4;
 }
-.cr-map .cr-e.cr-warn { stroke: var(--epi-accent); stroke-dasharray: 5 4; }
+.cr-map .cr-e.cr-plan { stroke-dasharray: 6 4; }
 .cr-map .cr-ah { fill: var(--epi-primary); }
 .cr-map .cr-ah.cr-muted { fill: currentColor; fill-opacity: 0.5; }
-.cr-map .cr-ah.cr-warn { fill: var(--epi-accent); }
 
 /* Value propositions + foundations grid ----------------------------------- */
 .feature-grid {
