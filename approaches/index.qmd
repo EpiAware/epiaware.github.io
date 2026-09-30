@@ -44,7 +44,7 @@ This is our first cut, and we would like to be told where it is wrong.
 ## The approaches
 
 We are not sure yet which of these will work best, so we are trying more than one and keeping them interoperable.
-They share the same underlying packages, and they are designed to combine in a single analysis.
+They are designed to work together and to combine in a single analysis.
 
 ::: {.feature-grid}
 ::: {.feature-card}

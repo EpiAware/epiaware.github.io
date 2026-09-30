@@ -32,7 +32,7 @@ page-layout: full
 <span class="feature-icon icon-uncertainty"></span>
 ```
 
-##### Fast gradients on every backend
+##### Built for fast reverse-mode gradients
 
 :::
 
@@ -88,14 +88,14 @@ reports = Convolution([0.0, 0.5, 0.3, 0.2])
 
 # Operators are callable. R_t is the gain, one column per day
 R = fill(1.1, 2, 10)
-I = infections(R; history = ones(2, 3))
-Y = reports(I)
+y = infections(R; history = ones(2, 3))
+cases = reports(y)
 
 # Stop, keep the state, and resume for a forecast
-I1, state = infections(R[:, 1:5]; history = ones(2, 3),
+y1, state = infections(R[:, 1:5]; history = ones(2, 3),
     return_state = true)
-I2 = infections(R[:, 6:end]; history = state)
-I ≈ hcat(I1, I2)
+y2 = infections(R[:, 6:end]; history = state)
+y ≈ hcat(y1, y2)
 ```
 
 :::
@@ -148,7 +148,7 @@ The operators own a history buffer instead, so plain AD is already fast.
 Hand-written adjoints will then plug in per operator, modifier or coupling by adding a method, with no AD declarations from the user.
 `NoAdjoint(op)` turns an adjoint off, so its gain can be timed and the adjoint dropped if a backend catches up.
 
-In prototypes the buffer alone gave 1.75 to 15 times faster gradients with no custom rules, and analytic adjoints gave 8 to 25 times for delays and renewals.
+In prototypes the buffer alone gave gradients 1.75 to 15 times faster than today's scan-based steps with no custom rules, and analytic adjoints gave 8 to 25 times for delays and renewals.
 These were measured on isolated kernels (200 days, 20 lags) under Mooncake and Enzyme, not on whole models.
 
 ### How it fits with the other approaches
@@ -263,7 +263,7 @@ Moving them onto one set of operators gives one forward kernel and one adjoint t
 This approach is under development and its public API is landing now.
 `Recurrence`, `Convolution`, the `TimeVarying`, `PerStratum` and `Pairwise` wrappers, and the coupling and modifier interfaces exist on a development branch.
 The test suite differentiates them with ForwardDiff, Mooncake and Enzyme through plain AD.
-Use-case tests compare them against reference implementations of real models.
+Tests check them against copies of the ComposableTuringIDModels steps they will replace.
 
 Planned next are the built-in modifiers (`Depletion`, `Imports`, `Redistribute`, `Clamp`), the native Mooncake and Enzyme adjoints, and a first registered release.
 After that come the ports of ComposableTuringIDModels and BVDOutbreakSize onto the operators.
