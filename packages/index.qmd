@@ -46,7 +46,7 @@ Status reflects where a package sits in its release cycle rather than a judgemen
         <a class="data-gh" href="https://github.com/EpiAware/ComposableRecurrences.jl" aria-label="ComposableRecurrences.jl on GitHub"><i class="bi bi-github"></i></a>
         <span class="status-pill status-experimental">experimental</span>
       </td>
-      <td>Fast, differentiable recurrences and causal convolutions, the renewal, autoregressive and delay steps inside a model, with plug-in adjoints. Under development, with no public API released yet.</td>
+      <td>Fast, differentiable recurrences and causal convolutions, the renewal, autoregressive and delay steps inside a model. The core operators are on the main branch but not yet registered, and native adjoints are in progress.</td>
     </tr>
     <tr data-category="distributions">
       <td class="data-name">
