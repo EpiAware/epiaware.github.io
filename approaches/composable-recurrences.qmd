@@ -1,0 +1,281 @@
+---
+title: "Composable recurrences"
+description: "Build renewal processes, autoregressions and reporting delays from two fast, differentiable operators that compose."
+toc: true
+toc-location: left
+page-layout: full
+---
+
+:::::: {.side-space}
+
+::: {.what-is-turing-grid .approach-hero .section-start-space .section-end-space}
+
+::: {.feature-text-column}
+
+::: {.feature-item}
+::: {.feature-item-header}
+
+```{=html}
+<span class="feature-icon icon-composable"></span>
+```
+
+##### Two operators, many models
+
+:::
+
+:::
+
+::: {.feature-item}
+::: {.feature-item-header}
+
+```{=html}
+<span class="feature-icon icon-uncertainty"></span>
+```
+
+##### Fast gradients on every backend
+
+:::
+
+:::
+
+::: {.feature-item}
+::: {.feature-item-header}
+
+```{=html}
+<span class="feature-icon icon-response"></span>
+```
+
+##### No epidemiology built in
+
+:::
+
+:::
+
+:::
+
+::: {.code-example-column}
+::: {.code-window .box}
+::: {.code-window-header}
+::: {.code-window-dots}
+
+```{=html}
+<span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+```
+
+:::
+
+::: {.code-window-title}
+
+```{=html}
+<span>renewal_then_delay.jl</span>
+```
+
+:::
+
+:::
+
+```{.julia .code-overflow-scroll}
+using ComposableRecurrences
+
+# Generation interval, lag 1 first: weights on y[t-1], y[t-2], y[t-3]
+g = [0.6, 0.3, 0.1]
+# Two strata mixed by a contact matrix
+K = [0.9 0.1; 0.2 0.8]
+infections = Recurrence(g; coupling = K)
+
+# Reporting delay, lag 0 first: P(delay = 0, 1, 2, 3)
+reports = Convolution([0.0, 0.5, 0.3, 0.2])
+
+# Operators are callable. R_t is the gain, one column per day
+R = fill(1.1, 2, 10)
+I = infections(R; history = ones(2, 3))
+Y = reports(I)
+
+# Stop, keep the state, and resume for a forecast
+I1, state = infections(R[:, 1:5]; history = ones(2, 3),
+    return_state = true)
+I2 = infections(R[:, 6:end]; history = state)
+I ≈ hcat(I1, I2)
+```
+
+:::
+:::
+
+:::
+
+## The approach
+
+Renewal processes, random walks, autoregressions and reporting delays share one structure.
+Each step reads a window of past values, weights it by a kernel, and produces the next value.
+This approach builds all of them from two operators rather than one bespoke loop per model.
+
+A `Recurrence` feeds its output back into its own history.
+At each step it convolves the last `L` values with its kernel, mixes strata through a coupling, scales by a gain, adds an input, and passes the result through a tuple of modifiers.
+A renewal process is a `Recurrence` with the generation interval as kernel and `R_t` as gain.
+A random walk is a `Recurrence([1.0])` with the noise as the added input.
+
+A `Convolution` has no feedback.
+It weights current and past inputs by a kernel, which covers reporting delays, moving averages and occupancy.
+
+The package has no epidemiological assumptions.
+It takes numbers in (kernels, gains, histories) and returns series out.
+Modelling packages build their own named steps on top.
+
+### Lag-first kernels, callable operators
+
+Every kernel is written lag first, the way a generation interval or AR coefficients are written down.
+A `Recurrence` kernel starts at lag 1 and a `Convolution` kernel at lag 0, so nothing is ever reversed by hand.
+Operators are built once, outside the model, and called with the per-day inputs that are usually sampled.
+Chaining is function composition, as in `reports(infections(R; history))`.
+
+### Strata, time variation and coupling
+
+Wrappers name the extra axis of a coefficient.
+`PerStratum` gives each stratum its own kernel, `TimeVarying` lets a kernel or coupling change by day, and `Pairwise` gives each pair of strata its own lag kernel.
+The coupling mixes strata before the gain, as a contact or mobility matrix does, and can be dense, sparse or structured.
+Any array type and any real element type is accepted, so `Float32`, sparse matrices and dual numbers all pass through.
+
+### Modifiers
+
+Modifiers are applied in order after each step and carry their own state.
+They handle what the linear core cannot, such as susceptible depletion or moving cases between strata.
+A modifier is a plain type with an `apply!` method, so a modelling package can add its own.
+
+### Plug-in adjoints
+
+Reverse-mode AD is slow when each step copies its lag window into a new state.
+The operators own a history buffer instead, so plain AD is already fast.
+Hand-written adjoints will then plug in per operator, modifier or coupling by adding a method, with no AD declarations from the user.
+`NoAdjoint(op)` turns an adjoint off, so its gain can be timed and the adjoint dropped if a backend catches up.
+
+In prototypes the buffer alone gave 1.75 to 15 times faster gradients with no custom rules, and analytic adjoints gave 8 to 25 times for delays and renewals.
+These were measured on isolated kernels (200 days, 20 lags) under Mooncake and Enzyme, not on whole models.
+
+### How it fits with the other approaches
+
+[Composable Turing models](composable-turing-models.qmd) will build on these operators.
+Its renewal, delay and latent process steps become calls to `Recurrence` and `Convolution`, with the priors and observation models staying in the Turing layer.
+The [composed distributions](composed-distributions.qmd) stack supplies the delay pmfs that become `Convolution` kernels.
+The operators have no dependency on either, so they can also be used in other models.
+
+## Package map
+
+Solid arrows are data or code that will flow once the package is adopted.
+Dashed grey arrows are test-time links.
+The dashed amber arrow is an optional future backend, not a dependency.
+The ComposableRecurrences box lists the planned first release.
+
+```{=html}
+<figure class="cr-map" role="img" aria-labelledby="cr-map-title">
+<svg viewBox="0 0 960 560" xmlns="http://www.w3.org/2000/svg">
+  <title id="cr-map-title">EpiAware packages around ComposableRecurrences</title>
+  <defs>
+    <marker id="cr-map-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="cr-ah" d="M0,0 L10,5 L0,10 z"/></marker>
+    <marker id="cr-map-am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="cr-ah cr-muted" d="M0,0 L10,5 L0,10 z"/></marker>
+    <marker id="cr-map-aw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="cr-ah cr-warn" d="M0,0 L10,5 L0,10 z"/></marker>
+  </defs>
+  <!-- bands -->
+  <rect class="cr-band" x="12" y="14" width="936" height="150" rx="8"/>
+  <text class="cr-band-t" x="24" y="32">DISTRIBUTIONS · DELAY PMFS</text>
+  <rect class="cr-band" x="12" y="196" width="936" height="130" rx="8"/>
+  <text class="cr-band-t" x="24" y="214">OPERATORS · ADJOINTS</text>
+  <rect class="cr-band" x="12" y="400" width="936" height="146" rx="8"/>
+  <text class="cr-band-t" x="24" y="418">MODELS</text>
+
+  <!-- distribution layer -->
+  <rect class="cr-node" x="36" y="48" width="196" height="96" rx="6"/>
+  <text x="50" y="72" font-size="14" font-weight="600">CensoredDistributions</text>
+  <text class="cr-sub" x="50" y="92">double_interval_censored</text>
+  <text class="cr-sub" x="50" y="108">pdf(d, w .* (0:n-1)) → pmf</text>
+  <text class="cr-sub" x="50" y="124">lag 0 first</text>
+
+  <rect class="cr-node" x="280" y="48" width="208" height="96" rx="6"/>
+  <text x="294" y="72" font-size="14" font-weight="600">ConvolvedDistributions</text>
+  <text class="cr-sub" x="294" y="92">convolve_series(pmf, series)</text>
+  <text class="cr-sub" x="294" y="108">time-varying: indexed_by</text>
+  <text class="cr-sub" x="294" y="124">plain loops, no rules</text>
+
+  <rect class="cr-node" x="536" y="48" width="196" height="96" rx="6"/>
+  <text x="550" y="72" font-size="14" font-weight="600">Composed / Modified</text>
+  <text class="cr-sub" x="550" y="92">extend convolve_series</text>
+  <text class="cr-sub" x="550" y="108">for chains and wrappers</text>
+  <text class="cr-sub" x="550" y="124">discretise, then convolve</text>
+
+  <rect class="cr-node" x="772" y="48" width="160" height="96" rx="6"/>
+  <text x="786" y="72" font-size="13.5" font-weight="600">Lowered / Reparam.</text>
+  <text class="cr-sub" x="786" y="92">DistributionsInference</text>
+  <text class="cr-sub" x="786" y="116">no touch point</text>
+
+  <!-- operator layer -->
+  <rect class="cr-node cr-focus" x="300" y="224" width="360" height="88" rx="6"/>
+  <text x="316" y="250" font-size="15" font-weight="700">ComposableRecurrences</text>
+  <text class="cr-sub" x="316" y="270">Recurrence · Convolution · TimeVarying · PerStratum · Pairwise</text>
+  <text class="cr-sub" x="316" y="286">Depletion · Imports · Redistribute · Clamp</text>
+  <text class="cr-sub" x="316" y="302">ext/: Mooncake rrule!!, EnzymeRules, test_adjoint</text>
+
+  <rect class="cr-node" x="36" y="224" width="200" height="88" rx="6"/>
+  <text x="50" y="250" font-size="14" font-weight="600">EpiAwarePackageTools</text>
+  <text class="cr-sub" x="50" y="270">scaffold, Taskfile, CI</text>
+  <text class="cr-sub" x="50" y="286">ADRegistry, test harness</text>
+  <text class="cr-sub" x="50" y="302">AD benchmark pages</text>
+
+  <rect class="cr-node" x="724" y="224" width="208" height="88" rx="6"/>
+  <text x="738" y="250" font-size="14" font-weight="600">EpiAwareADTools</text>
+  <text class="cr-sub" x="738" y="270">upstream workarounds</text>
+  <text class="cr-sub" x="738" y="286">gamma/beta CDF, xlogy lifts</text>
+  <text class="cr-sub" x="738" y="302">no dependency either way</text>
+
+  <!-- models -->
+  <rect class="cr-node" x="160" y="434" width="300" height="96" rx="6"/>
+  <text x="174" y="458" font-size="14" font-weight="600">ComposableTuringIDModels</text>
+  <text class="cr-sub" x="174" y="478">Renewal + SusceptibleDepletion, ImportedCases</text>
+  <text class="cr-sub" x="174" y="494">MixingStep, LatentDelay, AR, MA, RandomWalk</text>
+  <text class="cr-sub" x="174" y="510">accumulate_scan steps → operators</text>
+
+  <rect class="cr-node" x="520" y="434" width="300" height="96" rx="6"/>
+  <text x="534" y="458" font-size="14" font-weight="600">BVDOutbreakSize</text>
+  <text class="cr-sub" x="534" y="478">renewal_infections, patch_infections</text>
+  <text class="cr-sub" x="534" y="494">convolve_delay</text>
+  <text class="cr-sub" x="534" y="510">hand-written rules → shared adjoints</text>
+
+  <!-- edges -->
+  <path class="cr-e" d="M134,144 C134,190 330,190 360,222" marker-end="url(#cr-map-a)"/>
+  <text class="cr-lbl" x="256" y="178">delay pmf → Convolution kernel</text>
+  <path class="cr-e cr-warn" d="M420,146 L450,222" marker-end="url(#cr-map-aw)"/>
+  <text class="cr-lbl" x="446" y="176">optional backend</text>
+  <path class="cr-e cr-dash" d="M238,268 L298,268" marker-end="url(#cr-map-am)"/>
+  <text class="cr-lbl" x="242" y="258">tests</text>
+  <path class="cr-e cr-dash" d="M722,268 L662,268"/>
+  <path class="cr-e" d="M400,314 L330,432" marker-end="url(#cr-map-a)"/>
+  <text class="cr-lbl" x="196" y="384">Recurrence, Convolution</text>
+  <path class="cr-e" d="M560,314 L640,432" marker-end="url(#cr-map-a)"/>
+  <text class="cr-lbl" x="624" y="384">operators + modifiers + rules</text>
+</svg>
+</figure>
+```
+
+The package has no runtime dependency on any other EpiAware package.
+Today each model above runs its own renewal and delay loops, and several of them duplicate each other.
+Moving them onto one set of operators gives one forward kernel and one adjoint to maintain and test.
+
+## Status
+
+This approach is under development and its public API is landing now.
+`Recurrence`, `Convolution`, the `TimeVarying`, `PerStratum` and `Pairwise` wrappers, and the coupling and modifier interfaces exist on a development branch.
+The test suite differentiates them with ForwardDiff, Mooncake and Enzyme through plain AD.
+Use-case tests compare them against reference implementations of real models.
+
+Planned next are the built-in modifiers (`Depletion`, `Imports`, `Redistribute`, `Clamp`), the native Mooncake and Enzyme adjoints, and a first registered release.
+After that come the ports of ComposableTuringIDModels and BVDOutbreakSize onto the operators.
+An FFT method for long fixed kernels and a Reactant backend are later extensions.
+
+## Where next
+
+- The [ComposableRecurrences.jl repository](https://github.com/EpiAware/ComposableRecurrences.jl)
+  tracks development, and its documentation will follow the first release.
+- Building a full model with priors and observations? See the
+  [composable Turing models approach](composable-turing-models.qmd).
+- Need the delay distributions that feed a `Convolution`? See the
+  [composed distributions approach](composed-distributions.qmd).
+
+::::::
